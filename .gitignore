@@ -29,3 +29,15 @@ texput.upa
 
 # Java/Eclipse stuff
 .project
+
+# R stuff
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+*.Rproj.user
+*.Rhistory
+*.RData
+*.Ruserdata
+bookBuildeR.Rproj

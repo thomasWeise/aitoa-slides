@@ -12,10 +12,11 @@ width <- 6;
 height <- 3;
 mar <- c(1.6, 1.6, 0.51, 0.15);
 
-for(type in c("svg", "pdf")) {
+for(type in c("svg")) {
 
-  aitoa.graphic(name="gantt_abz7", type=type, width=width, height=height, body={
-    aitoaEvaluate::aitoa.plot.gantt(list(
+  aitoa.graphic(name="makespan_abz7", type=type, width=width, height=height, body={
+
+    data <- list(
       list( list(job=11L,start=0L,end=22L)
             ,list(job=2L,start=35L,end=57L)
             ,list(job=17L,start=57L,end=69L)
@@ -331,14 +332,22 @@ for(type in c("svg", "pdf")) {
              ,list(job=16L,start=566L,end=585L)
              ,list(job=2L,start=647L,end=669L)
       )
-    ), center.label = "abz7", mar=mar);
+    );
+
+    makespan <- max(unname(unlist(data)));
+    aitoaEvaluate::aitoa.plot.gantt(data, mar=mar,
+      center.label = paste0("abz7 / ", makespan),
+      instance.limit=makespan,
+      instance.limit.name="makespan",
+      instance.limit.color="red",
+      instance.limit.lwd=4L,
+      instance.limit.lty=1L,
+      instance.limit.cex=2);
+
   });
 
-
-
-
-  aitoa.graphic(name="gantt_yn4", type=type, width=width, height=height, body={
-    aitoaEvaluate::aitoa.plot.gantt(list(
+  aitoa.graphic(name="makespan_yn4", type=type, width=width, height=height, body={
+    data <- list(
       list( list(job=12L,start=0L,end=10L)
             ,list(job=7L,start=10L,end=42L)
             ,list(job=6L,start=42L,end=69L)
@@ -759,11 +768,21 @@ for(type in c("svg", "pdf")) {
              ,list(job=13L,start=930L,end=957L)
              ,list(job=7L,start=957L,end=979L)
       )
-    ), center.label = "yn4", mar=mar);
+    );
+
+    makespan <- max(unname(unlist(data)));
+    aitoaEvaluate::aitoa.plot.gantt(data, mar=mar,
+                                    center.label = paste0("yn4 / ", makespan),
+                                    instance.limit=makespan,
+                                    instance.limit.name="makespan",
+                                    instance.limit.color="red",
+                                    instance.limit.lwd=4L,
+                                    instance.limit.lty=1L,
+                                    instance.limit.cex=2);
   });
 
-  aitoa.graphic(name="gantt_la24", type=type, width=width, height=height, body={
-    aitoaEvaluate::aitoa.plot.gantt(list(
+  aitoa.graphic(name="makespan_la24", type=type, width=width, height=height, body={
+    data<-list(
       list( list(job=11L,start=0L,end=68L)
             ,list(job=8L,start=68L,end=107L)
             ,list(job=0L,start=107L,end=179L)
@@ -924,13 +943,24 @@ for(type in c("svg", "pdf")) {
              ,list(job=10L,start=853L,end=888L)
              ,list(job=13L,start=888L,end=922L)
       )
-    ), center.label = "la24", mar=mar);
+    );
+
+
+    makespan <- max(unname(unlist(data)));
+    aitoaEvaluate::aitoa.plot.gantt(data, mar=mar,
+                                    center.label = paste0("la24 / ", makespan),
+                                    instance.limit=makespan,
+                                    instance.limit.name="makespan",
+                                    instance.limit.color="red",
+                                    instance.limit.lwd=4L,
+                                    instance.limit.lty=1L,
+                                    instance.limit.cex=2);
   });
 
   mar.swv <- mar;
   mar.swv[[4L]] <- mar.swv[[4L]] + 0.5;
-  aitoa.graphic(name="gantt_swv15", type=type, width=width, height=height, body={
-    aitoaEvaluate::aitoa.plot.gantt(list(
+  aitoa.graphic(name="makespan_swv15", type=type, width=width, height=height, body={
+    data<-list(
       list( list(job=38L,start=0L,end=22L)
             ,list(job=21L,start=22L,end=62L)
             ,list(job=11L,start=62L,end=127L)
@@ -1441,11 +1471,21 @@ for(type in c("svg", "pdf")) {
              ,list(job=13L,start=3001L,end=3016L)
              ,list(job=27L,start=3016L,end=3022L)
       )
-    ), center.label = "swv15", mar=mar.swv);
+    );
+
+    makespan <- max(unname(unlist(data)));
+    aitoaEvaluate::aitoa.plot.gantt(data,
+                                    center.label = paste0("swv15 / ", makespan),
+                                    instance.limit=makespan,
+                                    instance.limit.name="makespan",
+                                    instance.limit.color="red",
+                                    instance.limit.lwd=4L,
+                                    instance.limit.lty=1L,
+                                    instance.limit.cex=2, mar=mar.swv);
   });
 
-  aitoa.graphic(name="gantt_demo", type=type, width=width, height=height, body={
-    aitoaEvaluate::aitoa.plot.gantt(list(
+  aitoa.graphic(name="makespan_demo", type=type, width=width, height=height, body={
+    data <- list(
       list( list(job=0L,start=0L,end=10L)
             ,list(job=1L,start=20L,end=30L)
             ,list(job=3L,start=155L,end=175L)
@@ -1471,6 +1511,16 @@ for(type in c("svg", "pdf")) {
              ,list(job=0L,start=130L,end=140L)
              ,list(job=1L,start=140L,end=170L)
       )
-    ), mar=mar, center.label = "demo", job.name.cex=1.5, cex=1.5);
+    );
+
+  makespan <- max(unname(unlist(data)));
+  aitoaEvaluate::aitoa.plot.gantt(data,
+                                  center.label = paste0("demo / ", makespan),
+                                  instance.limit=makespan,
+                                  instance.limit.name="makespan",
+                                  instance.limit.color="red",
+                                  instance.limit.lwd=4L,
+                                  instance.limit.lty=1L,
+                                  instance.limit.cex=2/1.5, mar=mar, job.name.cex=1.5, cex=1.5);
   });
 }
