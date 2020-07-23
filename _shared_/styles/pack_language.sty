@@ -1,0 +1,83 @@
+%%%
+%%%
+%%% Load CJKutf8 to be able to print Chinese characters
+%%% Provide command \zh to enable us to write Chinese characters
+%%%
+%
+%
+%
+\RequirePackage{ifxetex}%
+\RequirePackage{ifluatex}%
+%
+%% Our text should be UTF-8 encoded, as UTF-8 is the standard encoding
+%% throughout the internet.
+\ifxetex\else\ifluatex\else%
+\IfFileExists{inputenc.sty}{%
+\typeout{Found inputenc. Loading it with option 'utf8'.}%
+\RequirePackage[utf8]{inputenc}%
+}{%
+\typeout{Warning: inputenc not found.}%
+}%
+\fi\fi%
+%
+%% We would ideally use ctex to compile out slides.
+%% However, it seems that this does not work well under plain
+%% LaTeX and PdfLaTeX. Thus, we first detect whether we are
+%% under LuaLaTeX or XeLaTeX, where it works well. If so, we can
+%% use it. Otherwise, we will attempt to use CJKutf8 instead.
+\newif\ifCanUseCtex%
+\CanUseCtexfalse%
+\ifxetex%
+\CanUseCtextrue%
+\else%
+\ifluatex%
+\CanUseCtextrue%
+\fi%
+\fi%
+\ifCanUseCtex%
+\IfFileExists{ctex.sty}{}{\CanUseCtexfalse}%
+\fi%
+%
+%% OK, by now we have detected whether ctex can be used. If so,
+%% good. Otherwise we check if CJKutf8 exists. If so, good.
+%% Otherwise, compilation may still succeed if no Chinese text
+%% is included in the presentation or if the compiler used has
+%% some other means to deal with them.
+%%
+%% Either way, we will define two commands:
+%% \zh{xxxx} is used to render Chinese text
+%% \zhb{xxxx} renders Chinese text in a box, preventing strange
+%%            linebreaks
+%%
+%% In the case of ctex, we do not actually need those comments,
+%% so we simply define them as \relax and \mbox directly. Using
+%% them does no harm then.
+%%
+%% Under CJKutf8, we need them and define them properly.
+%%
+%% If neither ctex nor CJKutf8 exists, we also define them as
+%% \relax and \mbox - and hope for the best
+%%
+%
+\ifCanUseCtex% cool, we can use ctex
+\typeout{We found that ctex can be used. Cool.}%
+\RequirePackage[nocap]{ctex}
+\global\let\zh\relax%
+\global\let\zhb\mbox%
+%
+\else% what a pity, ctex is not available
+\IfFileExists{CJKutf8.sty}{%
+\typeout{Warning: Cannot use ctex, but at least CJKutf8.}%
+% OK, we have at least CJKutf8
+\let\internalBegin\begin%
+\let\internalEnd\end%
+\RequirePackage{CJKutf8}%
+\protected\gdef\zh##1{\internalBegin{CJK}{UTF8}{gkai}##1\internalEnd{CJK}}%
+\protected\gdef\zhb##1{\mbox{\zh{##1}}}%
+}{%
+% OK, we neither have ctex nor CJKutf8. So we just hope for the best
+\typeout{Warning: Cannot use neither ctex nor CJKutf8. If you have any Chinese text, compilation will probably fail.}%
+\global\let\zh\relax%
+\global\let\zhb\mbox%
+}%
+\fi%

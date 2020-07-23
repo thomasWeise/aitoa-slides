@@ -1,0 +1,30 @@
+##
+## Build with Travis.CI
+##
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+script:
+- |
+  baseDir="$(pwd)" &&\
+  echo "Base directors is '$baseDir'." &&\
+  mkdir -p "${baseDir}/out" &&\
+  docker run -v "${baseDir}/":/dir/ \
+             -e TRAVIS_COMMIT=$TRAVIS_COMMIT \
+             -e TRAVIS_REPO_SLUG=$TRAVIS_REPO_SLUG \
+             thomasweise/docker-texlive-thin /bin/bash /dir/make.sh &&\
+  cd "${baseDir}/out"
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: false
+  on:
+    branch: master
+  target-branch: gh-pages
+  local-dir: out

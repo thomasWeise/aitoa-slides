@@ -1,0 +1,289 @@
+\documentclass[mathserif]{beamer}%
+%
+\xdef\sharedDir{../_shared_}%
+\RequirePackage{\sharedDir/styles/slides}%
+%
+\subtitle{2. Structure}%
+%
+\begin{document}%
+%
+\startPresentation{}%
+%
+%
+\section{Introduction}%
+%
+\begin{frame}%
+\frametitle{The Structure of Optimization}%
+\begin{itemize}%
+\item So we know roughly what an optimization problem is and that metaheuristics\cite{aitoa,WGOEB,GK2003HOM,MF2004HTSIMH} are algorithms to solve them.%
+\item<2-> But we do not really know yet how that works.%
+\item<3-> We will approach this topic based on an example from the field of Smart Manufacturing.
+\item<4-> We will first learn about the basic ingredients that make up an optimization task.%
+\item<5-> Then we will step-by-step work our way from stupid to good metaheuristics for solving it.%
+\end{itemize}%
+\end{frame}%
+%
+%
+\begin{frame}[t]%
+\frametitle{Components of an Optimization Problem}%
+\begin{itemize}%
+\item From the perspective of a programmer, we can say that an optimization problem has the following components\uncover<2->{:%
+\begin{enumerate}%
+\item the input data which specifies the problem instance~$\instance$ to be solved\only<3>{ -- we develop software for solving a class of problems, but this software is applied to specific problem instances, the actual scenarios}%
+\item<4-> a data type~$\solutionSpace$ for the candidate solutions~$\solspel\in\solutionSpace$\uncover<2->{, and}%
+\item<5-> an objective function~$\objf:\solutionSpace\mapsto\realNumbers$\only<5>{, which rates ``how good'' a candidate solution~$\solspel\in\solutionSpace$ is}.%
+\end{enumerate}%
+}%
+\item<6-> Usually, in order to \emph{practically implement} an optimization approach, there also will be%
+\uncover<7->{%
+\begin{enumerate}\setcounter{enumi}{3}%
+\item a search space~$\searchSpace$\only<7>{, i.e., a simpler data structure for internal use, which can more efficiently be processed by an optimization algorithm than~$\solutionSpace$}\uncover<8->{,}%
+\item<8-> a representation mapping~$\repMap:\searchSpace\mapsto\solutionSpace$\only<8>{, which translates ``points''~$\sespel\in\searchSpace$ to candidate solutions~$\solspel\in\solutionSpace$}\uncover<9->{,}%
+\item<9-> search operators~$\searchOp:\searchSpace^n\mapsto\searchSpace$\only<9>{, which allow for the iterative exploration of the search space~$\searchSpace$}\uncover<10->{, and}%
+\item<10-> a termination criterion\only<10>{, which tells the optimization process when to stop}.%
+\end{enumerate}%
+}%
+\item<11-> Looks complicated\only<12->{, but don't worry}.\only<13->{ We will do this one-by-one}.%
+\item<14-> We want to get an understanding of the structure of optimization problems from the metaheuristic perspective by looking at one concrete problem from production planning.%
+\end{itemize}%
+%
+\end{frame}%
+%
+\section{Example Problem: Job Shop Scheduling}%
+%
+\begin{frame}%
+\frametitle{Job Shop Problem}%
+\locateGraphic{1}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_01}{0.05}{0.2}%
+\locateGraphic{2}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_02}{0.05}{0.2}%
+\locateGraphic{3}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_03}{0.05}{0.2}%
+\locateGraphic{4}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_04}{0.05}{0.2}%
+\locateGraphic{5}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_05}{0.05}{0.2}%
+\locateGraphic{6}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_06}{0.05}{0.2}%
+\locateGraphic{7}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_07}{0.05}{0.2}%
+\locateGraphic{8}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_08}{0.05}{0.2}%
+\locateGraphic{9}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_09}{0.05}{0.2}%
+\locateGraphic{10}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_10}{0.05}{0.2}%
+\locateGraphic{11}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_11}{0.05}{0.2}%
+\locateGraphic{12}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_12}{0.05}{0.2}%
+\locateGraphic{13}{width=0.9\paperwidth}{graphics/jssp/jssp_sketch_13}{0.05}{0.2}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Job Shop Scheduling Problem}%
+\begin{itemize}%
+\item The Job Shop Scheduling Problem (JSSP)\cite{GLLRK1979OAAIDSASAS,LLRKS1993SASAAC,L1982RRITTOMS,T199BFBSP,BDP1996TJSSPCANST} is a classical optimization problem.%
+\item<2-> We have a factory with~$\jsspMachines$ machines.%
+\item<3-> We need to fulfill~$\jsspJobs$ production requests, the \emph{jobs}.%
+\item<4-> Each job will need to be processed by some or all of the machines in a job-specific order.%
+\item<5-> Also, each job will require a job-specific time at a given machine.%
+\item<6-> The goal is to fulfill all tasks as quickly as possible.%
+\item<7-> This scenario also encompasses simpler problems, e.g., where all jobs ``are the same.''%
+\item<8-> This problem is \mbox{$\NPprefix$-hard}.\cite{K1972RACP,C1971TCOTPP}%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{What we will do}%
+\begin{itemize}%
+\item In this course, we will use the JSSP as example domain.%
+\item<2-> We will discuss all components of an optimization problem based on this example.%
+\item<3-> We will discuss several different optimization algorithms -- and apply them to this problem.%
+\item<4-> \alert{But}\uncover<5->{~we will do this from an \emph{educational} perspective}%
+\item<5-> We will \emph{not} focus on the best possible data structures or highest possible efficiency.%
+\item<6-> It needs years of research to get there\dots%
+\item<7-> We will, instead, approach the JSSP in the same way you would approach a completely new problem domain\uncover<8->{: develop a working approach\uncover<9->{, test and compare different working approaches\uncover<10->{, (normally you would then improve them further, but we will skip this)}}}%
+\end{itemize}%
+\end{frame}%
+%
+\section{Problem Instance}%
+%
+\begin{frame}%
+\frametitle{The Input: Problem Instances}%
+\begin{itemize}%
+\item The JSSP is a \alert<2>{type} of problem.%
+\item<2-> A concrete scenario, with a specific number of machines and with specific jobs, is called an \mbox{\alert<2>{instance~$\jsspInstance$}}.%
+\item<3-> It is common in research that there collections of instances for a given problem, so that we can test algorithms and compare their performance (of course, you can only compare results if they are for the same scenario).%
+\item<4-> \mbox{Beasley\cite{B1990OLDTPBEM}} manages the \emph{OR~Library} of benchmark datasets from different fields of operations research (OR)%
+\item<5-> He also provides several example instances of the JSSP at \url{http://people.brunel.ac.uk/~mastjjb/jeb/orlib/jobshopinfo.html}.%
+\item<6-> More information about these instances has been collected by \mbox{van Hoorn\cite{vH2015JSIAS,vH2018TCSOBOBIOTJSSP}} at \url{http://jobshop.jjvh.nl}.
+\item<7-> What do such JSSP instances look like?%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}[b]%
+\frametitle{Demo Instance}%
+%
+\definecolor{c1}{RGB}{165,45,132}%
+\definecolor{c2}{RGB}{244,114,22}%
+\definecolor{c3}{RGB}{46,49,146}%
+\definecolor{c4}{RGB}{99,194,13}%
+\definecolor{c5}{RGB}{236,0,140}%
+%
+\locateGraphic{1}{width=0.98\paperwidth}{graphics/instance/demo_instance_clear}{0.01}{0.19}%
+\locateGraphic{2}{width=0.98\paperwidth}{graphics/instance/demo_instance_jobs}{0.01}{0.19}%
+\locateGraphic{3}{width=0.98\paperwidth}{graphics/instance/demo_instance_machines}{0.01}{0.19}%
+\locateGraphic{4,8}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_1}{0.01}{0.19}%
+\locateGraphic{5}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_2}{0.01}{0.19}%
+\locateGraphic{6}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_3}{0.01}{0.19}%
+\locateGraphic{7}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_4}{0.01}{0.19}%
+%
+\locateGraphic{9}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_1_1}{0.01}{0.19}%
+\locateGraphic{10}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_1_2}{0.01}{0.19}%
+\locateGraphic{11}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_1_3}{0.01}{0.19}%
+\locateGraphic{12}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_1_4}{0.01}{0.19}%
+\locateGraphic{13}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_1_5}{0.01}{0.19}%
+%
+\locateGraphic{14}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_2_1}{0.01}{0.19}%
+\locateGraphic{15}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_2_2}{0.01}{0.19}%
+\locateGraphic{16}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_2_3}{0.01}{0.19}%
+\locateGraphic{17}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_2_4}{0.01}{0.19}%
+\locateGraphic{18}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_2_5}{0.01}{0.19}%
+%
+\locateGraphic{19}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_3_5}{0.01}{0.19}%
+\locateGraphic{20}{width=0.98\paperwidth}{graphics/instance/demo_instance_job_4_5}{0.01}{0.19}%
+%
+\locateGraphic{21}{width=0.98\paperwidth}{graphics/instance/demo_instance}{0.01}{0.19}%
+%
+\only<9-13>{%
+Job 0 first needs to be processed by \textcolor{c1}{machine 0 for 10 time units}%
+\uncover<10->{, it then goes to \textcolor{c2}{machine 1 for 20 time units}%
+\uncover<11->{, it then goes to \textcolor{c3}{machine 2 for 20 time units}%
+\uncover<12->{, it then goes to \textcolor{c4}{machine 3 for 40 time units}%
+\uncover<13->{, and finally it goes to \textcolor{c5}{machine 4 for 10 time units}.%
+}}}}}%
+%
+\only<14-18>{%
+Similarly, Job 1 first needs to be processed by \textcolor{c1}{machine 1 for 20 time units}%
+\uncover<15->{, it then goes to \textcolor{c2}{machine 0 for 10 time units}%
+\uncover<16->{, it then goes to \textcolor{c3}{machine 3 for 30 time units}%
+\uncover<17->{, it then goes to \textcolor{c4}{machine 2 for 50 time units}%
+\uncover<18->{, and finally it goes to \textcolor{c5}{machine 4 for 30 time units}.%
+}}}}}%
+\only<19>{%
+Job 2 first needs to be processed by \textcolor{c1}{machine 2 for 30 time units}%
+, it then goes to \textcolor{c2}{machine 1 for 20 time units}%
+, it then goes to \textcolor{c3}{machine 4 for 12 time units}%
+, it then goes to \textcolor{c4}{machine 3 for 40 time units}%
+, and finally it goes to \textcolor{c5}{machine 0 for 10 time units}.%
+}%
+\only<20>{%
+And Job 3 first needs to be processed by \textcolor{c1}{machine 4 for 50 time units}%
+, it then goes to \textcolor{c2}{machine 3 for 30 time units}%
+, it then goes to \textcolor{c3}{machine 2 for 15 time units}%
+, it then goes to \textcolor{c4}{machine 0 for 20 time units}%
+, and finally it goes to \textcolor{c5}{machine 1 for 15 time units}.%
+}%
+\strut\\\strut\medskip\strut%
+%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Instance \texttt{abz7}}%
+Instance \texttt{abz7} by Adams et~al.\cite{ABZ1988TSBPFJSS}%
+\locateGraphic{}{width=0.95\paperwidth}{graphics/instance/abz7}{0.02}{0.25}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Instance \texttt{la24}}%
+Instance \texttt{la24} by Lawrence\cite{L1998RCPSAEIOHSTS}.%
+\locateGraphic{}{width=0.9\paperwidth}{graphics/instance/la24}{0.05}{0.275}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Instance \texttt{swv15}}%
+Instance \texttt{swv15} by Storer et~al.\cite{SWV1992NSSFSPWATJSS}%
+\locateGraphic{}{width=0.45\paperwidth}{graphics/instance/swv15}{0.4}{0.2}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Instance \texttt{yn4}}%
+Instance \texttt{yn4} by Yamada and Nakano\cite{YN1992AGAATLSJSI}.%
+\locateGraphic{}{width=0.95\paperwidth}{graphics/instance/yn4}{0.02}{0.25}%
+\end{frame}%
+%
+\begin{frame}[containsverbatim,fragile]%
+\frametitle{Problem Instance Data in Java}%
+\begin{itemize}%
+\item How can we represent such data in Java program code?%
+\end{itemize}%
+\uncover<2->{%
+\listing{0.85}{0.95}{language=myJava,mathescape=false}{code/JSSPInstance.java}%
+}%
+\end{frame}
+%
+%
+\section{Solution Space}%
+%
+\begin{frame}[t]%
+\frametitle{Output: Candidate Solutions and Solution Space~$\solutionSpace$}%
+\only<-4,9->{%
+\begin{itemize}%
+\item We now know how a problem instance of the JSSP looks like, i.e., the \alert{input} we get.%
+\item<2-> But what \alert{output} should we produce?%
+\item<3-> In other words, what is a solution for an instance of the JSSP?%
+\item<4-> Basically, a Gantt Chart\cite{W2003GCACA,K2000SORCP}.%
+\item<9-> A Gantt chart is a diagram which assigns each sub-job on each machine a start and end time.%
+\item<10-> The solution space~$\solutionSpace$ is the set of all possible feasible solutions for one JSSP instance.%
+\item<11-> One possible solution is called \alert{candidate solution} and it can be illustrated as Gantt chart.%
+\end{itemize}%
+}%
+\only<5-8>{%
+\begin{center}
+\medskip%
+\only<-5>{\large{one possible solution for the \texttt{demo} instance}, illustrated as Gantt chart}%
+\only<6>{\large{one possible solution for the \texttt{la24} instance}, illustrated as Gantt chart}%
+\only<7>{\large{one possible solution for the \texttt{yn4} instance}, illustrated as Gantt chart}%
+\only<8->{\large{one possible solution for the \texttt{swv15} instance}, illustrated as Gantt chart}%
+\end{center}%
+}%
+\locateGraphic{5}{width=0.9\paperwidth}{graphics/gantt/gantt_demo}{0.05}{0.286}%
+\locateGraphic{6}{width=0.9\paperwidth}{graphics/gantt/gantt_la24}{0.05}{0.286}%
+\locateGraphic{7}{width=0.9\paperwidth}{graphics/gantt/gantt_yn4}{0.05}{0.286}%
+\locateGraphic{8}{width=0.9\paperwidth}{graphics/gantt/gantt_swv15}{0.05}{0.286}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{As Java Class}%
+\only<-3>{%
+\begin{itemize}%
+\item We now need to represent this information as a Java class.%
+\item<3-> Each of the~$\jsspMachines$ \jcodeil{int[]} lists in \codeil{schedule} holds~$\jsspJobs$ operations for each machine as three values jobID, start time, end time, i.e., has length~$3\jsspJobs$.%
+\end{itemize}%
+\uncover<2-3>{%
+\listing{0.85}{0.95}{language=myJava,mathescape=false}{code/JSSPCandidateSolution.java}%
+}%
+}%
+%
+\locateGraphic{4}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution}{0.1}{0.1}%
+\locateGraphic{5}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_machines_colored}{0.1}{0.1}%
+\locateGraphic{6}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_01}{0.1}{0.1}%
+\locateGraphic{7}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_02}{0.1}{0.1}%
+\locateGraphic{8}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_03}{0.1}{0.1}%
+\locateGraphic{9}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_04}{0.1}{0.1}%
+\locateGraphic{10}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_05}{0.1}{0.1}%
+\locateGraphic{11}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_06}{0.1}{0.1}%
+\locateGraphic{12}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_07}{0.1}{0.1}%
+\locateGraphic{13}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_08}{0.1}{0.1}%
+\locateGraphic{14}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_09}{0.1}{0.1}%
+\locateGraphic{15}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_10}{0.1}{0.1}%
+\locateGraphic{16}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_11}{0.1}{0.1}%
+\locateGraphic{17}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_12}{0.1}{0.1}%
+\locateGraphic{18}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_01}{0.1}{0.1}%
+\locateGraphic{19}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_02}{0.1}{0.1}%
+\locateGraphic{20}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_03}{0.1}{0.1}%
+\locateGraphic{21}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_04}{0.1}{0.1}%
+\locateGraphic{22}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_05}{0.1}{0.1}%
+\locateGraphic{23}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_06}{0.1}{0.1}%
+\locateGraphic{24}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_07}{0.1}{0.1}%
+\locateGraphic{25}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_08}{0.1}{0.1}%
+\locateGraphic{26}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_09}{0.1}{0.1}%
+\locateGraphic{27}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_10}{0.1}{0.1}%
+\locateGraphic{28}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_11}{0.1}{0.1}%
+\locateGraphic{29}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_12}{0.1}{0.1}%
+%
+\end{frame}%
+%
+\endPresentation%
+\end{document}%%
+\endinput%
+%

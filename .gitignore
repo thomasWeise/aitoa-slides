@@ -1,0 +1,31 @@
+# output
+/out/
+
+# tex temp files
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.ent
+*.idx
+*.loa
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.out.ps
+*.ps
+*.snm
+*.spl
+*.synctex
+*.synctex.gz
+*.toc
+*.upa
+*.upb
+*.vrb
+*.xcp
+texput.upa
+
+# Java/Eclipse stuff
+.project

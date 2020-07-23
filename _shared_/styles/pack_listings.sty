@@ -1,0 +1,130 @@
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Listings Commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+\gdef\listingBasicStyle{\ttfamily\footnotesize}%
+\gdef\listingNumberStyle{\tiny\rmfamily}%
+\gdef\listingKeywordStyleA{\color{violet}\textbf}%
+\gdef\listingKeywordStyleB{\color{teal}\textbf}%
+\gdef\listingOperatorStyle#1{\textbf{\color{cyan}{#1}}}%
+\gdef\listingCommentFormat{\footnotesize\itshape\color{listingcommentgray}}%
+\global\let\listingKeywordStyleC\listingCommentFormat%
+\global\let\listingCommentFormatB\listingCommentFormat%
+\gdef\listingOperatorStyle#1{{\listingKeywordStyleB{#1}}}%
+\gdef\listingStringStyle{\color{red}}%
+\xdef\listingIdentifierStyle{}%
+%
+%
+\definecolor{listingcommentgray}{gray}{0.6}%
+\colorlet{codeFrame}{alertcolor}%
+\colorlet{codeBg}{gray!5!white}%
+%
+\RequirePackage[formats]{listings}%
+\IfFileExists{lstlang1.sty}{\RequirePackage{lstlang1}}{}%
+\IfFileExists{lstlang2.sty}{\RequirePackage{lstlang2}}{}%
+\IfFileExists{lstlang3.sty}{\RequirePackage{lstlang3}}{}%
+\IfFileExists{textcomp.sty}{\RequirePackage{textcomp}}{\gdef\textsuperscript#1{#1}}%
+%
+\lstset{defaultdialect=LaTeX[TeX]}%
+%
+%
+%%% We treat some unicode characters as literate programming keys,
+%%% in order to avoid "inputenc Error: Unicode char \u8" as described
+%%% in http://stackoverflow.com/questions/1116266/
+\lstset{literate=%
+{Ö}{{\"O}}1%
+{Ä}{{\"A}}1%
+{Ü}{{\"U}}1%
+{ß}{{\ss}}2%
+{ü}{{\"u}}1%
+{ä}{{\"a}}1%
+{ö}{{\"o}}1%
+{²}{{\textsuperscript{2}}}1%
+{³}{{\textsuperscript{3}}}1%
+}%
+%
+%%% We load Java by default
+\lstloadlanguages{Java}%
+%
+\lstdefinelanguage{myJava}{%
+language=Java,%
+morecomment=[is]{//\ start}{//\ end},%
+}%
+%
+%%% Our basic styles and colors
+\lstset{%
+basicstyle=\listingBasicStyle,%
+commentstyle=\listingCommentFormat,%
+numberstyle=\listingNumberStyle,%
+keywordstyle=[1]\listingKeywordStyleA,%
+keywordstyle=[2]\listingKeywordStyleB,%
+keywordstyle=[3]\listingKeywordStyleC,%
+identifierstyle=\listingIdentifierStyle,%
+stringstyle=\listingStringStyle,%
+mathescape=false,%
+breaklines=true,%
+breakatwhitespace=true,%
+captionpos=b,%
+escapeinside={(*@}{@*)},%
+emptylines=2,%
+tabsize=2,%
+showstringspaces=true,%
+showlines=false,%
+upquote=true%
+}%
+%
+% introduce `...` as alternative math escape
+\lst@AddToHook{SelectCharTable}{\lst@Escape{\`}{\`}{\listingCommentFormat\setbox\@tempboxa=\hbox\bgroup$}{$\egroup \lst@CalcLostSpaceAndOutput}}%
+%
+%% are we in the caption of a listingBlock environment?
+\newif\ifInListingBlockCaption%
+\InListingBlockCaptionfalse%
+%
+%
+%% Put the contents into a typical code box (no box is put if contents are in listing block caption)
+%% #1 the contents
+\gdef\codeBox#1{\mbox{%
+\ifInListingBlockCaption\expandafter\@secondoftwo\else\expandafter\@firstoftwo\fi%
+{\fcolorbox{codeFrame}{codeBg}{\mbox{#1}}}%
+{#1}%
+}}%
+%
+% print some code inline
+% #1 the optional args
+% #2 the code to be printed inline
+\newcommand{\codeil}[2][]{%
+\texorpdfstring{%
+\if\relax\detokenize{#1}\relax%
+\codeBox{\lstinline[keywordstyle=\listingBasicStyle]$#2$}%
+\else%
+\codeBox{\lstinline[basicstyle=\listingBasicStyle,keywordstyle={[1]\listingKeywordStyleA},keywordstyle={[2]\listingKeywordStyleB},keywordstyle={[3]\listingKeywordStyleC},keywordstyle=\listingKeywordStyleA,#1]$#2$}%
+\fi%
+}{#2}%
+}%
+%
+% print Java-formatted inline code
+% #1 the code to print
+\newcommand{\jcodeil}[1]{\texorpdfstring{\codeil[language=myJava]{#1}}{#1}}%
+\newcommand{\bcodeil}[1]{\texorpdfstring{\codeil[language=bash]{#1}}{#1}}%
+\newcommand{\xcodeil}[1]{\texorpdfstring{\codeil[language=XML]{#1}}{#1}}%
+%
+%%%%
+%%%% Print a Listing environment
+%%%% #1 the final width
+%%%% #2 the internal box width (determines line wrap)
+%%%% #3 the parameters to be passed to the listing
+%%%% #4 the path to the code
+%%%%
+\protected\gdef\listing#1#2#3#4{%
+\begin{center}%
+\fcolorbox{codeFrame}{codeBg}{%
+\begin{scaledBox}{#1\paperwidth}{!}%
+\parbox{#2\paperwidth}{%
+\lstinputlisting[#3]{#4}%
+}%
+\end{scaledBox}%
+}%
+\end{center}%
+}%

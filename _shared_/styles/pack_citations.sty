@@ -1,0 +1,32 @@
+%%%
+%%% Load natbib for references
+%%%
+\RequirePackage[square,numbers,comma,sort&compress]{natbib}%
+%
+\bibpunct{\strut}{\strut}{\strut}{n}{\strut}{\strut}%
+%
+\gdef\bibnumfmt#1{#1.}%
+%
+\setlength{\bibsep}{0mm}%
+%
+%%%
+%%% Bibliography commands
+%%%
+%
+%
+\newcount\@bib@numcites%
+\@bib@numcites=0%
+\let\@bib@oldcite\cite%
+\let\@bib@oldcitep\citep%
+\let\@bib@oldcitet\citet%
+\let\@bib@oldcitete\citete%
+\let\@bib@oldCitet\Citet%
+\let\@bib@oldCitete\Citete%
+%
+%% the internal color macros for the citation
+%% used to set citation color to brown normally and to gray inside image source references
+\edef\@origCitationColor{citecolor}%
+\let\@citationColor\@origCitationColor%
+%
+%% cite a reference by number, e.g., [1]
+\gdef\cite#1{\textsuperscript{\textnormal{\scalebox{0.75}{\color{\@citationColor}{\@bib@oldcite{#1}}}}}\strut\relax\global\advance\@bib@numcites by 1\relax}%

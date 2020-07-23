@@ -1,0 +1,146 @@
+%
+\global\let\insertauthoremail\relax%
+\protected\gdef\authoremail#1{\gdef\insertauthoremail{\href{mailto:#1}{#1}}}%
+\global\let\insertauthorweb\relax%
+\protected\gdef\authorweb#1{\gdef\insertauthorweb{\href{#1}{#1}}}%
+%
+%%%
+%%% Call \startPresentation at the beginning of the presentation to make
+%%% the title and the outline slides as well as to set the proper background
+%%% graphics
+%%%
+%
+\gdef\startPresentation#1{%
+%
+%
+\usebackgroundtemplate{%
+\parbox{\paperwidth}{%
+\vspace{0.035\paperheight}%
+\strut\hspace{0.05\paperwidth}\strut%
+\includegraphics[height=0.15\paperheight]{\sharedDir/graphics/logos/hfuu_logo_2_black}%
+\strut\hfill\strut%
+\includegraphics[height=0.133333\paperheight]{\sharedDir/graphics/logos/hfuu_logo_1_black}%
+\strut\hfill\strut%
+\includegraphics[height=0.15\paperheight]{\sharedDir/graphics/logos/iao_logo_black}%
+\strut\hspace{0.05\paperwidth}\strut%
+}}%
+%
+\begin{frame}%
+\centering%
+%
+%\color{iaoRed}%
+\vspace{0.175\paperheight}%
+\bigskip%
+%
+\huge{\inserttitle}\\%
+\medskip%
+\Large{\insertsubtitle}\\%
+\bigskip%
+\large{\insertauthor}\\%
+%
+%
+\ifx\relax\insertauthoremail\relax%
+\expandafter\@firstoftwo%
+\else%
+\expandafter\@secondoftwo%
+\fi%
+{%
+\ifx\relax\insertauthorweb\relax%
+\expandafter\@firstoftwo%
+\else%
+\expandafter\@secondoftwo%
+\fi%
+{}{%
+\insertauthorweb\\%
+}%
+}{%
+\insertauthoremail%
+\ifx\relax\insertauthorweb\relax%
+\expandafter\@firstoftwo%
+\else%
+\expandafter\@secondoftwo%
+\fi%
+{}{%
+~\ensuremath{\cdot}~\insertauthorweb%
+}\\%
+}%
+%
+\bigskip%
+%
+\small{%
+\begin{tabular}{r|l}%
+Institute of Applied Optimization (IAO)&\zhb{应用优化研究所}\\%
+School of Artificial Intelligence and Big Data&\zhb{人工智能与大数据学院}\\%
+Hefei University&\zhb{合肥学院}\\%
+Hefei, Anhui, China&\zhb{中国安徽省合肥市}%
+\end{tabular}%
+}%
+%
+%
+\end{frame}%
+%
+\usebackgroundtemplate{}%
+%
+\begin{frame}%
+\frametitle{Outline}%
+%
+\centering%
+\parbox{0.9\linewidth}{%
+\raggedright%
+\tableofcontents[subsectionstyle=hide/hide/hide]%
+}%
+%%
+#1%
+\end{frame}%
+}%
+%
+%
+%%% The internal command for making an end-presentation slide
+%%% #1 the name in the table of contents
+%%% #2 the link
+\gdef\@@@endSlide#1#2{%
+\begin{frame}%
+\pdfbookmark[1]{#1}{#2}%
+\centering%
+\resizebox{0.3\paperwidth}{!}{\zhb{谢谢}}%
+\bigskip\par%
+\resizebox{0.3\paperwidth}{!}{Thank you}%
+\par%
+\end{frame}%
+}%
+%
+%%%
+%%% Call \endPresentation to mark the official end of the presentation.
+%%% It may or may not add a slide with references.
+%%% After this, you may still add appendix slides.
+%%%
+%
+\gdef\endPresentation{%
+%
+\global\let\@framePatch\@framePatch@doNothing%
+%
+\@@@endSlide{Presentation End}{presentationEnd}%
+%
+\ifnum\@bib@numcites>0\relax%
+\expandafter\@firstoftwo%
+\else%
+\expandafter\@secondoftwo%
+\fi{%
+%
+%
+\def\newblock{\beamer@newblock}%
+%
+\begin{frame}[allowframebreaks,t]{References}%
+\begin{tiny}%
+\bibliographystyle{unsrtnat}%
+\bibliography{\sharedDir/bibliography/bibliography.bib,\sharedDir/bibliography/more.bib}%
+\end{tiny}%
+\end{frame}%
+}{}%
+%
+\global\let\@framePatch\@framePatch@addBookmarks%
+%
+}%
+%
+%
+%

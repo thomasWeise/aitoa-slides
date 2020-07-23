@@ -1,0 +1,25 @@
+%%%
+%%% Load hyperref to make links clickable
+%%%
+\RequirePackage{hyperref}%
+\RequirePackage{bookmark}%
+\RequirePackage{etoolbox}%
+\RequirePackage{doi}%
+%
+\hypersetup{%
+colorlinks,%
+linkcolor=linkcolor,%
+citecolor=citecolor,%
+urlcolor=urlcolor%
+}%
+%
+%%%
+%%% Make each slide have an entry in the pdf bookmarks
+%%%
+\def\@framePatch@addBookmarks#1{\bookmark[page=\the\c@page,level=3]{#1}}%
+\def\@framePatch@doNothing#1{}%
+\let\@framePatch\@framePatch@addBookmarks%
+\apptocmd{\beamer@@frametitle}{\only<1>{\@framePatch{#1}}}%
+{\message{** patching of \string\beamer@@frametitle succeeded **}}%
+{\message{** patching of \string\beamer@@frametitle failed **}}%
+%
