@@ -16,7 +16,7 @@ script:
   docker run -v "${baseDir}/":/dir/ \
              -e TRAVIS_COMMIT=$TRAVIS_COMMIT \
              -e TRAVIS_REPO_SLUG=$TRAVIS_REPO_SLUG \
-             thomasweise/docker-texlive-thin /bin/bash /dir/make.sh &&\
+             thomasweise/docker-slidesbuilder /bin/bash /dir/make.sh &&\
   cd "${baseDir}/out"
 
 deploy:
