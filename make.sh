@@ -59,7 +59,7 @@ rm -rf "$bookDir"
 mv "$outDir/$slidesDir"/*.pdf "$outDir"
 rm -rf "$outDir/$slidesDir"
 
-"$baseDir/makeIndex.sh" "$outDir"
+"$baseDir/makeIndex.sh" "$baseDir" "$outDir"
 
 cd "$baseDir"
 
