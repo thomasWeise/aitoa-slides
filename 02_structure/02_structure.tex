@@ -280,6 +280,22 @@ Instance \texttt{yn4} by Yamada and Nakano\cite{YN1992AGAATLSJSI}.%
 \locateGraphic{27}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_10}{0.1}{0.1}%
 \locateGraphic{28}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_11}{0.1}{0.1}%
 \locateGraphic{29}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_12}{0.1}{0.1}%
+\end{frame}%
+%
+\section{Objective Function}%
+%
+\begin{frame}%
+\frametitle{Solution Quality}%
+\only<-6,11-11,14->{%
+\begin{itemize}%
+\item So we have identified what the possible solutions to our problems are and know how to store them in a data structure.%
+\item<2-> How do we rate the quality of a solution?%
+\item<3-> A Gantt chart $\solspel_{1}\in\solutionSpace$ is a better solution to our problem than another chart $\solspel_{2}\in\solutionSpace$ if \textcolor<12>{red}{it allows us to complete our work faster}.%
+\item<4-> The \alert<4>{objective function} $\objf:\solutionSpace\mapsto\realNumbers$ is the \emph{makespan}\uncover<5->{, the time when the last sub-job is completed\uncover<6->{, the right-most edge of any bar in the Gantt chart.}}%
+\item<11-> This objective function is subject to minimization: smaller values are better.%
+\item<14-> \alert{A Gantt chart $\solspel_{1}\in\solutionSpace$ is a better solution to our problem than another chart $\solspel_{2}\in\solutionSpace$ if \textcolor<12>{red}{$\objf(\solspel_{1})<\objf(\solspel_{2})$}.}%
+\end{itemize}%
+}%
 %
 \end{frame}%
 %
