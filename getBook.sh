@@ -22,5 +22,12 @@ wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 --con
 wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 --continue --random-wait --no-check-certificate http://thomasweise.github.io/aitoa/aitoa.azw3
 wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 --continue --random-wait --no-check-certificate http://thomasweise.github.io/aitoa/index.html
 
+sed -i "s|\"http://thomasweise.github.io/aitoa/aitoa.pdf|\"aitoa.pdf|g" "index.html"
+sed -i "s|\"http://thomasweise.github.io/aitoa/aitoa.html|\"aitoa.html|g" "index.html"
+sed -i "s|\"http://thomasweise.github.io/aitoa/aitoa.epub|\"aitoa.epub|g" "index.html"
+sed -i "s|\"http://thomasweise.github.io/aitoa/aitoa.azw3|\"aitoa.azw3|g" "index.html"
+sed -i "s|\"http://thomasweise.github.io/aitoa/aitoa.pdf|\"aitoa.pdf|g" "index.html"
+sed -i "s|\"https://thomasweise.github.io/aitoa-slides/|\"../slides/|g" "index.html"
+
 echo "Done obtaining newest version of book."
 cd "$baseDir"
