@@ -9,7 +9,9 @@ Only the first few topics from the book are covered as of now.
 1. [Introduction](https://thomasweise.github.io/aitoa-slides/01_introduction.pdf)
 2. [Structure](https://thomasweise.github.io/aitoa-slides/02_structure.pdf)
 
-For more information about the whole project, check the [book repository](https://github.com/thomasWeise/aitoa) at (https://github.com/thomasWeise/aitoa)[https://github.com/thomasWeise/aitoa].
+You can also download the complete set of slides, the book itself, and all the source code as one [tar.xz archive](https://thomasweise.github.io/aitoa-slides/optimization_algorithms.tar.xz) from [here](https://thomasweise.github.io/aitoa-slides/optimization_algorithms.tar.xz).
+
+For more information about the whole project, check the [book repository](https://github.com/thomasWeise/aitoa) at [https://github.com/thomasWeise/aitoa](https://github.com/thomasWeise/aitoa).
 
 ## 2. License
 
