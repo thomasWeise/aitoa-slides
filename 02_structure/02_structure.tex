@@ -34,7 +34,7 @@
 \item<5-> an objective function~$\objf:\solutionSpace\mapsto\realNumbers$\only<5>{, which rates ``how good'' a candidate solution~$\solspel\in\solutionSpace$ is}.%
 \end{enumerate}%
 }%
-\item<6-> Usually, in order to \emph{practically implement} an optimization approach, there also will be%
+\item<6-> Usually, in order to \alert{practically implement} an optimization approach, there also will be%
 \uncover<7->{%
 \begin{enumerate}\setcounter{enumi}{3}%
 \item a search space~$\searchSpace$\only<7>{, i.e., a simpler data structure for internal use, which can more efficiently be processed by an optimization algorithm than~$\solutionSpace$}\uncover<8->{,}%
@@ -73,7 +73,7 @@
 \begin{itemize}%
 \item The Job Shop Scheduling Problem (JSSP)\cite{GLLRK1979OAAIDSASAS,LLRKS1993SASAAC,L1982RRITTOMS,T199BFBSP,BDP1996TJSSPCANST} is a classical optimization problem.%
 \item<2-> We have a factory with~$\jsspMachines$ machines.%
-\item<3-> We need to fulfill~$\jsspJobs$ production requests, the \emph{jobs}.%
+\item<3-> We need to fulfill~$\jsspJobs$ production requests, the \alert{jobs}.%
 \item<4-> Each job will need to be processed by some or all of the machines in a job-specific order.%
 \item<5-> Also, each job will require a job-specific time at a given machine.%
 \item<6-> The goal is to fulfill all tasks as quickly as possible.%
@@ -88,8 +88,8 @@
 \item In this course, we will use the JSSP as example domain.%
 \item<2-> We will discuss all components of an optimization problem based on this example.%
 \item<3-> We will discuss several different optimization algorithms -- and apply them to this problem.%
-\item<4-> \alert{But}\uncover<5->{~we will do this from an \emph{educational} perspective}%
-\item<5-> We will \emph{not} focus on the best possible data structures or highest possible efficiency.%
+\item<4-> \alert{But}\uncover<5->{~we will do this from an \alert{educational} perspective}%
+\item<5-> We will \alert{not} focus on the best possible data structures or highest possible efficiency.%
 \item<6-> It needs years of research to get there\dots%
 \item<7-> We will, instead, approach the JSSP in the same way you would approach a completely new problem domain\uncover<8->{: develop a working approach\uncover<9->{, test and compare different working approaches\uncover<10->{, (normally you would then improve them further, but we will skip this)}}}%
 \end{itemize}%
@@ -103,7 +103,7 @@
 \item The JSSP is a \alert<2>{type} of problem.%
 \item<2-> A concrete scenario, with a specific number of machines and with specific jobs, is called an \mbox{\alert<2>{instance~$\jsspInstance$}}.%
 \item<3-> It is common in research that there collections of instances for a given problem, so that we can test algorithms and compare their performance (of course, you can only compare results if they are for the same scenario).%
-\item<4-> \mbox{Beasley\cite{B1990OLDTPBEM}} manages the \emph{OR~Library} of benchmark datasets from different fields of operations research (OR)%
+\item<4-> \mbox{Beasley\cite{B1990OLDTPBEM}} manages the \alert{OR~Library} of benchmark datasets from different fields of operations research (OR)%
 \item<5-> He also provides several example instances of the JSSP at \url{http://people.brunel.ac.uk/~mastjjb/jeb/orlib/jobshopinfo.html}.%
 \item<6-> More information about these instances has been collected by \mbox{van Hoorn\cite{vH2015JSIAS,vH2018TCSOBOBIOTJSSP}} at \url{http://jobshop.jjvh.nl}.
 \item<7-> What do such JSSP instances look like?%
@@ -293,7 +293,7 @@ Instance \texttt{yn4} by Yamada and Nakano\cite{YN1992AGAATLSJSI}.%
 \item<3-> A Gantt chart $\solspel_{1}\in\solutionSpace$ is a better solution to our problem than another chart $\solspel_{2}\in\solutionSpace$ if \textcolor<18>{red}{it allows us to complete our work faster}.%
 }%
 \only<-18>{%
-\item<4-> The \alert<4>{objective function} $\objf:\solutionSpace\mapsto\realNumbers$ is the \emph{makespan}\uncover<5->{, the time when the last sub-job is completed\uncover<6->{, the right-most edge of any bar in the Gantt chart.}}%
+\item<4-> The \alert<4>{objective function} $\objf:\solutionSpace\mapsto\realNumbers$ is the \alert{makespan}\uncover<5->{, the time when the last sub-job is completed\uncover<6->{, the right-most edge of any bar in the Gantt chart.}}%
 \item<17-> This objective function is subject to minimization: smaller values are better.%
 }%
 \item<18-> \alert{A Gantt chart $\solspel_{1}\in\solutionSpace$ is a better solution to our problem than another chart $\solspel_{2}\in\solutionSpace$ if \textcolor<18>{red}{$\objf(\solspel_{1})<\objf(\solspel_{2})$}.}%
@@ -310,7 +310,6 @@ Instance \texttt{yn4} by Yamada and Nakano\cite{YN1992AGAATLSJSI}.%
 \locateGraphic{15}{width=0.9\paperwidth}{graphics/makespan/no_makespan_yn4}{0.05}{0.3}%
 \locateGraphic{16}{width=0.9\paperwidth}{graphics/makespan/makespan_yn4}{0.05}{0.3}%
 %
-%
 \locateGraphic{19}{width=0.5\paperwidth}{graphics/makespan/makespan_good_abz7}{0.15}{0.25}%
 \locateGraphic{19}{width=0.5\paperwidth}{graphics/makespan/makespan_bad_abz7}{0.35}{0.6}%
 \locateGraphic{20}{width=0.9\paperwidth}{graphics/makespan/makespan_good_abz7}{0.05}{0.3}%
@@ -326,6 +325,178 @@ Instance \texttt{yn4} by Yamada and Nakano\cite{YN1992AGAATLSJSI}.%
 \locateGraphic{25}{width=0.5\paperwidth}{graphics/makespan/makespan_good_yn4}{0.15}{0.25}%
 \locateGraphic{25}{width=0.5\paperwidth}{graphics/makespan/makespan_bad_yn4}{0.35}{0.6}%
 \locateGraphic{26}{width=0.9\paperwidth}{graphics/makespan/makespan_good_yn4}{0.05}{0.3}%
+%
+\end{frame}%
+%
+\begin{frame}[containsverbatim]%
+\frametitle{An Interface for Objective Functions in Java}%
+\centering%
+\listing{0.85}{0.95}{language=myJava,mathescape=false}{code/JSSPInstance.java}%
+\end{frame}%
+%
+\begin{frame}[containsverbatim]%
+\frametitle{The JSSP Objective Function in Java}%
+\centering%
+\listing{0.85}{0.95}{language=myJava,mathescape=false}{code/JSSPMakespanObjectiveFunction.java}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{The Global Optimum $\globalOptimum{\solspel}$ in $\solutionSpace$}%
+\only<-4,6->{%
+\begin{itemize}%
+\item There must be at least one \alert{globally optimal} solution $\globalOptimum{\solspel}$\only<-1>{.}%
+\uncover<2->{ for which $\objf(\globalOptimum{\solspel})\leq\objf(\solspel)\;\forall\solspel\in\solutionSpace$ holds.}%
+\item<3-> How do we find such a solution?%
+\item<4-> We know the problem is \mbox{$\NPprefix$-hard\cite{K1972RACP,C1971TCOTPP}}, so any algorithm that \alert{guarantees} that it will always find this solution \alert{may sometimes} need a runtime exponential in~$\jsspMachines$ or~$\jsspJobs$ in the worst case.%
+\item<6-> So we cannot \alert{guarantee} to always find the best possible solution for a normal-sized JSSP in \alert{reasonable time}.%
+\item<7-> What we can always do is search in~$\solutionSpace$ and hope to get as close to $\globalOptimum{\solspel}$ within reasonable time as possible.%
+\item<8-> If we can find a solution with a slightly larger makespan than the best possible solution, but we can get it within a few minutes, that would also be nice\dots%
+\end{itemize}%
+}%
+\locateGraphic{5}{width=0.98\paperwidth}{../01_introduction/graphics/function_growth/function_growth}{0.01}{0.2}%
+\end{frame}%
+%
+
+\section{From Solution Space to Search Space}%
+%
+\begin{frame}%
+\frametitle{Feasibility of Solutions}%
+\only<-4,11,15,19,23,27>{%
+\begin{itemize}%
+\item So what do we need to consider when searching in~$\solutionSpace$?%
+\item<2-> A candidate solution~$\solspel\in\solutionSpace$ is \alert{feasible}, i.e., can actually be ``used,'' if and only if it fulfills all \emph{constraints}.%
+\item<3-> Indeed, there are several constraints we need to impose on our Gantt charts\uncover<4->{:%
+\begin{enumerate}%
+\item all operations of all jobs must be assigned to their respective machines and properly be completed\uncover<11->{,}%
+\item<11-> only the jobs and machines specified by the problem instance must occur in the chart\uncover<15->{,}%
+\item<15-> an operations must be assigned a time window on its corresponding machine which is exactly as long as the operation needs on that machine\uncover<19->{,}%
+\item<19-> the operations cannot intersect or overlap, each machine can only carry out one job at a time\uncover<23->{, and}%
+\item<23-> the precedence constraints of the operations must be honored.%
+\end{enumerate}%
+}%
+\item<27-> Only a Gantt chart obeying all of these constraints is feasible, i.e., can be implemented in practice.%
+\end{itemize}%
+}%
+%
+%
+\locateGraphic{5,8,16,20,24}{width=0.7\paperwidth}{graphics/errors/error}{0.15}{0.2}%
+\locateGraphic{6}{width=0.7\paperwidth}{graphics/errors/error_incomplete_1}{0.15}{0.2}%
+\locateGraphic{7}{width=0.7\paperwidth}{graphics/errors/error_incomplete_2}{0.15}{0.2}%
+\locateGraphic{9}{width=0.7\paperwidth}{graphics/errors/error_machine_1}{0.15}{0.2}%
+\locateGraphic{10}{width=0.7\paperwidth}{graphics/errors/error_machine_2}{0.15}{0.2}%
+\locateGraphic{12}{width=0.7\paperwidth}{graphics/errors/error_add_machine_0}{0.15}{0.2}%
+\locateGraphic{13}{width=0.7\paperwidth}{graphics/errors/error_add_machine_1}{0.15}{0.2}%
+\locateGraphic{14}{width=0.7\paperwidth}{graphics/errors/error_add_machine_2}{0.15}{0.2}%
+\locateGraphic{17}{width=0.7\paperwidth}{graphics/errors/error_time_1}{0.15}{0.2}%
+\locateGraphic{18}{width=0.7\paperwidth}{graphics/errors/error_time_2}{0.15}{0.2}%
+\locateGraphic{21}{width=0.7\paperwidth}{graphics/errors/error_overlap_1}{0.15}{0.2}%
+\locateGraphic{22}{width=0.7\paperwidth}{graphics/errors/error_overlap_2}{0.15}{0.2}%
+\locateGraphic{25}{width=0.7\paperwidth}{graphics/errors/error_precedence_1}{0.15}{0.2}%
+\locateGraphic{26}{width=0.7\paperwidth}{graphics/errors/error_precedence_2}{0.15}{0.2}%
+%
+\end{frame}%
+%
+%
+\begin{frame}%
+\frametitle{Searching in~$\solutionSpace$}%
+\only<-3,82->{%
+\begin{itemize}%
+\item So how do we search in the space of Gantt charts?%
+\item<2-> We need to create Gantt charts that fulfill all the constraints.%
+\item<3-> For different \alert{instances}, different solutions are \alert{feasible}!%
+\item<82-> Writing Java code that works directly on the Gantt charts is cumbersome and error-prone.%
+\item<83-> Actually, the vast majority of possible Gantt charts will often be infeasible and have deadlocks\dots%
+\item<84-> We would like to have a handy \alert{representation} for Gantt charts.%
+\item<85-> The representation should allow us to easy create and modify the candidate solutions.%
+\item<86-> \alert{Solution}: We develop a data structure~$\searchSpace$ which we can handle easily and which can \alert{always} be translated to feasible Gantt charts by a mapping $\repMap:\searchSpace\mapsto\solutionSpace$.%
+\end{itemize}%
+}%
+%
+\locateGraphic{4}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_01}{0.01}{0.2}%
+\locateGraphic{5}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_02}{0.01}{0.2}%
+\locateGraphic{6}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_03}{0.01}{0.2}%
+\locateGraphic{7}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_04}{0.01}{0.2}%
+\locateGraphic{8}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_05}{0.01}{0.2}%
+\locateGraphic{9}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_06}{0.01}{0.2}%
+\locateGraphic{10}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_07}{0.01}{0.2}%
+\locateGraphic{11}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_08}{0.01}{0.2}%
+\locateGraphic{12}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_09}{0.01}{0.2}%
+\locateGraphic{13}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_10}{0.01}{0.2}%
+\locateGraphic{14}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_11}{0.01}{0.2}%
+\locateGraphic{15}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_12}{0.01}{0.2}%
+\locateGraphic{16}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_13}{0.01}{0.2}%
+\locateGraphic{17}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_14}{0.01}{0.2}%
+\locateGraphic{18}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_15}{0.01}{0.2}%
+\locateGraphic{19}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_16}{0.01}{0.2}%
+\locateGraphic{20}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_17}{0.01}{0.2}%
+\locateGraphic{21}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_18}{0.01}{0.2}%
+\locateGraphic{22}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_19}{0.01}{0.2}%
+\locateGraphic{23}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_20}{0.01}{0.2}%
+\locateGraphic{24}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_21}{0.01}{0.2}%
+\locateGraphic{25}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_22}{0.01}{0.2}%
+\locateGraphic{26}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_23}{0.01}{0.2}%
+\locateGraphic{27}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_24}{0.01}{0.2}%
+\locateGraphic{28}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_25}{0.01}{0.2}%
+\locateGraphic{29}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_26}{0.01}{0.2}%
+\locateGraphic{30}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_27}{0.01}{0.2}%
+\locateGraphic{31}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_28}{0.01}{0.2}%
+\locateGraphic{32}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_29}{0.01}{0.2}%
+\locateGraphic{33}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_30}{0.01}{0.2}%
+\locateGraphic{34}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_31}{0.01}{0.2}%
+\locateGraphic{35}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_32}{0.01}{0.2}%
+\locateGraphic{36}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible_33}{0.01}{0.2}%
+\locateGraphic{37}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_feasible}{0.01}{0.2}%
+%
+%
+\locateGraphic{38}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_01}{0.01}{0.2}%
+\locateGraphic{39}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_02}{0.01}{0.2}%
+\locateGraphic{40}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_03}{0.01}{0.2}%
+\locateGraphic{41}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_04}{0.01}{0.2}%
+\locateGraphic{42}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_05}{0.01}{0.2}%
+\locateGraphic{43}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_06}{0.01}{0.2}%
+\locateGraphic{44}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_07}{0.01}{0.2}%
+\locateGraphic{45}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_08}{0.01}{0.2}%
+\locateGraphic{46}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_09}{0.01}{0.2}%
+\locateGraphic{47}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_10}{0.01}{0.2}%
+\locateGraphic{48}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_11}{0.01}{0.2}%
+\locateGraphic{49}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_12}{0.01}{0.2}%
+\locateGraphic{50}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_13}{0.01}{0.2}%
+\locateGraphic{51}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_14}{0.01}{0.2}%
+\locateGraphic{52}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_15}{0.01}{0.2}%
+\locateGraphic{53}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_16}{0.01}{0.2}%
+\locateGraphic{54}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_17}{0.01}{0.2}%
+\locateGraphic{55}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_18}{0.01}{0.2}%
+\locateGraphic{56}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_19}{0.01}{0.2}%
+\locateGraphic{57}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_20}{0.01}{0.2}%
+\locateGraphic{58}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_21}{0.01}{0.2}%
+\locateGraphic{59}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_22}{0.01}{0.2}%
+\locateGraphic{60}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_23}{0.01}{0.2}%
+\locateGraphic{61}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_24}{0.01}{0.2}%
+\locateGraphic{62}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_25}{0.01}{0.2}%
+\locateGraphic{63}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_26}{0.01}{0.2}%
+\locateGraphic{64}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_27}{0.01}{0.2}%
+\locateGraphic{65}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_28}{0.01}{0.2}%
+\locateGraphic{66-75}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_29}{0.01}{0.2}%
+%
+\locate{67-75}{\parbox{0.475\paperwidth}{%%
+\only<-69>{\textcolor<68->{gray}{Machine~0 should begin by doing job~1. }}%
+\only<68-70>{\textcolor<69->{gray}{Job~1 can only start on machine~0 after it has been finished on machine~1. }}%
+\only<69-70>{\textcolor<70->{gray}{At machine~1, we should begin with job~0. }}%
+\only<70>{Before job~0 can be put on machine~1, it must go through machine~0. }%
+\only<71>{So job~1 cannot go to machine~0 until it has passed through machine~1, but in order to be executed on machine~1, job~0 needs to be finished there first. }%
+\only<72>{Job~0 cannot begin on machine~1 until it has been passed through machine~0, but it cannot be executed there, because job~1 needs to be finished there first. }%
+\only<73-74>{\textcolor<74->{gray}{A cyclic blockage has appeared: no job can be executed on any machine if we follow this schedule. }}%
+\only<74-75>{\textcolor<75->{gray}{This is called a \textcolor<19>{red}{deadlock}. }}%
+\only<75>{The schedule is infeasible, because it cannot be executed or written down without breaking the precedence constraint. }%
+}}{0.5}{0.2}%
+%
+\locateGraphic{76}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_30}{0.01}{0.2}%
+\locateGraphic{77}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_31}{0.01}{0.2}%
+\locateGraphic{78}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_32}{0.01}{0.2}%
+\locateGraphic{79}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_33}{0.01}{0.2}%
+\locateGraphic{80}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible_34}{0.01}{0.2}%
+\locateGraphic{81}{width=0.98\paperwidth}{graphics/feasible/jssp_gantt_infeasible}{0.01}{0.2}%
+%
 %
 \end{frame}%
 %

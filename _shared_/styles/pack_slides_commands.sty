@@ -76,13 +76,14 @@ Hefei, Anhui, China&\zhb{中国安徽省合肥市}%
 \end{tabular}%
 }%
 %
-%
 \end{frame}%
 %
 \usebackgroundtemplate{}%
 %
 \begin{frame}%
 \frametitle{Outline}%
+%
+\locateGraphic{}{width=0.2\paperwidth}{\sharedDir/graphics/qr_codes/aitoa_qr_code}{0.78}{0.7}%
 %
 \centering%
 \parbox{0.9\linewidth}{%
@@ -91,7 +92,18 @@ Hefei, Anhui, China&\zhb{中国安徽省合肥市}%
 }%
 %%
 #1%
+%
 \end{frame}%
+}%
+%
+%
+\AtBeginSection[]{%
+\begin{frame}%
+\locateGraphic{}{width=0.2\paperwidth}{\sharedDir/graphics/qr_codes/aitoa_qr_code}{0.78}{0.7}%
+\centering%
+\usebeamerfont{title}%
+\insertsectionhead%
+\end{frame}
 }%
 %
 %
@@ -101,7 +113,8 @@ Hefei, Anhui, China&\zhb{中国安徽省合肥市}%
 \gdef\@@@endSlide#1#2{%
 \begin{frame}%
 \pdfbookmark[1]{#1}{#2}%
-\centering%
+\locateGraphic{}{width=0.4\paperwidth}{\sharedDir/graphics/qr_codes/aitoa_qr_code}{0.575}{0.433}%
+%
 \resizebox{0.3\paperwidth}{!}{\zhb{谢谢}}%
 \bigskip\par%
 \resizebox{0.3\paperwidth}{!}{Thank you}%

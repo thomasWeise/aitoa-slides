@@ -13,7 +13,7 @@
 \begin{frame}%
 \frametitle{What is Optimization?}%
 \begin{itemize}%
-\item In this unit, we want to get a rough feeling about what \emph{optimization} is.%
+\item In this unit, we want to get a rough feeling about what \alert{optimization} is.%
 \item<2-> So let us start by looking at some examples for optimization problems.%
 \end{itemize}%
 \end{frame}
@@ -126,18 +126,18 @@ Solving an optimization problem requires finding an input value $\globalOptimum{
 \begin{frame}[t]%
 \frametitle{More Examples}%
 \begin{itemize}%
-\item Many questions in the real world are \emph{optimization problems}\only<2-8>{, e.g.,%
+\item Many questions in the real world are \alert{optimization problems}\only<2-8>{, e.g.,%
 \begin{itemize}%
 %
-\item Find the \emph{shortest} tour for a salesman to visit a certain set of cities\only<-2>{ in China and return to Hefei!}%
+\item Find the \alert{shortest} tour for a salesman to visit a certain set of cities\only<-2>{ in China and return to Hefei!}%
 %
 \item<3-> I need to transport $n$ items from here to another city\only<-3>{ but they are too big to transport them all at once. How can I load them best into my car so that I have to travel back and forth the least times?}%
 %
 \item<4-> \only<-4>{How can I c}\only<5->{C}onstruct a truss which can hold a certain weight\only<-4>{ with at most a certain amount of iron?}%
 %
-\item<5-> \only<-5>{I want to build a large factory with $n$ workshops. I know the flow of material between each two workshops and now need to choose the locations of the workshops such that the overall running cost incurred by material transportation is \emph{minimized}.}\only<6->{Assign workshops to locations}%
+\item<5-> \only<-5>{I want to build a large factory with $n$ workshops. I know the flow of material between each two workshops and now need to choose the locations of the workshops such that the overall running cost incurred by material transportation is \alert{minimized}.}\only<6->{Assign workshops to locations}%
 %
-\item<6-> \only<-7>{Which setting of $x_1$, $x_2$, $x_3$, and $x_4$ can make $(x_1\lor\lnot x_2 \lor x_3)\land(\lnot x_2\lor\lnot x_3 \lor x_4) \land (\lnot x_1\lor\lnot x_3 \lor \lnot x_4)$ become true\only<6>{?}\only<7->{ (or, at least, as \emph{many} of its terms as possible)?}}\only<8->{Satisfy Boolean formula}%
+\item<6-> \only<-7>{Which setting of $x_1$, $x_2$, $x_3$, and $x_4$ can make $(x_1\lor\lnot x_2 \lor x_3)\land(\lnot x_2\lor\lnot x_3 \lor x_4) \land (\lnot x_1\lor\lnot x_3 \lor \lnot x_4)$ become true\only<6>{?}\only<7->{ (or, at least, as \alert{many} of its terms as possible)?}}\only<8->{Satisfy Boolean formula}%
 %
 \item<8-> \only<-8>{Find the minima of complex, multi-dimensional mathematical formulas}%
 %
@@ -260,9 +260,9 @@ Solving an optimization problem requires finding an input value $\globalOptimum{
 \item<2-> Internet of Things: network enabling physical things to exchange data or being controlled, allowing a computer system to directly interact with the physical world.\cite{B2014IOTSFOBF}%
 \item<3-> Cloud Computing: move data and computation into the cloud (not just storage, but also computational resources, applications).\cite{L2008CCL1WICCAAITPDP}%
 \item<4-> Big Data: Collection, processing, and evaluation of huge amounts of data.\cite{M2014BDT5VEMK}%
-\item<5-> These are some of the ingredients.\uncover<6->{ They do not make the production \emph{intelligent} yet.\uncover<7->{ They are technological enablers.}}%
+\item<5-> These are some of the ingredients.\uncover<6->{ They do not make the production \alert{intelligent} yet.\uncover<7->{ They are technological enablers.}}%
 \item<8-> \alert{Computational Intelligence and Optimization}\cite{aitoa,WGOEB,CWM2012VOEAFRWA}: automatic intelligent decisions, automated planning, scheduling, design, management, \dots%
-\uncover<9->{~\dots\alert{can make systems \emph{intelligent}}}%
+\uncover<9->{~\dots\alert{can make systems \alert{intelligent}}}%
 \end{itemize}%
 \end{frame}%
 %
@@ -319,7 +319,7 @@ Solving an optimization problem requires finding an input value $\globalOptimum{
 \begin{frame}[t]%
 \frametitle{Exact vs.\ Heuristic Algorithms}%
 \begin{itemize}%
-\item In optimization, there exist \emph{exact} and \emph{heuristic} algorithms.%
+\item In optimization, there exist \alert{exact} and \alert{heuristic} algorithms.%
 %
 \item<2-> Let's again look at the classical Traveling Salesman Problem (TSP).%
 \only<3-5,7->{%
@@ -327,11 +327,11 @@ Solving an optimization problem requires finding an input value $\globalOptimum{
 \only<-5>{\item Clearly, there is (at least) one shortest tour.}%
 \only<-8>{\item<5-> \only<-5>{Theory proofs that the time to find this tour may grow exponentially with the number of cities we want to visit in the worst case.\cite{LLRKS1993SASAAC,CPW1998AROMSCAAA,C1971TCOTPP,K1972RACP,A2008TLOQC}}%
 \only<7->{Finding the best tour (what exact algorithms do) may take too long.}}%
-\only<-9>{\item<8-> But we can find just \emph{some} tour very quickly.}%
+\only<-9>{\item<8-> But we can find just \alert{some} tour very quickly.}%
 \only<-11>{\item<9-> Of course the quality of that tour will be lower\only<10>{: the tour will be longer than the best one}.}%
 \only<-12>{\item<11-> Is there something inbetween?}%
 \only<-13>{\item<12-> (Meta-)Heuristic optimization algorithms try to find solutions which are as good as possible as fast as possible.}%
-\item<13-> \alert{Optimization often means to make a trade-off between solution quality and runtime\only<14->{ and \emph{development time (the time from the definition of the problem until we have a software for producing solutions)}}.}%
+\item<13-> \alert{Optimization often means to make a trade-off between solution quality and runtime\only<14->{ and \alert{development time (the time from the definition of the problem until we have a software for producing solutions)}}.}%
 \end{itemize}%
 }%
 \end{itemize}%

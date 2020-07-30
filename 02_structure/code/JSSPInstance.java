@@ -1,3 +1,5 @@
+package aitoa.examples.jssp;
+
 public class JSSPInstance {
 
   public final int m; // number of machines

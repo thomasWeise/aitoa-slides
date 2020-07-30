@@ -1,3 +1,5 @@
+package aitoa.examples.jssp;
+
 public class JSSPCandidateSolution {
 
   public int[][] schedule; // one row per machine
