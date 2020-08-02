@@ -23,6 +23,18 @@
 \end{itemize}%
 \end{frame}%
 %
+\begin{frame}%
+\frametitle{Warnings}%
+\begin{itemize}%
+\item This will be one of the tougher and probably the longest lesson in this lecture.%
+\item<2-> We will learn key ideas and concepts that apply to many different scenarios.%
+\item<3-> We could look at them from an abstract point of view, similar to an abstract Maths class.%
+\item<4-> Then this lesson would be short\dots\uncover<5->{ {\dots}but maybe you won't get a very good feeling for the topic.}%
+\item<6-> Instead, we will directly take the abstract concepts and look how they are implemented on one concrete problem.%
+\item<7-> This makes the lesson longer, but I hope it will provide for a better understanding.%
+\item<8-> The example we will use is \alert{just an example} -- the concepts can be implemented differently for almost all optimization problems.% 
+\end{itemize}%
+\end{frame}%
 %
 \begin{frame}[t]%
 \frametitle{Components of an Optimization Problem}%
@@ -254,32 +266,32 @@ Instance \texttt{yn4} by Yamada and Nakano\cite{YN1992AGAATLSJSI}.%
 }%
 }%
 %
-\locateGraphic{4}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution}{0.075}{0.075}%
-\locateGraphic{5}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_machines_colored}{0.075}{0.075}%
-\locateGraphic{6}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_01}{0.075}{0.075}%
-\locateGraphic{7}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_02}{0.075}{0.075}%
-\locateGraphic{8}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_03}{0.075}{0.075}%
-\locateGraphic{9}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_04}{0.075}{0.075}%
-\locateGraphic{10}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_05}{0.075}{0.075}%
-\locateGraphic{11}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_06}{0.075}{0.075}%
-\locateGraphic{12}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_07}{0.075}{0.075}%
-\locateGraphic{13}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_08}{0.075}{0.075}%
-\locateGraphic{14}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_09}{0.075}{0.075}%
-\locateGraphic{15}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_10}{0.075}{0.075}%
-\locateGraphic{16}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_11}{0.075}{0.075}%
-\locateGraphic{17}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_12}{0.075}{0.075}%
-\locateGraphic{18}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_01}{0.075}{0.075}%
-\locateGraphic{19}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_02}{0.075}{0.075}%
-\locateGraphic{20}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_03}{0.075}{0.075}%
-\locateGraphic{21}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_04}{0.075}{0.075}%
-\locateGraphic{22}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_05}{0.075}{0.075}%
-\locateGraphic{23}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_06}{0.075}{0.075}%
-\locateGraphic{24}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_07}{0.075}{0.075}%
-\locateGraphic{25}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_08}{0.075}{0.075}%
-\locateGraphic{26}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_09}{0.075}{0.075}%
-\locateGraphic{27}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_10}{0.075}{0.075}%
-\locateGraphic{28}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_11}{0.075}{0.075}%
-\locateGraphic{29}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_12}{0.075}{0.075}%
+\locateGraphic{4}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution}{0.075}{0.11}%
+\locateGraphic{5}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_machines_colored}{0.11}{0.075}%
+\locateGraphic{6}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_01}{0.075}{0.125}%
+\locateGraphic{7}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_02}{0.075}{0.125}%
+\locateGraphic{8}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_03}{0.075}{0.125}%
+\locateGraphic{9}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_04}{0.075}{0.125}%
+\locateGraphic{10}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_05}{0.075}{0.125}%
+\locateGraphic{11}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_06}{0.075}{0.125}%
+\locateGraphic{12}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_07}{0.075}{0.125}%
+\locateGraphic{13}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_08}{0.075}{0.125}%
+\locateGraphic{14}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_09}{0.075}{0.125}%
+\locateGraphic{15}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_10}{0.075}{0.125}%
+\locateGraphic{16}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_11}{0.075}{0.125}%
+\locateGraphic{17}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_0_12}{0.075}{0.125}%
+\locateGraphic{18}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_01}{0.075}{0.125}%
+\locateGraphic{19}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_02}{0.075}{0.125}%
+\locateGraphic{20}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_03}{0.075}{0.125}%
+\locateGraphic{21}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_04}{0.075}{0.125}%
+\locateGraphic{22}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_05}{0.075}{0.125}%
+\locateGraphic{23}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_06}{0.075}{0.125}%
+\locateGraphic{24}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_07}{0.075}{0.125}%
+\locateGraphic{25}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_08}{0.075}{0.125}%
+\locateGraphic{26}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_09}{0.075}{0.125}%
+\locateGraphic{27}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_10}{0.075}{0.125}%
+\locateGraphic{28}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_11}{0.075}{0.125}%
+\locateGraphic{29}{width=0.8\paperwidth}{graphics/candidate_solution/demo_candidate_solution_1_12}{0.075}{0.125}%
 \end{frame}%
 %
 \section{Objective Function}%
@@ -609,6 +621,172 @@ Instance \texttt{yn4} by Yamada and Nakano\cite{YN1992AGAATLSJSI}.%
 \locateGraphic{63}{width=0.85\paperwidth}{graphics/representation/representation_demo_instance_63}{0.075}{0.12}%
 \locateGraphic{64}{width=0.85\paperwidth}{graphics/representation/representation_demo_instance_64}{0.075}{0.12}%
 \end{frame}%
+%
+
+\begin{frame}%
+\frametitle{The Search Space~$\searchSpace$}%
+\begin{itemize}%
+\item We now have search space~$\searchSpace$ with which we can easily represent all reasonable Gantt charts.%
+\item<2-> As long as our integer strings of length $\jsspMachines*\jsspJobs$ contain each value in $1\dots\jsspJobs$ exactly~$\jsspMachines$ times, we will always get \alert{feasible} Gantt charts by applying our mapping $\repMap:\searchSpace\mapsto\solutionSpace$!%
+\item<3-> We call this the \alert{representation}.%
+\item<4-> If necessary, we could also easily add more constraints, such as job-order specific machine setup times, or job/machine specific transport times -- they would all go into the mapping~$\repMap$.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}[containsverbatim]%
+\frametitle{An Interface for Representation Mappings in Java}%
+\listing{0.92}{0.76}{language=myJava,mathescape=false}{code/IRepresentationMapping.java}%
+\end{frame}%
+%
+\begin{frame}[containsverbatim]%
+\frametitle{The JSSP Representation Mapping in Java}%
+\listing{0.92}{1.33}{language=myJava,mathescape=false}{code/JSSPRepresentationMapping.java}%
+\end{frame}%
+%
+\section{Number of Possible Solutions}%
+%
+\begin{frame}%
+\frametitle{Number of Solutions: Size of~$\solutionSpace$}%
+\only<-9>{%
+\begin{itemize}%
+\item OK, we want to solve a JSSP instance%
+\item<2-> How many possible candidate solutions are there?%
+\item<3-> If we allow arbitrary useless waiting times between jobs, then we could create arbitrarily many different valid Gantt charts for any problem instance.%
+\item<4-> Let us assume that no time is wasted by waiting unnecessarily -- which is what our search space representation does, too.%
+\item<5-> If there was only 1~machine, then we would have $\jsspJobs!=1*2*3*4*5*\dots*\jsspJobs$ possible ways to arrange the $\jsspJobs$~jobs.%
+\item<6-> If there are 2~machines, this gives us $(\jsspJobs!)*(\jsspJobs!)=(\jsspJobs!)^2$ choices.%
+\item<7-> \only<7>{For three machines, we are at $(\jsspJobs!)^3$.}%
+\only<8->{\alert<8>{For $\jsspMachines$~machines, we are at $(\jsspJobs!)^{\jsspMachines}$ possible solutions.}}%
+\item<9-> \alert<9>{But some may be wrong, i.e., contain deadlocks!}%
+\end{itemize}%
+}%
+%
+\locate{10-}{%
+\resizebox{0.65\linewidth}{!}{\begin{tabular}{lrrrr}%
+\hline%
+name&$\jsspJobs$&$\jsspMachines$&$\min(\#\text{feasible})$&$\left|\solutionSpace\right|$%
+\\%
+\hline%
+&2&2&3&4\\%
+\uncover<11->{&2&3&4&8\\%
+\uncover<12->{&2&4&5&16\\%
+\uncover<13->{&2&5&6&32\\%
+\uncover<14->{&3&2&22&36\\%
+&3&3&63&216\\%
+&3&4&147&1'296\\%
+&3&5&317&7'776\\%
+\uncover<6->{&4&2&244&576\\%
+&4&3&1'630&13'824\\%
+&4&4&7'451&331'776\\%
+\uncover<15->{\texttt{demo}&4&5&&7'962'624\\%
+\texttt{la24}&15&10&&$\approx$~1.462*10\textsuperscript{121}\\%
+\texttt{abz7}&20&15&&$\approx$~6.193*10\textsuperscript{275}\\%
+\texttt{yn4}&20&20&&$\approx$~5.278*10\textsuperscript{367}\\%
+\texttt{swv15}&50&10&&$\approx$~6.772*10\textsuperscript{644}\\%
+\hline%
+}}}}}}%
+\end{tabular}}%
+}{0.175}{0.124}%
+%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Size of Search Space $\searchSpace$}%
+\only<-2,5->{%
+\begin{itemize}%
+\item Our search space~$\searchSpace$ is not the same as the solution space~$\solutionSpace$.
+\item<2-> How many points are in our representations of the solution space?%
+\item<5-> Both $\searchSpace$ and $\solutionSpace$ are very big for any relevant problem size.%
+\item<6-> $\searchSpace$ is bigger, we pay with size for the simplicity and the avoidance of infeasible solutions.%
+\end{itemize}%
+}%
+%
+\locate{3}{%
+\resizebox{0.65\linewidth}{!}{\begin{tabular}{lrrrrr}%
+\hline%
+name&$\jsspJobs$&$\jsspMachines$&$\left|\solutionSpace\right|$&$\left|\searchSpace\right|$
+\\%
+\hline%
+&3&2&36&90\\%
+&3&3&216&1'680\\%
+&3&4&1'296&34'650\\%
+&3&5&7'776&756'756\\%
+&4&2&576&2'520\\%
+&4&3&13'824&369'600\\%
+&4&4&331'776&63'063'000\\%
+&5&2&14'400&113'400\\%
+&5&3&1'728'000&168'168'000\\%
+&5&4&207'360'000&305'540'235'000\\%
+&5&5&24'883'200'000&623'360'743'125'120\\%
+\texttt{demo}&4&5&7'962'624&11'732'745'024\\%
+\texttt{la24}&15&10&$\approx$~1.462*10\textsuperscript{121}&$\approx$~2.293*10\textsuperscript{164}\\%
+\texttt{abz7}&20&15&$\approx$~6.193*10\textsuperscript{275}&$\approx$~1.432*10\textsuperscript{372}\\%
+\texttt{yn4}&20&20&$\approx$~5.278*10\textsuperscript{367}&$\approx$~1.213*10\textsuperscript{501}\\%
+\texttt{swv15}&50&10&$\approx$~6.772*10\textsuperscript{644}&$\approx$~1.254*10\textsuperscript{806}\\%
+\hline%
+\end{tabular}}%
+}{0.175}{0.18}%
+%
+\locateGraphic{4}{width=0.77\paperwidth}{graphics/size/jssp_searchspace_size_scale}{0.115}{0.03}%
+\end{frame}%
+%
+\section{Termination}%
+%
+\begin{frame}%
+\frametitle{Searching and Stopping}%
+\begin{itemize}%
+\item Eventually, we will have a program that finds good elements in these huge sets~$\searchSpace$ and~$\solutionSpace$.%
+\item<2-> How long should it run?%
+\item<3-> When can it stop?%
+\item<4-> This is called the \alert{termination criterion}.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{When to stop?}%
+\begin{itemize}%
+\item We assume that a human operator receives the job information, enters them into a computer (as JSSP instance), and then goes to drink a coffee.%
+\item<2-> Can we solve larger, hard JSSPs with such \emph{huge} numbers of potential solutions until she comes back?%
+\item<3-> Probably not.%
+\item<4-> The best algorithms guaranteeing to find the optimal solution for our JSSPs may need a runtime growing exponential with $\jsspMachines$ and $\jsspJobs$.\cite{LLRKS1993SASAAC,CPW1998AROMSCAAA}
+\item<5-> Even algorithms that just guarantee to be a constant factor worse than the optimum (like, 1\% longer, 10 times longer\dots) cannot faster on the JSSP in the worst case!\cite{WHHHLSS1997SSS,JMSO2005ASFJSSPWCPT,MS2011HOAFAJSSP}
+\item<6-> So?\uncover<7->{ \dots\ The operator drinks a coffee.\uncover<8->{ \dots\ We have a about three minutes.\uncover<9->{ \dots\ Let's look for the algorithm implementation that can give us the best solution quality within that time window.}}}%
+\item<10-> This is the termination criterion we will use on our JSSP example problem in this lecture.%
+\item<11-> Obviously, in other scenarios, there might be vastly different criteria\dots%
+\end{itemize}%
+\end{frame}%
+%
+\section{Summary}%
+%
+\begin{frame}%
+\frametitle{Summary}%
+\begin{itemize}%
+\item This was the most complicated lesson in this course!%
+\item<2-> Thank you for sticking with me during this.%
+\item<3-> What we have learned is the most basic process when attacking any optimization problem\only<-3>{!}\uncover<4->{:%
+\begin{enumerate}%
+\item Understand how the scenario / input data is defined!%
+\item<5-> Make a data structure~$\solutionSpace$ for the solutions, which can contain all the information that the end user needs and considers as a full solution to the problem!%
+\item<6-> Define the objective function~$\objf$, which rates how good a solution is!%
+\item<7-> Is $\solutionSpace$ easy to understand and to process by an algorithm?\uncover<8->{ If \textcolor{green}{yes}: cool.\uncover<9->{ If \textcolor{red}{no}: define a simple data structure~$\searchSpace$ and a translation~$\repMap$ from~$\searchSpace$ to~$\solutionSpace$!}}%
+\item<10-> Understand when we need to stop the search!%
+\end{enumerate}%
+}%
+\item<11-> If we have this, we can directly use most of the algorithms in the rest of the lecture (almost) as-is.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Summary}%
+\begin{itemize}%
+\item We now have the basic tools to search and find solutions for the JSSP.%
+\item<2-> Many other problems are similar and can be represented in a similar way.%
+\item<3-> The key is often to translate the complicated task to work with a complex data structure~$\solutionSpace$ (e.g., Gantt diagram with many constraints) to a simpler scenario where I only need to deal with a basic data structure~$\searchSpace$ (like a list of integer numbers with few constraints) by putting the ``complicated'' rules into a mapping $\repMap:\searchSpace\mapsto\solutionSpace$.%
+\item<4-> If I can do that, then from now on I do not need to worry about~$\solutionSpace$ and its rules any more -- I only need to work with~$\searchSpace$, which is easier to understand and to program.%
+\item<5-> Let us now try to solve the JSSP using metaheuristics that search inside~$\searchSpace$ (and thus can find solutions in~$\solutionSpace$\only<6->{ within 3 minutes}).%
+\end{itemize}%
+\end{frame}%
+%
 %
 \endPresentation%
 \end{document}%%
