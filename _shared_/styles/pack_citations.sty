@@ -16,6 +16,7 @@
 %
 \newcount\@bib@numcites%
 \@bib@numcites=0%
+\let\@bib@oldnocite\nocite%
 \let\@bib@oldcite\cite%
 \let\@bib@oldcitep\citep%
 \let\@bib@oldcitet\citet%
@@ -30,3 +31,5 @@
 %
 %% cite a reference by number, e.g., [1]
 \gdef\cite#1{\textsuperscript{\textnormal{\scalebox{0.75}{\color{\@citationColor}{\@bib@oldcite{#1}}}}}\strut\relax\global\advance\@bib@numcites by 1\relax}%
+\gdef\nocite#1{\@bib@oldnocite{#1}\relax\global\advance\@bib@numcites by 1\relax}%
+%

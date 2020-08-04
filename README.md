@@ -9,6 +9,7 @@ Only the first few topics from the book are covered as of now.
 1. [Introduction](https://thomasweise.github.io/aitoa-slides/01_introduction.pdf)
 2. [Structure](https://thomasweise.github.io/aitoa-slides/02_structure.pdf)
 3. [Metaheuristics](https://thomasweise.github.io/aitoa-slides/03_metaheuristics.pdf)
+4. [Random Sampling](https://thomasweise.github.io/aitoa-slides/04_random_sampling.pdf)
 
 You can also download the complete set of slides, the book itself, and all the source code as one [tar.xz archive](https://thomasweise.github.io/aitoa-slides/optimization_algorithms.tar.xz) from [here](https://thomasweise.github.io/aitoa-slides/optimization_algorithms.tar.xz).
 

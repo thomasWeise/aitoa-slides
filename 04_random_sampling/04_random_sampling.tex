@@ -1,0 +1,262 @@
+\documentclass[mathserif]{beamer}%
+%
+\xdef\sharedDir{../_shared_}%
+\RequirePackage{\sharedDir/styles/slides}%
+%
+\subtitle{4. Random Sampling}%
+%
+\begin{document}%
+\startPresentation%
+%
+\section{Introduction}%
+%
+\begin{frame}%
+\frametitle{Introduction}%
+\begin{itemize}%
+\item We will now learn our very first optimization algorithm.%
+\item<2-> We already have the basic tools: We can represent a Gantt chart for~$\jsspMachines$ machines and~$\jsspJobs$ jobs as an integer string of length $\jsspMachines\times\jsspJobs$.%
+\item<3-> How does this help us to search?%
+\item<4-> Well, we can first try the trivial thing: create a random solution!%
+\item<5-> We can therefore\uncover<4->{%
+\begin{enumerate}%
+\item put each of the numbers from~$0$ to~$\jsspJobs-1$ exactly~$\jsspMachines$ times in an integer array of length~$\jsspMachines*\jsspJobs$\uncover<6->{ (so we have a valid point $\sespel_0\in\searchSpace$)\uncover<7->{, then}}%
+\item<7-> randomly shuffle the values like a deck of cards\uncover<8->{ (so we get a \alert{random} valid point~$\sespel\in\searchSpace$)\uncover<9->{, and}}%
+\item<9-> apply the representation mapping~$\repMap$ to get a Gantt chart~$\solspel=\repMap(\sespel)$, $\solspel\in\solutionSpace$.%
+\end{enumerate}%
+}%
+\end{itemize}%
+\end{frame}%
+%
+\section{Algorithm Concept}%
+%
+\begin{frame}%
+\frametitle{Interface for a Function to Sample 1~Point from~$\searchSpace$}%
+\begin{itemize}%
+\item We already have the interface that we need to implement to do such a thing\uncover<2->{: the \jcodeil{INullarySearchOperator}}%
+\end{itemize}%
+\uncover<3->{%
+\listing{0.9}{0.95}{language=myJava,mathescape=false}{../02_structure/code/INullarySearchOperator.java}%
+}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Implementation: Create Random Point in~$\searchSpace$}%
+\listing{0.9}{0.95}{language=myJava,mathescape=false,escapechar=\%}{code/JSSPNullaryOperator.java}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Implementation: Single Random Sampling Algorithm}%
+\listing{0.9}{0.95}{language=myJava,mathescape=false}{code/SingleRandomSample.java}%
+\end{frame}%
+%
+\section{Experiment and Analysis}%
+%
+\begin{frame}[t]%
+\frametitle{So what do we get?}%
+\only<-2,8->{%
+\begin{itemize}%
+\item I execute the program 101~times for each of the instances \texttt{abz7}, \texttt{la24}, \texttt{swv15}, and \texttt{yn4}%
+\item<8-> The results are not good, there is lots of white space $\equiv$ wasted time.\uncover<9->{ That was expected: Our solutions are random.}%
+\item<10-> \textcolor<10>{blue}{Notice 1. We can create and test the schedules very very fast (much faster than 3min).}%
+\item<11-> \textcolor<11>{red}{Notice 2. There is a high variance in the results due to randomness.}%
+\end{itemize}%
+\uncover<2->{%
+\begin{center}%
+\begin{tabular}{|l|r|r|r|r|r|r|}%
+\hline%
+&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&best&mean&med&sd&med(t)&med(FEs)\\%
+\hline%
+\texttt{abz7}&1'131&1'334&1'326&\textcolor<11>{red}{106}&\textcolor<10>{blue}{0s}&1\\%
+\texttt{la24}&1'487&1'842&1'814&\textcolor<11>{red}{165}&\textcolor<10>{blue}{0s}&1\\%
+\texttt{swv15}&5'935&6'600&6'563&\textcolor<11>{red}{346}&\textcolor<10>{blue}{0s}&1\\%
+\texttt{yn4}&1'754&2'036&2'039&\textcolor<11>{red}{125}&\textcolor<10>{blue}{0s}&1\\%
+\hline%
+\end{tabular}%
+\end{center}%
+}%
+}%
+%
+\only<3-4>{Median solution for \texttt{abz7}}%
+\locateGraphic{3-4}{width=0.95\paperwidth}{graphics/1rs_gantt/gantt_1rs_abz7}{0.025}{0.22}%
+\only<5>{Median solution for \texttt{la24}}%
+\locateGraphic{5}{width=0.95\paperwidth}{graphics/1rs_gantt/gantt_1rs_la24}{0.025}{0.22}%
+\only<6>{Median solution for \texttt{swv15}}%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/1rs_gantt/gantt_1rs_swv15}{0.025}{0.22}%
+\only<7>{Median solution for \texttt{yn4}}%
+\locateGraphic{7}{width=0.95\paperwidth}{graphics/1rs_gantt/gantt_1rs_yn4}{0.025}{0.22}%
+\strut\par\vspace{0.62\paperheight}\strut\par%%
+\only<4-7>{{\dots}there is lots of white space between the operations{\dots}}%
+%
+\end{frame}%
+%
+\section{Improved Algorithm Concept}%
+%
+%
+\begin{frame}%
+\frametitle{Exploit Variance: Random Sampling}%
+\begin{itemize}%
+\item If we can generate solutions fast ($med(t)\approx 0$) and sometimes are lucky, sometimes not ($sd\gg0$)\dots%
+\item<2-> {\dots}then why don't we keep generating schedules until the 3~minutes are up and keep the best one?%
+\item<3-> New idea\uncover<4->{: The Random sampling algorithm (also called random search) repeats creating random solutions until the computational budget is exhausted\cite{S2003ITSSAO}.}%
+\item<5-> It works as follows\uncover<6->{:%
+\begin{enumerate}%
+\item create new random candidate solution~$\solspel$ (via random sampling from the search space)%
+\item<7-> remember best solution ever encountered%
+\item<8-> repeat until 3~min are exhausted%
+\end{enumerate}%
+}%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Random Sampling Algorithm}%
+\listing{0.9}{0.95}{language=myJava,mathescape=false}{code/RandomSampling.java}%
+\end{frame}%
+%
+\section{Experiment and Analysis 2}%
+%
+\begin{frame}[t]%
+\frametitle{So what do we get?}%
+%
+\begin{center}%
+\only<3,5,7,9>{\texttt{1rs}: median result of single random sample algorithm}%
+\only<4,6,8,10>{\texttt{rs}: median result of 3~min of random sampling algorithm}%
+\end{center}%
+%
+\only<-2>{%
+\begin{itemize}%
+\item I execute the program 101 times for each of the instances \texttt{abz7}, \texttt{la24}, \texttt{swv15}, and \texttt{yn4}%
+\end{itemize}%
+\uncover<2->{%
+\begin{center}%
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{|l|l|r|r|r|r|r|r|}%
+\hline%
+&&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
+\hline%
+\hline%
+%
+\texttt{abz7}&\texttt{1rs}&1131&1334&1326&106&0s&1\\%
+&\texttt{rs}&\textcolor{green}{\textbf{895}}&\textcolor{green}{\textbf{945}}&\textcolor{green}{\textbf{948}}&\textcolor{green}{\textbf{12}}&77s&8'246'019\\%
+\hline%
+\texttt{la24}&\texttt{1rs}&1487&1842&1814&165&0s&1\\%
+&\texttt{rs}&\textcolor{green}{\textbf{1154}}&\textcolor{green}{\textbf{1206}}&\textcolor{green}{\textbf{1207}}&\textcolor{green}{\textbf{15}}&81s&17'287'329\\%
+\hline%
+\texttt{swv15}&\texttt{1rs}&5935&6600&6563&346&0s&1\\%
+&\texttt{rs}&\textcolor{green}{\textbf{4988}}&\textcolor{green}{\textbf{5165}}&\textcolor{green}{\textbf{5174}}&\textcolor{green}{\textbf{49}}&85s&5'525'082\\%
+\hline%
+\texttt{yn4}&\texttt{1rs}&1754&2036&2039&125&0s&1\\%
+&\texttt{rs}&\textcolor{green}{\textbf{1459}}&\textcolor{green}{\textbf{1496}}&\textcolor{green}{\textbf{1498}}&\textcolor{green}{\textbf{15}}&83s&6'549'694\\%
+%
+\hline%
+\end{tabular}%
+}%
+\end{center}%
+}%
+}%
+%
+\locateGraphic{3}{width=0.95\paperwidth}{graphics/1rs_gantt/gantt_1rs_abz7}{0.025}{0.23}%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/rs_gantt/gantt_rs_abz7_1326}{0.025}{0.23}%
+\locateGraphic{5}{width=0.95\paperwidth}{graphics/1rs_gantt/gantt_1rs_la24}{0.025}{0.23}%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/rs_gantt/gantt_rs_la24_1814}{0.025}{0.23}%
+\locateGraphic{7}{width=0.95\paperwidth}{graphics/1rs_gantt/gantt_1rs_swv15}{0.025}{0.23}%
+\locateGraphic{8}{width=0.95\paperwidth}{graphics/rs_gantt/gantt_rs_swv15_6563}{0.025}{0.23}%
+\locateGraphic{9}{width=0.95\paperwidth}{graphics/1rs_gantt/gantt_1rs_yn4}{0.025}{0.23}%
+\locateGraphic{10}{width=0.95\paperwidth}{graphics/rs_gantt/gantt_rs_yn4_2039}{0.025}{0.23}%
+%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Progress over Time}%
+%
+%
+\locateGraphic{2}{width=0.95\paperwidth}{graphics/rs_progress/rs_progress_abz7}{0.025}{0.17}%
+\locateGraphic{3}{width=0.95\paperwidth}{graphics/rs_progress/rs_progress_la24}{0.025}{0.17}%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/rs_progress/rs_progress_swv15}{0.025}{0.17}%
+\locateGraphic{5}{width=0.95\paperwidth}{graphics/rs_progress/rs_progress_yn4}{0.025}{0.17}%
+%
+\only<1>{\begin{center}{\large{What progress does the algorithm make over time?}}\end{center}}%
+%
+\uncover<6-8,11->{%
+\begin{itemize}%
+\item Law of Diminishing Returns\cite{SN2001M}\uncover<7->{: Most improvements (of the makespan) are achieved with the initial, small investment (of runtime). \uncover<8->{Further improvements will cost more and more (time) and will be smaller and smaller.}}%
+\item<13-> This holds for runtime, but also for improvements of algorithms.%
+\end{itemize}%
+}%
+%
+\locateGraphic{9}{width=0.95\paperwidth}{graphics/rs_progress/rs_progress_abz7}{0.025}{0.17}%
+\locate{9}{\parbox{0.9\paperwidth}{\noindent\centering\Huge{\alert{normal plot}}}}{0.05}{0.4}%
+\locateGraphic{10}{width=0.95\paperwidth}{graphics/rs_progress/rs_progress_abz7_log}{0.025}{0.17}%
+\locate{10}{\parbox{0.9\paperwidth}{\noindent\centering\Huge{\alert{log-scale plot}}}}{0.05}{0.4}%
+%
+\locateGraphic{11}{width=0.330\paperwidth}{graphics/rs_progress/rs_progress_abz7}{0.1}{0.42}%
+\locateGraphic{11}{width=0.330\paperwidth}{graphics/rs_progress/rs_progress_la24}{0.55}{0.42}%
+\locateGraphic{11}{width=0.330\paperwidth}{graphics/rs_progress/rs_progress_swv15}{0.1}{0.687}%
+\locateGraphic{11}{width=0.330\paperwidth}{graphics/rs_progress/rs_progress_yn4}{0.55}{0.687}%
+\locateGraphic{12}{width=0.330\paperwidth}{graphics/rs_progress/rs_progress_abz7_log}{0.1}{0.42}%
+\locateGraphic{12}{width=0.330\paperwidth}{graphics/rs_progress/rs_progress_la24_log}{0.55}{0.42}%
+\locateGraphic{12}{width=0.330\paperwidth}{graphics/rs_progress/rs_progress_swv15_log}{0.1}{0.687}%
+\locateGraphic{12}{width=0.330\paperwidth}{graphics/rs_progress/rs_progress_yn4_log}{0.55}{0.687}%
+\locateGraphic{13-}{width=0.330\paperwidth}{graphics/rs_progress/rs_progress_abz7_log_shaded}{0.1}{0.42}%
+\locateGraphic{13-}{width=0.330\paperwidth}{graphics/rs_progress/rs_progress_la24_log_shaded}{0.55}{0.42}%
+\locateGraphic{13-}{width=0.330\paperwidth}{graphics/rs_progress/rs_progress_swv15_log_shaded}{0.1}{0.687}%
+\locateGraphic{13-}{width=0.330\paperwidth}{graphics/rs_progress/rs_progress_yn4_log_shaded}{0.55}{0.687}%
+%
+\end{frame}%
+%
+\section{Summary}%
+%
+%
+\begin{frame}%
+\frametitle{Summary}%
+\begin{itemize}%
+\item In this lesson, we have learned three things\uncover<2->{%
+\begin{enumerate}%
+\item a first algorithm for solving optimization: random sampling.%
+\item<3-> a tool to improve algorithm performance: restarts.%
+\item<4-> an inherent nature of optimization processes: much progress early, fewer and smaller improvements later.%
+\end{enumerate}%
+}%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Summary: Random Sampling}%
+\begin{itemize}%
+\item With random sampling, we now have a basic algorithm that provides some solutions.%
+\item<2-> But it is {\dots} well {\dots} quite stupid.%
+\item<3-> It just makes random guesses.%
+\item<4-> It does not make any use of the information it has seen during the search.%
+\item<5-> Random Sampling has two very important uses, though\uncover<6->{:%
+\begin{enumerate}%
+\item If an optimization problem has no structure whatsoever, if knowledge of existing good solutions is not helpful to find new good solutions in any way, then we cannot really do better than Random Sampling!%
+\item<7-> In most relevant optimization problems, however, such information is helpful.\uncover<8->{ %
+An optimization algorithm is \alert{only} reasonable if it is \alert{significantly} better than Random Sampling.}%
+\end{enumerate}%
+} 
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Summary: Restarts}%
+\begin{itemize}%
+\item We started with an algorithm that created a single random solution.\uncover<2->{ Let's call this algorithm ${\mathcal A}$.}%
+\item<3-> We then wrapped a loop around ${\mathcal A}$, we restarted ${\mathcal A}$ again and again until the time was up\only<-3>{.}\uncover<4->{ (and of course, remembered the best solution).}%
+\item<5-> This is actually basic strategy of ``algorithm ${\mathcal B}$ = a restarted algorithm ${\mathcal A}$'', a tool that we have available from now on!%
+\item<6-> It can be applied in many scenarios, but has the following limitations\uncover<7->{:%
+\begin{enumerate}%
+\item It only works if there is a reasonably-large variance, i.e., if different runs of ${\mathcal A}$ produce different results.%
+\item<8-> It only works if ${\mathcal A}$ produces good-enough results early-enough, so that we have enough time in our budget to restart ${\mathcal A}$.%
+\end{enumerate}%
+}%
+\end{itemize}%
+\end{frame}%
+%
+\endPresentation%
+\end{document}%%
+\endinput%
+%
