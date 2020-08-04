@@ -1,0 +1,135 @@
+\documentclass[mathserif]{beamer}%
+%
+\xdef\sharedDir{../_shared_}%
+\RequirePackage{\sharedDir/styles/slides}%
+%
+\subtitle{3. Metaheuristics}%
+%
+\begin{document}%
+%
+\startPresentation%
+%
+%
+\section{Introduction}%
+%
+\begin{frame}%
+\frametitle{Optimization Algorithms}%
+\begin{itemize}%
+\item OK, by now we know already something about optimization problems and how we can give them a ``structure.''%
+\item<2-> But how are they solved?%
+\item<3-> Optimization problems are solved by \alert{optimization algorithms}.%
+\item<4-> Optimization algorithms can be divided into \alert{exact} and \alert{heuristic} methods.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Exact Algorithms}%
+\begin{itemize}%
+\item \alert{Exact} algorithms guarantee to find the optimal solution\only<-1>{.}\uncover<2->{ if sufficient runtime is granted.}%
+\item<3-> This required runtime might, in the worst case, exceed what we can afford, in particular for \mbox{$\NPprefix$-hard} problems, such as the JSSP.%
+\item<4-> Many exact methods can be halted before completing their run and they can then still provide an approximate solution (without the guarantee that it is optimal).%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Heuristic Algorithms}%
+\begin{itemize}%
+\item The idea behind heuristic algorithms is to get approximate solution relatively quickly.%
+\item<2-> They \only<3->{either }do not make any guarantees at all how good it will be\only<-2>{.}\uncover<3->{ or, sometimes, provide some bound guarantee\only<-3>{.}\uncover<4->{ (like: "This solution will not cost more than two times of the optimal cost.")}}%
+\item<5-> Simple heuristics are usually tailor-made for specific problems, like the TSP or JSSP.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Metaheuristics}%
+\begin{itemize}%
+\item Metaheuristics\cite{aitoa,WGOEB,GP2010HOM,GK2003HOM,CT2018AITMFO} are the center of this course.%
+\end{itemize}%
+\uncover<2->{%
+\begin{definition}[Metaheuristic]%
+A \alert{metaheuristic} is a general algorithm that can produce approximate solutions for a class of different optimization problems.%
+\end{definition}%
+\uncover<3->{%
+\begin{itemize}%
+\item {\dots}and \alert{class} is here considered in the wider sense and could even mean ``all problems that can be presented in the structure we discussed in Lesson~2.''%
+\item<4-> Because of this generality, they can be adapted to new optimization problems.%
+\item<5-> As long as we can bring the problem into the ``structure'' discussed before, we can attack it with a metaheuristic.%
+\item<6-> We will introduce several such general algorithms.%
+\item<7-> We explore them by using the Job Shop Scheduling Problem (JSSP)\cite{GLLRK1979OAAIDSASAS,LLRKS1993SASAAC,L1982RRITTOMS,T199BFBSP,BDP1996TJSSPCANST} as example.%
+\end{itemize}%
+}}%
+\end{frame}
+%
+\section{Black-Box Characteristic}%
+%
+\begin{frame}[t]%
+\frametitle{Black-Box Optimization}%
+\begin{itemize}%
+\item Why are metaheuristics \alert<1>{general} methods?%
+\item<2-> Because they allow us to divide between \alert<2>{algorithm} and \alert<2>{problem}.%
+\item<3-> From the algorithm perspective, optimization problems can be viewed as \alert<3>{black boxes}.%
+\end{itemize}%
+\locateGraphic{4-}{width=0.65\paperwidth}{graphics/black_box/black_box_metaheuristic}{0.175}{0.36}%
+\vspace{0.34\paperheight}%
+\uncover<5->{%
+\begin{itemize}%
+\item The metaheuristic does not care (much) how the objective function~$\objf:\solutionSpace\mapsto\realNumbers$ is shaped.%
+\item<6-> It does not care much about the structure of~$\solutionSpace$, $\searchSpace$, and~$\repMap$ either.%
+\item<7-> We ``plug them in'' together with the search operators (about which we will talk later), and the metaheuristic will ``work.''%
+\end{itemize}%
+}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{The Meaning of the Black-Box Characteristic}%
+\begin{itemize}%
+\item This black-box character makes implementing metaheuristics complicated.%
+\item<2-> If we look at ``classical'' algorithms in computer science, then they usually have clearly defined input and output data.\uncover<3->{ Dijkstra's algorithm for shortest paths\cite{D1959ANOTPICWG}, for instance, accepts a graph with weighted edges and source node and returns the shortest paths to all other nodes.}%
+\item<4-> This is also true for machine learning.\uncover<5->{ \mbox{$k$-means} clustering\cite{F1965CAOMDEVIOC,HW1979AA1AKMCA} expects a set of real vectors as input and returns $k$~real vectors as output.\uncover<6->{ Deep learning\cite{GBC2016DL} expects a labeled training set of real vectors and returns the weights of a neural network.}}%
+\item<7-> Metaheuristics are nothing like that.%
+\item<8-> Matter of fact: Metaheuristics could be used for \alert{any} of the above tasks!%
+\item<9-> The metaheuristics are general algorithms into which a representation fitting any of these tasks can be ``plugged.''% 
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Implementing the Black Box Idea}%
+\begin{itemize}%
+\item Catering for implementing algorithms that are so general seems to be quite hard, especially this early in the course.%
+\item<2-> But we already have the foundation: All the interfaces we discussed before!%
+\item<3-> We just need to implement them and hand them to our algorithm implementations.%
+\item<4-> For this, I provide one abstraction: the interface \jcodeil{IBlackBoxProcess}.%
+\item<5-> I will not discuss here how exactly it is implemented, but we will take a quick peek on what it can do.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{\jcodeil{IBlackBoxProcess}\dots}%
+\begin{itemize}%
+\item provides a random number generator to the algorithm\uncover<2->{,}%
+\item<2-> wraps an objective function~$\objf$ together with a representation mapping~$\repMap$ to allow us to evaluate a point in the search space~$\sespel\in\searchSpace$ in a single step, effectively performing~$\objf(\repMap(\sespel))$\uncover<3->{,}%
+\item<3-> keeps track of the elapsed runtime and FEs as well as when the last improvement was made by updating said information when necessary during the invocations of the ``wrapped'' objective function\uncover<4->{,}%
+\item<4-> keeps track of the best points in the search space and solution space so far as well as their associated objective value in special variables by updating them whenever the ``wrapped'' objective function discovers an improvement\uncover<5->{,}%
+\item<5-> represents a termination criterion (e.g., maximum FEs, maximum runtime, reaching a goal objective value)\uncover<6->{, and}%
+\item<6-> logs the improvements that the algorithm makes to a text file, so that we can use them to make tables and draw diagrams.%
+\end{itemize}%
+\end{frame}%
+%
+%
+\begin{frame}%
+\frametitle{\jcodeil{IBlackBoxProcess}}%
+\listing{0.9}{1}{language=myJava,mathescape=false}{code/IBlackBoxProcess.java}
+\end{frame}%
+%
+\section{Summary}%
+\begin{frame}%
+\frametitle{Summary}%
+\begin{itemize}%
+\item Now we finally have all the components together to implement metaheuristic optimization algorithms!%
+\end{itemize}%
+\end{frame}%
+%
+\endPresentation%
+\end{document}%%
+\endinput%
+%

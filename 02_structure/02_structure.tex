@@ -730,12 +730,45 @@ name&$\jsspJobs$&$\jsspMachines$&$\left|\solutionSpace\right|$&$\left|\searchSpa
 \locateGraphic{4}{width=0.77\paperwidth}{graphics/size/jssp_searchspace_size_scale}{0.115}{0.03}%
 \end{frame}%
 %
+\section{Search Operators}%
+%
+\begin{frame}[t]%
+\frametitle{Search Operators}%
+\begin{itemize}%
+\item Another general structure element needed by many optimization algorithms are \alert<1>{search operators}.%
+\end{itemize}%
+\uncover<2->{%
+\begin{definition}{Search Operator}%
+An \mbox{$k$-ary} \alert{search operator}~$\searchOp:\searchSpace^k\mapsto\searchSpace$ is a left-total relation which accepts $k$~points in the search space~$\searchSpace$ as input and returns one point in the search space as output.%
+\end{definition}%
+\uncover<3->{%
+\only<-4,6,8,10->{%
+\begin{itemize}%
+\item Based on their arity~$k$, we can distinguish the following most common operator types:%
+\uncover<4->{%
+\begin{itemize}%
+\item<4-> nullary operators ($k=0$) generate one (random) point in~$\searchSpace$.%
+\item<6-> unary operators ($k=1$) take one point from~$\searchSpace$ as input and return another (similar) point.%
+\item<8-> binary operators ($k=2$) take two points from~$\searchSpace$ as input and return another point which should be similar to both.%
+\end{itemize}%
+}%
+\item<10-> We will discuss concrete implementations of the operators later.%
+\end{itemize}%
+}}}%
+%
+\only<5>{\listing{0.9}{0.95}{language=myJava,mathescape=false}{code/INullarySearchOperator.java}}%
+\only<7>{\listing{0.9}{0.95}{language=myJava,mathescape=false}{code/IUnarySearchOperator.java}}%
+\only<9>{\listing{0.9}{0.95}{language=myJava,mathescape=false}{code/IBinarySearchOperator.java}}%
+%
+\end{frame}%
+%
+%
 \section{Termination}%
 %
 \begin{frame}%
 \frametitle{Searching and Stopping}%
 \begin{itemize}%
-\item Eventually, we will have a program that finds good elements in these huge sets~$\searchSpace$ and~$\solutionSpace$.%
+\item Eventually, we will have a program that uses the search operators efficiently to find elements in the set~$\searchSpace$ which correspond to good solutions in~$\solutionSpace$.%
 \item<2-> How long should it run?%
 \item<3-> When can it stop?%
 \item<4-> This is called the \alert{termination criterion}.%

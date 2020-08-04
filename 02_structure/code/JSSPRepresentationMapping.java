@@ -1,6 +1,6 @@
 package aitoa.examples.jssp;
 
-public final class JSSPRepresentationMapping implements
+public class JSSPRepresentationMapping implements
     IRepresentationMapping<int[], JSSPCandidateSolution> {
 
   public void map(int[] x, JSSPCandidateSolution y) {
