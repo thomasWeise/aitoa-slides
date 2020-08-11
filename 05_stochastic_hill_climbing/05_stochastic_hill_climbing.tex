@@ -1,0 +1,72 @@
+\documentclass[mathserif]{beamer}%
+%
+\xdef\sharedDir{../_shared_}%
+\RequirePackage{\sharedDir/styles/slides}%
+%
+\subtitle{5. Stochastic Hill Climbing}%
+%
+\begin{document}%
+\startPresentation%
+%
+\section{Introduction}%
+%
+\begin{frame}%
+\frametitle{Information from Good Solutions}%
+\begin{itemize}%
+\item Our first algorithm, random sampling, was not very efficient.
+\item<2-> It does not make any use of the information it ``sees'' during the optimization process.%
+\item<3-> Each search step consists of creating an entirely new, entirely random candidate solution.%
+\item<4-> Each search step is thus independent of all prior steps.%
+\item<5-> \alert{Is this a good idea?}%
+\item<6-> Probably not.%
+\item<7-> In almost all practical scenarios, good solutions are somewhat similar to other good solutions.%
+\item<8-> In other words, every good solution we see is some useful information.%%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Basic Idea}%
+\begin{itemize}%
+\item So how we can make use of the information we have seen during the search?%
+\item<3-> Instead of generating a completely random new candidate solution in each step\dots%
+\item<4-> {\dots}why can't we try to iteratively improve the best solution we have seen so far?%
+\end{itemize}%
+\end{frame}%
+%
+\section{Algorithm Concept}%
+%
+\begin{frame}[t]%
+\frametitle{Stochastic Hill Climbing}%
+\begin{itemize}%
+\item This is the concept of \alert{Local Search}\cite{WGOEB,HS2005SLSFAA,RN2002AI,S2003ITSSAO} and its simplest realization is \alert{Stochastic Hill Climbing}\cite{WGOEB}.%
+\item<2-> Simple Concept\uncover<3->{:%
+\begin{enumerate}%
+\item create random initial solution%
+\item<4-> make a modified copy of best-so-far solution%
+\item<5-> if it is better, it becomes the new best-so-far solution (if it is not better, discard it).%
+\item<6-> go back to \enumerateItem{2} (until the time is up)%
+\end{enumerate}}%
+\end{itemize}%
+\locateGraphic{2}{width=1.00001\paperwidth}{graphics/hill_climbing/hill_climbing}{-0.000005}{0.382}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Causality}%
+\begin{itemize}%
+\item Local searches like hill climbers exploit a property of many optimization problems called \alert{causality}\cite{R1973ES,R1994ES,WCT2012EOPABT,WZCN2009WIOD}.%
+\item<2-> Causality means that small changes in the features of an object (or candidate solution) also lead to small changes in its behavior (or objective value).%
+\item<3-> If an optimization problem exhibits causality, then there should be good solutions that are similar to other good solutions.%
+\item<4-> The idea is that if we have a good candidate solution, then there may exist similar solutions which are better.%
+\item<5-> We hope to find one of them and then continue trying to do the same from there.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Implementation of the Stochastic Hill Climber}%
+\listing{0.9}{1.3}{language=myJava,mathescape=false}{code/HillClimber.java}%
+\end{frame}%
+%
+\endPresentation%
+\end{document}%%
+\endinput%
+%

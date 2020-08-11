@@ -1,0 +1,20 @@
+%%
+%% This LaTeX package is intended to provide a set of common shortcuts,
+%% abbreviations, symbols, and functions to be used throughout the
+%% documentation and slides in order to provide a uniform naming
+%% and syntax convention.
+%%
+%% print an itemization item inline
+\gdef\itemizeItem{%
+\begingroup\usebeamertemplate{itemize item}\endgroup%%
+}%
+%
+%% print an enumeration item inline
+\gdef\enumerateItem#1{%
+\if\relax\detokenize{#1}\relax%
+\stepcounter{enumi}%
+\else%
+\expandafter\setcounter\expandafter{enumi}{#1}%
+\fi%
+\begingroup\usebeamertemplate{enumerate item}\endgroup%%
+}%
