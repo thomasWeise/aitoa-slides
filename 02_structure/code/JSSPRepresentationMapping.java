@@ -9,7 +9,7 @@ public class JSSPRepresentationMapping implements
     Arrays.fill(machineState, 0);             Arrays.fill(jobState, 0);
     Arrays.fill(machineTime, 0);              Arrays.fill(jobTime, 0);
 
-    for (final int nextJob : x) {
+    for (int nextJob : x) {
       int[] jobSteps = this.m_jobs[nextJob];
       int   jobStep  = (jobState[nextJob]++) << 1;
       int   machine  = jobSteps[jobStep];

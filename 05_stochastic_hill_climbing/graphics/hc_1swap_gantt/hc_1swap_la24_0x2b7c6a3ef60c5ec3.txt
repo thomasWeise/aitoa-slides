@@ -1,0 +1,338 @@
+
+# ALGORITHM_SETUP
+# algorithm: hc
+# algorithm(class): aitoa.algorithms.HillClimber
+# END_ALGORITHM_SETUP
+
+# BEGIN_LOG
+# fbest;consumedFEs;consumedTimeMS
+1810;1;0
+1804;5;0
+1760;6;0
+1688;7;0
+1639;9;0
+1631;20;0
+1611;28;0
+1569;37;0
+1548;38;0
+1494;39;0
+1481;45;0
+1474;51;0
+1466;61;0
+1437;99;0
+1436;109;0
+1422;121;0
+1413;169;0
+1362;193;0
+1354;212;1
+1353;273;1
+1348;359;1
+1344;366;1
+1339;404;1
+1335;408;1
+1318;492;1
+1310;501;1
+1263;549;1
+1251;634;2
+1249;646;2
+1248;736;2
+1218;839;2
+1213;921;2
+1212;1415;4
+1211;1589;4
+1210;1965;5
+1209;2102;6
+1206;2126;6
+1202;2175;6
+1200;2239;6
+1194;2500;7
+1186;2533;7
+1184;2594;7
+1183;2649;7
+1180;2722;7
+1179;2791;7
+1174;2879;8
+1166;2963;8
+1164;3032;8
+1159;3068;8
+1157;3124;8
+1154;4135;11
+1152;5177;14
+1151;5655;15
+1143;5732;15
+1139;5748;15
+1137;6277;17
+1133;6734;18
+1132;7171;19
+1123;7699;20
+1115;7914;21
+1113;8964;24
+1105;9453;25
+1092;9545;26
+1091;15783;43
+1086;32380;88
+# END_OF_LOG
+
+# BEGIN_SETUP
+# SEARCH_SPACE: jssp:int[150]:la24:aitoa.examples.jssp.JSSPSearchSpace
+# SEARCH_SPACE(class): aitoa.examples.jssp.JSSPSearchSpace
+# NULLARY_OP: uniform
+# NULLARY_OP(class): aitoa.examples.jssp.JSSPNullaryOperator
+# UNARY_OP: 1swap
+# UNARY_OP(class): aitoa.examples.jssp.JSSPUnaryOperator1Swap
+# BINARY_OP: null
+# TERNARY_OP: null
+# SOLUTION_SPACE: jssp:gantt:la24:aitoa.examples.jssp.JSSPSolutionSpace
+# SOLUTION_SPACE(class): aitoa.examples.jssp.JSSPSolutionSpace
+# REPRESENTATION_MAPPING: jssp:int[]-to-Gantt:aitoa.examples.jssp.JSSPRepresentationMapping
+# REPRESENTATION_MAPPING(class): aitoa.examples.jssp.JSSPRepresentationMapping
+# OBJECTIVE_FUNCTION: la24
+# OBJECTIVE_FUNCTION(class): aitoa.examples.jssp.JSSPMakespanObjectiveFunction
+# MAX_FES: 9223372036854775807
+# MAX_TIME: 180000
+# GOAL_F: -Infinity
+# RANDOM_SEED: 0x2b7c6a3ef60c5ec3
+# END_SETUP
+# BEGIN_SYSTEM
+# COMPUTER_MANUFACTURER: Dell Inc.
+# COMPUTER_MODEL: Vostro 3480
+# CPU_FAMILY: 6
+# CPU_FREQUENCY_HZ: 1800000000
+# CPU_ID: AFC1FBFF008006EB
+# CPU_IDENTIFIER: Intel64 Family 6 Model 142 Stepping 11
+# CPU_IS_64_BIT: true
+# CPU_LOGICAL_CORES: 8
+# CPU_MODEL: 142
+# CPU_NAME: Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz
+# CPU_PHYSICAL_CORES: 4
+# CPU_PHYSICAL_SLOTS: 1
+# CPU_VENDOR: GenuineIntel
+# GPU_NAME: Advanced Micro Devices, Inc. [AMD/ATI] Jet PRO [Radeon R5 M230 / R7 M260DX / Radeon 520 Mobile]
+# GPU_PCI_DEVICE_ID: 6665
+# GPU_PCI_VENDOR_ID: 1002
+# JAVA_SPECIFICATION_NAME: Java Platform API Specification
+# JAVA_SPECIFICATION_VENDOR: Oracle Corporation
+# JAVA_SPECIFICATION_VERSION: 13
+# JAVA_VENDOR: Private Build
+# JAVA_VERSION: 13
+# JAVA_VM_NAME: OpenJDK 64-Bit Server VM
+# JAVA_VM_VENDOR: Private Build
+# JAVA_VM_VERSION: 13+33-Ubuntu-1
+# MAINBOARD_MANUFACTURER: Dell Inc.
+# MAINBOARD_MODEL: 0KTK89
+# MAINBOARD_VERSION: A00
+# MEMORY_PAGE_SIZE: 4096
+# MEMORY_TOTAL_BYTES: 16662446080
+# NET_DOMAIN_NAME: laptop
+# NET_HOST_NAME: laptop
+# OS_BITS: 64
+# OS_BUILD: 5.3.0-29-generic
+# OS_CODENAME: Eoan Ermine
+# OS_FAMILY: Ubuntu
+# OS_MANUFACTURER: GNU/Linux
+# OS_VERSION: 19.10
+# PROCESS_COMMAND_LINE: java -classpath ./binaries/aitoa-code-0.8.29-full.jar aitoa.examples.jssp.JSSPExperiment ./results 7
+# PROCESS_ID: 14835
+# SESSION_START_DATE_TIME: 2020-02-09T11:46:39.474137Z
+# version.aitoa: 0.8.29
+# version.aitoa.java.build: 13
+# version.aitoa.java.source: 1.8
+# version.aitoa.junit: 4.13
+# version.aitoa.oshi: 4.3.0
+# version.aitoa.slf4j: 1.7.30
+# END_SYSTEM
+
+# BEGIN_STATE
+# CONSUMED_FES: 99485719
+# LAST_IMPROVEMENT_FE: 32380
+# CONSUMED_TIME: 180000
+# LAST_IMPROVEMENT_TIME: 88
+# BEST_F: 1086
+# END_STATE
+# BEST_X
+new int[]{ 5, 3, 10, 14, 6, 6, 2, 7, 14, 5, 10, 11, 14, 14, 3, 0, 12, 14, 13, 8, 7, 4, 1, 11, 10, 13, 3, 11, 14, 10, 12, 10, 5, 9, 11, 6, 1, 7, 0, 3, 6, 13, 9, 2, 8, 9, 2, 0, 7, 13, 10, 2, 9, 12, 2, 4, 8, 1, 7, 3, 13, 4, 13, 12, 8, 14, 7, 3, 6, 0, 9, 12, 6, 4, 8, 4, 1, 11, 8, 0, 3, 4, 7, 2, 4, 5, 10, 8, 5, 12, 3, 11, 0, 9, 1, 1, 11, 5, 11, 3, 9, 0, 2, 6, 1, 13, 12, 13, 10, 7, 8, 2, 6, 4, 14, 4, 14, 8, 10, 5, 12, 6, 7, 6, 2, 5, 11, 9, 12, 5, 9, 13, 14, 3, 5, 1, 12, 8, 11, 7, 4, 0, 0, 10, 13, 9, 0, 2, 1, 1}
+# END_BEST_X
+# BEST_Y
+new aitoa.examples.jssp.JSSPCandidateSolution(new int[][] {
+{ 5, 60, 109, 11, 109, 177, 14, 177, 224, 9, 239, 244, 8, 244, 283, 0, 314, 386, 2, 450, 505, 3, 511, 602, 1, 602, 625, 10, 625, 649, 6, 654, 729, 4, 731, 774, 12, 774, 854, 7, 865, 937, 13, 937, 1032},
+{ 3, 0, 68, 2, 68, 118, 12, 181, 241, 6, 242, 332, 9, 445, 533, 4, 543, 613, 1, 625, 710, 5, 710, 779, 11, 779, 797, 13, 833, 856, 7, 856, 865, 14, 865, 893, 10, 893, 942, 8, 942, 1022, 0, 1041, 1067},
+{ 14, 0, 24, 6, 71, 162, 13, 162, 254, 11, 254, 331, 10, 331, 349, 4, 349, 383, 7, 424, 515, 12, 571, 611, 2, 611, 672, 8, 672, 735, 9, 739, 807, 0, 807, 845, 3, 845, 917, 5, 950, 959, 1, 1010, 1077},
+{ 10, 99, 190, 11, 190, 250, 2, 250, 343, 9, 343, 393, 7, 393, 424, 12, 424, 480, 1, 480, 523, 14, 523, 600, 8, 604, 656, 4, 719, 731, 3, 731, 827, 13, 827, 833, 6, 833, 850, 5, 923, 950, 0, 1067, 1086},
+{ 13, 0, 10, 8, 10, 45, 10, 190, 223, 3, 223, 322, 5, 322, 381, 2, 443, 450, 7, 515, 553, 6, 553, 561, 0, 645, 675, 1, 710, 749, 9, 831, 884, 14, 893, 941, 12, 943, 994, 11, 1013, 1031, 4, 1031, 1061},
+{ 14, 24, 53, 10, 223, 242, 7, 242, 340, 13, 340, 363, 2, 363, 443, 3, 443, 511, 8, 511, 536, 4, 536, 543, 5, 543, 615, 11, 615, 630, 1, 749, 762, 6, 762, 799, 9, 807, 831, 12, 854, 943, 0, 943, 1041},
+{ 6, 0, 71, 1, 71, 90, 14, 224, 301, 3, 322, 382, 13, 382, 428, 10, 428, 466, 12, 480, 571, 0, 571, 645, 4, 645, 719, 9, 719, 739, 2, 739, 796, 8, 796, 831, 5, 878, 923, 11, 923, 1013, 7, 1013, 1062},
+{ 10, 0, 99, 3, 99, 142, 0, 142, 150, 7, 150, 240, 4, 240, 324, 11, 331, 341, 13, 485, 557, 8, 557, 604, 6, 604, 654, 12, 699, 771, 14, 771, 779, 5, 779, 878, 9, 884, 941, 2, 984, 1030, 1, 1077, 1086},
+{ 5, 0, 60, 7, 60, 122, 14, 122, 177, 6, 177, 242, 1, 242, 315, 9, 393, 445, 13, 445, 485, 4, 485, 525, 11, 525, 585, 3, 602, 613, 12, 613, 699, 0, 699, 742, 8, 742, 763, 2, 796, 868, 10, 942, 951},
+{ 14, 53, 102, 12, 102, 181, 9, 181, 239, 0, 239, 314, 8, 314, 388, 6, 388, 486, 7, 553, 625, 5, 625, 688, 11, 688, 760, 3, 827, 838, 10, 838, 873, 4, 873, 942, 2, 942, 984, 1, 984, 1010, 13, 1032, 1066}})
+
+if(!(require("plotteR"))){
+if(!(require("devtools"))){
+install.packages("devtools");
+library("devtools");
+};
+devtools::install_github("thomasWeise/plotteR");
+library("plotteR");
+};
+plot.gantt(list(
+ list( list(job=5L,start=60L,end=109L)
+,list(job=11L,start=109L,end=177L)
+,list(job=14L,start=177L,end=224L)
+,list(job=9L,start=239L,end=244L)
+,list(job=8L,start=244L,end=283L)
+,list(job=0L,start=314L,end=386L)
+,list(job=2L,start=450L,end=505L)
+,list(job=3L,start=511L,end=602L)
+,list(job=1L,start=602L,end=625L)
+,list(job=10L,start=625L,end=649L)
+,list(job=6L,start=654L,end=729L)
+,list(job=4L,start=731L,end=774L)
+,list(job=12L,start=774L,end=854L)
+,list(job=7L,start=865L,end=937L)
+,list(job=13L,start=937L,end=1032L)
+)
+,list( list(job=3L,start=0L,end=68L)
+,list(job=2L,start=68L,end=118L)
+,list(job=12L,start=181L,end=241L)
+,list(job=6L,start=242L,end=332L)
+,list(job=9L,start=445L,end=533L)
+,list(job=4L,start=543L,end=613L)
+,list(job=1L,start=625L,end=710L)
+,list(job=5L,start=710L,end=779L)
+,list(job=11L,start=779L,end=797L)
+,list(job=13L,start=833L,end=856L)
+,list(job=7L,start=856L,end=865L)
+,list(job=14L,start=865L,end=893L)
+,list(job=10L,start=893L,end=942L)
+,list(job=8L,start=942L,end=1022L)
+,list(job=0L,start=1041L,end=1067L)
+)
+,list( list(job=14L,start=0L,end=24L)
+,list(job=6L,start=71L,end=162L)
+,list(job=13L,start=162L,end=254L)
+,list(job=11L,start=254L,end=331L)
+,list(job=10L,start=331L,end=349L)
+,list(job=4L,start=349L,end=383L)
+,list(job=7L,start=424L,end=515L)
+,list(job=12L,start=571L,end=611L)
+,list(job=2L,start=611L,end=672L)
+,list(job=8L,start=672L,end=735L)
+,list(job=9L,start=739L,end=807L)
+,list(job=0L,start=807L,end=845L)
+,list(job=3L,start=845L,end=917L)
+,list(job=5L,start=950L,end=959L)
+,list(job=1L,start=1010L,end=1077L)
+)
+,list( list(job=10L,start=99L,end=190L)
+,list(job=11L,start=190L,end=250L)
+,list(job=2L,start=250L,end=343L)
+,list(job=9L,start=343L,end=393L)
+,list(job=7L,start=393L,end=424L)
+,list(job=12L,start=424L,end=480L)
+,list(job=1L,start=480L,end=523L)
+,list(job=14L,start=523L,end=600L)
+,list(job=8L,start=604L,end=656L)
+,list(job=4L,start=719L,end=731L)
+,list(job=3L,start=731L,end=827L)
+,list(job=13L,start=827L,end=833L)
+,list(job=6L,start=833L,end=850L)
+,list(job=5L,start=923L,end=950L)
+,list(job=0L,start=1067L,end=1086L)
+)
+,list( list(job=13L,start=0L,end=10L)
+,list(job=8L,start=10L,end=45L)
+,list(job=10L,start=190L,end=223L)
+,list(job=3L,start=223L,end=322L)
+,list(job=5L,start=322L,end=381L)
+,list(job=2L,start=443L,end=450L)
+,list(job=7L,start=515L,end=553L)
+,list(job=6L,start=553L,end=561L)
+,list(job=0L,start=645L,end=675L)
+,list(job=1L,start=710L,end=749L)
+,list(job=9L,start=831L,end=884L)
+,list(job=14L,start=893L,end=941L)
+,list(job=12L,start=943L,end=994L)
+,list(job=11L,start=1013L,end=1031L)
+,list(job=4L,start=1031L,end=1061L)
+)
+,list( list(job=14L,start=24L,end=53L)
+,list(job=10L,start=223L,end=242L)
+,list(job=7L,start=242L,end=340L)
+,list(job=13L,start=340L,end=363L)
+,list(job=2L,start=363L,end=443L)
+,list(job=3L,start=443L,end=511L)
+,list(job=8L,start=511L,end=536L)
+,list(job=4L,start=536L,end=543L)
+,list(job=5L,start=543L,end=615L)
+,list(job=11L,start=615L,end=630L)
+,list(job=1L,start=749L,end=762L)
+,list(job=6L,start=762L,end=799L)
+,list(job=9L,start=807L,end=831L)
+,list(job=12L,start=854L,end=943L)
+,list(job=0L,start=943L,end=1041L)
+)
+,list( list(job=6L,start=0L,end=71L)
+,list(job=1L,start=71L,end=90L)
+,list(job=14L,start=224L,end=301L)
+,list(job=3L,start=322L,end=382L)
+,list(job=13L,start=382L,end=428L)
+,list(job=10L,start=428L,end=466L)
+,list(job=12L,start=480L,end=571L)
+,list(job=0L,start=571L,end=645L)
+,list(job=4L,start=645L,end=719L)
+,list(job=9L,start=719L,end=739L)
+,list(job=2L,start=739L,end=796L)
+,list(job=8L,start=796L,end=831L)
+,list(job=5L,start=878L,end=923L)
+,list(job=11L,start=923L,end=1013L)
+,list(job=7L,start=1013L,end=1062L)
+)
+,list( list(job=10L,start=0L,end=99L)
+,list(job=3L,start=99L,end=142L)
+,list(job=0L,start=142L,end=150L)
+,list(job=7L,start=150L,end=240L)
+,list(job=4L,start=240L,end=324L)
+,list(job=11L,start=331L,end=341L)
+,list(job=13L,start=485L,end=557L)
+,list(job=8L,start=557L,end=604L)
+,list(job=6L,start=604L,end=654L)
+,list(job=12L,start=699L,end=771L)
+,list(job=14L,start=771L,end=779L)
+,list(job=5L,start=779L,end=878L)
+,list(job=9L,start=884L,end=941L)
+,list(job=2L,start=984L,end=1030L)
+,list(job=1L,start=1077L,end=1086L)
+)
+,list( list(job=5L,start=0L,end=60L)
+,list(job=7L,start=60L,end=122L)
+,list(job=14L,start=122L,end=177L)
+,list(job=6L,start=177L,end=242L)
+,list(job=1L,start=242L,end=315L)
+,list(job=9L,start=393L,end=445L)
+,list(job=13L,start=445L,end=485L)
+,list(job=4L,start=485L,end=525L)
+,list(job=11L,start=525L,end=585L)
+,list(job=3L,start=602L,end=613L)
+,list(job=12L,start=613L,end=699L)
+,list(job=0L,start=699L,end=742L)
+,list(job=8L,start=742L,end=763L)
+,list(job=2L,start=796L,end=868L)
+,list(job=10L,start=942L,end=951L)
+)
+,list( list(job=14L,start=53L,end=102L)
+,list(job=12L,start=102L,end=181L)
+,list(job=9L,start=181L,end=239L)
+,list(job=0L,start=239L,end=314L)
+,list(job=8L,start=314L,end=388L)
+,list(job=6L,start=388L,end=486L)
+,list(job=7L,start=553L,end=625L)
+,list(job=5L,start=625L,end=688L)
+,list(job=11L,start=688L,end=760L)
+,list(job=3L,start=827L,end=838L)
+,list(job=10L,start=838L,end=873L)
+,list(job=4L,start=873L,end=942L)
+,list(job=2L,start=942L,end=984L)
+,list(job=1L,start=984L,end=1010L)
+,list(job=13L,start=1032L,end=1066L)
+)
+), prefix.job="");
+# END_BEST_Y

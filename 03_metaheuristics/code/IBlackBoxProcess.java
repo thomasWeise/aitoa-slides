@@ -20,3 +20,4 @@ public interface IBlackBoxProcess<X, Y> extends
 /** Some stuff that is not relevant here has been omitted.
     You can find it in the full code online. */
 }
+

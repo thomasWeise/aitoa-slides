@@ -8,8 +8,8 @@ public class JSSPMakespanObjectiveFunction
   
   public double evaluate(final JSSPCandidateSolution y) {
     int makespan = 0; // biggest end time
-    for (final int[] machine : y.schedule) {
-      final int end = machine[machine.length - 1];
+    for (int[] machine : y.schedule) {
+      int end = machine[machine.length - 1];
       if (end > makespan) { // this machine ends later
         makespan = end; // remember biggest end time
       }

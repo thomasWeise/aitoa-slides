@@ -51,6 +51,11 @@
 \end{frame}%
 %
 \begin{frame}%
+\frametitle{Implementation of the Stochastic Hill Climber}%
+\listing{0.9}{1.3}{language=myJava,mathescape=false}{code/HillClimber.java}%
+\end{frame}%
+%
+\begin{frame}%
 \frametitle{Causality}%
 \begin{itemize}%
 \item Local searches like hill climbers exploit a property of many optimization problems called \alert{causality}\cite{R1973ES,R1994ES,WCT2012EOPABT,WZCN2009WIOD}.%
@@ -61,9 +66,120 @@
 \end{itemize}%
 \end{frame}%
 %
+\section{Ingredient: Unary Search Operator}%
+%
+\begin{frame}[t]%
+\frametitle{Unary Search Operator}%
+\begin{itemize}%
+\item Our hill climber must be able to make modified copies of an existing point~$\sespel\in\searchSpace$ in order to find these better points.%
+\item<2-> A unary search operator accepts on existing point~$\sespel\in\searchSpace$ and creates a modified copy of it.%
+\item<3-> It must make sure that the modified copy is still a valid element of~$\searchSpace$.%
+\item<4-> It should ideally be randomized, i.e., applying it twice to the same point~$\sespel$ should yield different results.%
+\only<6->{%
+\item<6-> How can we implement this for our JSSP scenario?%
+\item<7-> \alert{Easy: Just swap two (different) job IDs in the string!}%
+\item<8-> Since the numbers of occurrences of the IDs will not change, the new strings will be valid.%
+}%
+\end{itemize}%
+\only<5>{\listing{0.9}{0.95}{language=myJava,mathescape=false}{../02_structure/code/IUnarySearchOperator.java}}%
+\end{frame}%
+%
 \begin{frame}%
-\frametitle{Implementation of the Stochastic Hill Climber}%
-\listing{0.9}{1.3}{language=myJava,mathescape=false}{code/HillClimber.java}%
+\frametitle{Example for our \texttt{1swap} Operator}%
+\locateGraphic{1}{width=0.95\paperwidth}{graphics/unary_1swap_demo/unary_1swap_demo_1}{0.025}{0.3}%
+\locateGraphic{2}{width=0.95\paperwidth}{graphics/unary_1swap_demo/unary_1swap_demo_2}{0.025}{0.3}%
+\locateGraphic{3}{width=0.95\paperwidth}{graphics/unary_1swap_demo/unary_1swap_demo_3}{0.025}{0.3}%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/unary_1swap_demo/unary_1swap_demo_4}{0.025}{0.3}%
+\locateGraphic{5}{width=0.95\paperwidth}{graphics/unary_1swap_demo/unary_1swap_demo_5}{0.025}{0.3}%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/unary_1swap_demo/unary_1swap_demo_6}{0.025}{0.3}%
+\locateGraphic{7}{width=0.95\paperwidth}{graphics/unary_1swap_demo/unary_1swap_demo_7}{0.025}{0.3}%
+\locateGraphic{8}{width=0.95\paperwidth}{graphics/unary_1swap_demo/unary_1swap_demo_8}{0.025}{0.3}%
+\end{frame}%
+%
+\begin{frame}%
+\listing{0.9}{1.05}{language=myJava,mathescape=false}{code/JSSPUnaryOperator1Swap.java}%
+\end{frame}%
+%
+\section{Experiment and Analysis}%
+%
+
+\begin{frame}[t]%
+\frametitle{So what do we get?}%
+%
+\begin{center}%
+\only<3,5,7,9>{\small{\texttt{rs}: median result of 3~min of random sampling}}%
+\only<4,6,8,10>{\small{\texttt{hc\_1swap}: median result of 3~min of hill climber}}%
+\end{center}%
+%
+\only<-2>{%
+\begin{itemize}%
+\item I execute the program 101~times for each of the instances \texttt{abz7}, \texttt{la24}, \texttt{swv15}, and \texttt{yn4}%
+\end{itemize}%
+\uncover<2->{%
+\begin{center}%
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{|l|l|r|r|r|r|r|r|}%
+\hline%
+&&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
+\hline%
+\hline%
+\texttt{abz7}&\texttt{rs}&895&947&949&\textcolor{green}{\textbf{12}}&85s&6'512'505\\%
+&\texttt{hc\_1swap}&\textcolor{green}{\textbf{717}}&\textcolor{green}{\textbf{800}}&\textcolor{green}{\textbf{798}}&28&0s&16'978\\%
+\hline%
+\texttt{la24}&\texttt{rs}&1153&1206&1208&\textcolor{green}{\textbf{15}}&82s&15'902'911\\%
+&\texttt{hc\_1swap}&\textcolor{green}{\textbf{999}}&\textcolor{green}{\textbf{1095}}&\textcolor{green}{\textbf{1086}}&56&0s&6'612\\%
+\hline%
+\texttt{swv15}&\texttt{rs}&4988&5166&5172&\textcolor{green}{\textbf{50}}&87s&5'559'124\\
+&\texttt{hc\_1swap}&\textcolor{green}{\textbf{3837}}&\textcolor{green}{\textbf{4108}}&\textcolor{green}{\textbf{4108}}&137&1s&104'598\\%
+\hline%
+\texttt{yn4}&\texttt{rs}&1460&1498&1499&\textcolor{green}{\textbf{15}}&76s&4'814'914\\%
+&\texttt{hc\_1swap}&\textcolor{green}{\textbf{1109}}&\textcolor{green}{\textbf{1222}}&\textcolor{green}{\textbf{1220}}&48&0s&31'789\\%
+%
+\hline%gantt_
+\end{tabular}%
+}%
+\end{center}%
+}%
+}%
+%
+\locateGraphic{3}{width=0.95\paperwidth}{graphics/rs_gantt/gantt_rs_abz7_949}{0.025}{0.23}%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/hc_1swap_gantt/gantt_hc_1swap_abz7_949}{0.025}{0.23}%
+\locateGraphic{5}{width=0.95\paperwidth}{graphics/rs_gantt/gantt_rs_la24_1208}{0.025}{0.23}%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/hc_1swap_gantt/gantt_hc_1swap_la24_1208}{0.025}{0.23}%
+\locateGraphic{7}{width=0.95\paperwidth}{graphics/rs_gantt/gantt_rs_swv15_5172}{0.025}{0.23}%
+\locateGraphic{8}{width=0.95\paperwidth}{graphics/hc_1swap_gantt/gantt_hc_1swap_swv15_5172}{0.025}{0.23}%
+\locateGraphic{9}{width=0.95\paperwidth}{graphics/rs_gantt/gantt_rs_yn4_1499}{0.025}{0.23}%
+\locateGraphic{10}{width=0.95\paperwidth}{graphics/hc_1swap_gantt/gantt_hc_1swap_yn4_1499}{0.025}{0.23}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Progress over Time}%
+\locateGraphic{2-3}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_abz7_log}{0.05}{0.2}%
+\locateGraphic{4}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_la24_log}{0.05}{0.2}%
+\locateGraphic{5}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_swv15_log}{0.05}{0.2}%
+\locateGraphic{6-7}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_yn4_log}{0.05}{0.2}%
+\begin{center}%
+What progress does the algorithm make over time?
+\par%
+\vspace{0.65\paperheight}%
+\uncover<3->{First we have much progress\dots\par\uncover<7->{{\dots}\alert{but then the hill climber stagnates!}}}%
+\end{center}
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{But we waste time\dots}%
+\locateGraphic{2-3}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_abz7}{0.05}{0.2}%
+\locateGraphic{4}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_la24}{0.05}{0.2}%
+\locateGraphic{5}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_swv15}{0.05}{0.2}%
+\locateGraphic{6}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_yn4}{0.05}{0.2}%
+\begin{center}%
+What if we look at this without log-scaling the time axis?%%
+\par%
+\vspace{0.65\paperheight}%
+\uncover<3->{\alert{Then it looks even much worse!}}%
+\end{center}%
 \end{frame}%
 %
 \endPresentation%
