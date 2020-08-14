@@ -55,7 +55,7 @@
 \frametitle{So what do we get?}%
 \only<-2,8->{%
 \begin{itemize}%
-\item I execute the program 101~times for each of the instances \texttt{abz7}, \texttt{la24}, \texttt{swv15}, and \texttt{yn4}%
+\item I execute the program 101~times for each of the instances \instStyle{abz7}, \instStyle{la24}, \instStyle{swv15}, and \instStyle{yn4}%
 \item<8-> The results are not good, there is lots of white space $\equiv$ wasted time.\uncover<9->{ That was expected: Our solutions are random.}%
 \item<10-> \textcolor<10>{blue}{Notice 1. We can create and test the schedules very very fast (much faster than 3min).}%
 \item<11-> \textcolor<11>{red}{Notice 2. There is a high variance in the results due to randomness.}%
@@ -68,23 +68,23 @@
 \hline%
 $\instance$&best&mean&med&sd&med(t)&med(FEs)\\%
 \hline%
-\texttt{abz7}&1'131&1'334&1'326&\textcolor<11>{red}{106}&\textcolor<10>{blue}{0s}&1\\%
-\texttt{la24}&1'487&1'842&1'814&\textcolor<11>{red}{165}&\textcolor<10>{blue}{0s}&1\\%
-\texttt{swv15}&5'935&6'600&6'563&\textcolor<11>{red}{346}&\textcolor<10>{blue}{0s}&1\\%
-\texttt{yn4}&1'754&2'036&2'039&\textcolor<11>{red}{125}&\textcolor<10>{blue}{0s}&1\\%
+\instStyle{abz7}&1'131&1'334&1'326&\textcolor<11>{red}{106}&\textcolor<10>{blue}{0s}&1\\%
+\instStyle{la24}&1'487&1'842&1'814&\textcolor<11>{red}{165}&\textcolor<10>{blue}{0s}&1\\%
+\instStyle{swv15}&5'935&6'600&6'563&\textcolor<11>{red}{346}&\textcolor<10>{blue}{0s}&1\\%
+\instStyle{yn4}&1'754&2'036&2'039&\textcolor<11>{red}{125}&\textcolor<10>{blue}{0s}&1\\%
 \hline%
 \end{tabular}%
 \end{center}%
 }%
 }%
 %
-\only<3-4>{Median solution for \texttt{abz7}}%
+\only<3-4>{Median solution for \instStyle{abz7}}%
 \locateGraphic{3-4}{width=0.95\paperwidth}{graphics/1rs_gantt/gantt_1rs_abz7}{0.025}{0.22}%
-\only<5>{Median solution for \texttt{la24}}%
+\only<5>{Median solution for \instStyle{la24}}%
 \locateGraphic{5}{width=0.95\paperwidth}{graphics/1rs_gantt/gantt_1rs_la24}{0.025}{0.22}%
-\only<6>{Median solution for \texttt{swv15}}%
+\only<6>{Median solution for \instStyle{swv15}}%
 \locateGraphic{6}{width=0.95\paperwidth}{graphics/1rs_gantt/gantt_1rs_swv15}{0.025}{0.22}%
-\only<7>{Median solution for \texttt{yn4}}%
+\only<7>{Median solution for \instStyle{yn4}}%
 \locateGraphic{7}{width=0.95\paperwidth}{graphics/1rs_gantt/gantt_1rs_yn4}{0.025}{0.22}%
 \strut\par\vspace{0.62\paperheight}\strut\par%%
 \only<4-7>{{\dots}there is lots of white space between the operations{\dots}}%
@@ -120,14 +120,16 @@ $\instance$&best&mean&med&sd&med(t)&med(FEs)\\%
 \begin{frame}[t]%
 \frametitle{So what do we get?}%
 %
+\only<3->{%
 \begin{center}%
-\only<3,5,7,9>{\texttt{1rs}: median result of single random sample algorithm}%
-\only<4,6,8,10>{\texttt{rs}: median result of 3~min of random sampling algorithm}%
+\only<3,5,7,9>{\algoStyle{1rs}: median result of single random sample algorithm}%
+\only<4,6,8,10>{\algoStyle{rs}: median result of 3~min of random sampling algorithm}%
 \end{center}%
+}%
 %
 \only<-2>{%
 \begin{itemize}%
-\item I execute the program 101~times for each of the instances \texttt{abz7}, \texttt{la24}, \texttt{swv15}, and \texttt{yn4}%
+\item I execute the program 101~times for each of the instances \instStyle{abz7}, \instStyle{la24}, \instStyle{swv15}, and \instStyle{yn4}%
 \end{itemize}%
 \uncover<2->{%
 \begin{center}%
@@ -140,17 +142,17 @@ $\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
 \hline%
 \hline%
 %
-\texttt{abz7}&\texttt{1rs}&1131&1334&1326&106&0s&1\\%
-&\texttt{rs}&\textcolor{green}{\textbf{895}}&\textcolor{green}{\textbf{947}}&\textcolor{green}{\textbf{949}}&\textcolor{green}{\textbf{12}}&85s&6'512'505\\%
+\instStyle{abz7}&\algoStyle{1rs}&1131&1334&1326&106&0s&1\\%
+&\algoStyle{rs}&\textcolor{green}{\textbf{895}}&\textcolor{green}{\textbf{947}}&\textcolor{green}{\textbf{949}}&\textcolor{green}{\textbf{12}}&85s&6'512'505\\%
 \hline%
-\texttt{la24}&\texttt{1rs}&1487&1842&1814&165&0s&1\\%
-&\texttt{rs}&\textcolor{green}{\textbf{1153}}&\textcolor{green}{\textbf{1206}}&\textcolor{green}{\textbf{1208}}&\textcolor{green}{\textbf{15}}&82s&15'902'911\\%
+\instStyle{la24}&\algoStyle{1rs}&1487&1842&1814&165&0s&1\\%
+&\algoStyle{rs}&\textcolor{green}{\textbf{1153}}&\textcolor{green}{\textbf{1206}}&\textcolor{green}{\textbf{1208}}&\textcolor{green}{\textbf{15}}&82s&15'902'911\\%
 \hline%
-\texttt{swv15}&\texttt{1rs}&5935&6600&6563&346&0s&1\\%
-&\texttt{rs}&\textcolor{green}{\textbf{4988}}&\textcolor{green}{\textbf{5166}}&\textcolor{green}{\textbf{5172}}&\textcolor{green}{\textbf{50}}&87s&5'559'124\\%
+\instStyle{swv15}&\algoStyle{1rs}&5935&6600&6563&346&0s&1\\%
+&\algoStyle{rs}&\textcolor{green}{\textbf{4988}}&\textcolor{green}{\textbf{5166}}&\textcolor{green}{\textbf{5172}}&\textcolor{green}{\textbf{50}}&87s&5'559'124\\%
 \hline%
-\texttt{yn4}&\texttt{1rs}&1754&2036&2039&125&0s&1\\%
-&\texttt{rs}&\textcolor{green}{\textbf{1460}}&\textcolor{green}{\textbf{1498}}&\textcolor{green}{\textbf{1499}}&\textcolor{green}{\textbf{15}}&76s&4'814'914\\%
+\instStyle{yn4}&\algoStyle{1rs}&1754&2036&2039&125&0s&1\\%
+&\algoStyle{rs}&\textcolor{green}{\textbf{1460}}&\textcolor{green}{\textbf{1498}}&\textcolor{green}{\textbf{1499}}&\textcolor{green}{\textbf{15}}&76s&4'814'914\\%
 %
 \hline%
 \end{tabular}%

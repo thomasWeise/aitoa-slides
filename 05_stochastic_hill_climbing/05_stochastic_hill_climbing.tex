@@ -85,7 +85,7 @@
 \end{frame}%
 %
 \begin{frame}%
-\frametitle{Example for our \texttt{1swap} Operator}%
+\frametitle{Example for our \algoStyle{1swap} Operator}%
 \locateGraphic{1}{width=0.95\paperwidth}{graphics/unary_1swap_demo/unary_1swap_demo_1}{0.025}{0.3}%
 \locateGraphic{2}{width=0.95\paperwidth}{graphics/unary_1swap_demo/unary_1swap_demo_2}{0.025}{0.3}%
 \locateGraphic{3}{width=0.95\paperwidth}{graphics/unary_1swap_demo/unary_1swap_demo_3}{0.025}{0.3}%
@@ -102,18 +102,19 @@
 %
 \section{Experiment and Analysis}%
 %
-
 \begin{frame}[t]%
 \frametitle{So what do we get?}%
 %
+\only<3->{%
 \begin{center}%
-\only<3,5,7,9>{\small{\texttt{rs}: median result of 3~min of random sampling}}%
-\only<4,6,8,10>{\small{\texttt{hc\_1swap}: median result of 3~min of hill climber}}%
+\only<3,5,7,9>{\small{\algoStyle{rs}: median result of 3~min of random sampling}}%
+\only<4,6,8,10>{\small{\algoStyle{hc_1swap}: median result of 3~min of hill climber}}%
 \end{center}%
+}%
 %
 \only<-2>{%
 \begin{itemize}%
-\item I execute the program 101~times for each of the instances \texttt{abz7}, \texttt{la24}, \texttt{swv15}, and \texttt{yn4}%
+\item I execute the program 101~times for each of the instances \instStyle{abz7}, \instStyle{la24}, \instStyle{swv15}, and \instStyle{yn4}%
 \end{itemize}%
 \uncover<2->{%
 \begin{center}%
@@ -125,19 +126,19 @@
 $\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
 \hline%
 \hline%
-\texttt{abz7}&\texttt{rs}&895&947&949&\textcolor{green}{\textbf{12}}&85s&6'512'505\\%
-&\texttt{hc\_1swap}&\textcolor{green}{\textbf{717}}&\textcolor{green}{\textbf{800}}&\textcolor{green}{\textbf{798}}&28&0s&16'978\\%
+\instStyle{abz7}&\algoStyle{rs}&895&947&949&\textcolor{green}{\textbf{12}}&85s&6'512'505\\%
+&\algoStyle{hc_1swap}&\textcolor{green}{\textbf{717}}&\textcolor{green}{\textbf{800}}&\textcolor{green}{\textbf{798}}&28&0s&16'978\\%
 \hline%
-\texttt{la24}&\texttt{rs}&1153&1206&1208&\textcolor{green}{\textbf{15}}&82s&15'902'911\\%
-&\texttt{hc\_1swap}&\textcolor{green}{\textbf{999}}&\textcolor{green}{\textbf{1095}}&\textcolor{green}{\textbf{1086}}&56&0s&6'612\\%
+\instStyle{la24}&\algoStyle{rs}&1153&1206&1208&\textcolor{green}{\textbf{15}}&82s&15'902'911\\%
+&\algoStyle{hc_1swap}&\textcolor{green}{\textbf{999}}&\textcolor{green}{\textbf{1095}}&\textcolor{green}{\textbf{1086}}&56&0s&6'612\\%
 \hline%
-\texttt{swv15}&\texttt{rs}&4988&5166&5172&\textcolor{green}{\textbf{50}}&87s&5'559'124\\
-&\texttt{hc\_1swap}&\textcolor{green}{\textbf{3837}}&\textcolor{green}{\textbf{4108}}&\textcolor{green}{\textbf{4108}}&137&1s&104'598\\%
+\instStyle{swv15}&\algoStyle{rs}&4988&5166&5172&\textcolor{green}{\textbf{50}}&87s&5'559'124\\
+&\algoStyle{hc_1swap}&\textcolor{green}{\textbf{3837}}&\textcolor{green}{\textbf{4108}}&\textcolor{green}{\textbf{4108}}&137&1s&104'598\\%
 \hline%
-\texttt{yn4}&\texttt{rs}&1460&1498&1499&\textcolor{green}{\textbf{15}}&76s&4'814'914\\%
-&\texttt{hc\_1swap}&\textcolor{green}{\textbf{1109}}&\textcolor{green}{\textbf{1222}}&\textcolor{green}{\textbf{1220}}&48&0s&31'789\\%
+\instStyle{yn4}&\algoStyle{rs}&1460&1498&1499&\textcolor{green}{\textbf{15}}&76s&4'814'914\\%
+&\algoStyle{hc_1swap}&\textcolor{green}{\textbf{1109}}&\textcolor{green}{\textbf{1222}}&\textcolor{green}{\textbf{1220}}&48&0s&31'789\\%
 %
-\hline%gantt_
+\hline%
 \end{tabular}%
 }%
 \end{center}%
@@ -156,10 +157,10 @@ $\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
 %
 \begin{frame}[t]%
 \frametitle{Progress over Time}%
-\locateGraphic{2-3}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_abz7_log}{0.05}{0.2}%
-\locateGraphic{4}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_la24_log}{0.05}{0.2}%
-\locateGraphic{5}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_swv15_log}{0.05}{0.2}%
-\locateGraphic{6-7}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_yn4_log}{0.05}{0.2}%
+\locateGraphic{2-3}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_abz7_log}{0.05}{0.2}%
+\locateGraphic{4}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_la24_log}{0.05}{0.2}%
+\locateGraphic{5}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_swv15_log}{0.05}{0.2}%
+\locateGraphic{6-7}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_yn4_log}{0.05}{0.2}%
 \begin{center}%
 What progress does the algorithm make over time?
 \par%
@@ -170,15 +171,217 @@ What progress does the algorithm make over time?
 %
 \begin{frame}[t]%
 \frametitle{But we waste time\dots}%
-\locateGraphic{2-3}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_abz7}{0.05}{0.2}%
-\locateGraphic{4}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_la24}{0.05}{0.2}%
-\locateGraphic{5}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_swv15}{0.05}{0.2}%
-\locateGraphic{6}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_progress_yn4}{0.05}{0.2}%
+\locateGraphic{2-3}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_abz7}{0.05}{0.2}%
+\locateGraphic{4}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_la24}{0.05}{0.2}%
+\locateGraphic{5}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_swv15}{0.05}{0.2}%
+\locateGraphic{6}{width=0.9\paperwidth}{graphics/hc_1swap_progress/hc_1swap_progress_yn4}{0.05}{0.2}%
 \begin{center}%
 What if we look at this without log-scaling the time axis?%%
 \par%
 \vspace{0.65\paperheight}%
 \uncover<3->{\alert{Then it looks even much worse!}}%
+\end{center}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Indeed, we waste time!}%
+\begin{center}%
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{|l|l|r|r|r|r|r|r|}%
+\hline%
+&&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&algo&best&mean&med&sd&\textcolor<2->{red}{med(t)}&med(FEs)\\%
+\hline%
+\hline%
+\instStyle{abz7}&\algoStyle{rs}&895&947&949&\textcolor{green}{\textbf{12}}&85s&6'512'505\\%
+&\algoStyle{hc_1swap}&\textcolor{green}{\textbf{717}}&\textcolor{green}{\textbf{800}}&\textcolor{green}{\textbf{798}}&28&\textcolor<2->{red}{0s}&16'978\\%
+\hline%
+\instStyle{la24}&\algoStyle{rs}&1153&1206&1208&\textcolor{green}{\textbf{15}}&82s&15'902'911\\%
+&\algoStyle{hc_1swap}&\textcolor{green}{\textbf{999}}&\textcolor{green}{\textbf{1095}}&\textcolor{green}{\textbf{1086}}&56&\textcolor<2->{red}{0s}&6'612\\%
+\hline%
+\instStyle{swv15}&\algoStyle{rs}&4988&5166&5172&\textcolor{green}{\textbf{50}}&87s&5'559'124\\
+&\algoStyle{hc_1swap}&\textcolor{green}{\textbf{3837}}&\textcolor{green}{\textbf{4108}}&\textcolor{green}{\textbf{4108}}&137&\textcolor<2->{red}{1s}&104'598\\%
+\hline%
+\instStyle{yn4}&\algoStyle{rs}&1460&1498&1499&\textcolor{green}{\textbf{15}}&76s&4'814'914\\%
+&\algoStyle{hc_1swap}&\textcolor{green}{\textbf{1109}}&\textcolor{green}{\textbf{1222}}&\textcolor{green}{\textbf{1220}}&48&\textcolor<2->{red}{0s}&31'789\\%
+%
+\hline%
+\end{tabular}%
+}%
+\end{center}%
+\uncover<3->{%
+\begin{itemize}%
+\item We have three minutes but after about 1~second, our \algoStyle{hc_1swap} algorithm stops improving!%
+\end{itemize}%
+}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Premature Convergence}%
+\only<-10>{%
+\begin{itemize}%
+\item Our algorithm makes most of its progress early during the search.%
+\item<2-> Later, it basically stagnates and cannot improve.%
+\item<3-> Why is that?%
+\item<4-> The search operator \algoStyle{1swap} defines a neighborhood~$N(\sespel)\subset\searchSpace$ around a point~$\sespel$.%
+\item<5-> The hill climber can only find solutions which are in the neighborhood of the current best solution.%
+\item<6-> Only the schedules that I can reach by swapping two operations of two different jobs.%
+\item<7-> Clearly~$|N(\sespel)|\lll|\searchSpace|$!%
+\item<8-> What happens if~$\objf(\repMap(\localOptimum{\sespel}))\leq\objf(\repMap(\sespel))\forall \sespel\in N(\localOptimum{\sespel})$ but $\localOptimum{\sespel}$ is not the global optimum?%
+\item<9-> Our algorithm gets trapped in the \alert{local optimum} $\localOptimum{\sespel}$ and cannot escape!%
+\item<10-> This is called \alert{Premature Convergence}.\cite{WZCN2009WIOD,WCT2012EOPABT}%
+\end{itemize}%
+}%
+\locateGraphic{11}{width=0.75\paperwidth}{graphics/premature_convergence/premature_convergence}{0.125}{0.2}%
+\end{frame}%
+%
+\section{Improved Algorithm Concept}%
+%
+\begin{frame}[t]%
+\frametitle{Stochastic Hill Climber with Restarts}%
+\begin{itemize}%
+\item Idea: We have seen that the results of the hill climber exhibit a relatively \textcolor<1>{blue}{high standard deviation}.%
+\item<2-> At the same time, a single \emph{run} of the algorithm \textcolor<2>{red}{converges quickly}.%
+\only<3->{%
+\item<3-> Let us exploit this variance!%
+\item<4-> Idea: If we did not make any progress for a number~$L$ of algorithm steps, we simply restart at a new random solution.%
+\item<5-> Of course, we will always remember the overall best solution we ever had (in another variable).%
+}%
+\end{itemize}%
+\only<-2>{%
+\begin{center}%
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{|l|l|r|r|r|r|r|r|}%
+\hline%
+&&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&algo&best&mean&med&\textcolor{blue}{sd}&\textcolor<2->{red}{med(t)}&med(FEs)\\%
+\hline%
+\hline%
+\instStyle{abz7}&\algoStyle{rs}&895&947&949&12&85s&6'512'505\\%
+&\algoStyle{hc_1swap}&717&800&798&\textcolor{blue}{28}&\textcolor<2->{red}{0s}&16'978\\%
+\hline%
+\instStyle{la24}&\algoStyle{rs}&1153&1206&1208&15&82s&15'902'911\\%
+&\algoStyle{hc_1swap}&999&1095&1086&\textcolor{blue}{56}&\textcolor<2->{red}{0s}&6'612\\%
+\hline%
+\instStyle{swv15}&\algoStyle{rs}&4988&5166&5172&50&87s&5'559'124\\
+&\algoStyle{hc_1swap}&3837&4108&4108&\textcolor{blue}{137}&\textcolor<2->{red}{1s}&104'598\\%
+\hline%
+\instStyle{yn4}&\algoStyle{rs}&1460&1498&1499&15&76s&4'814'914\\%
+&\algoStyle{hc_1swap}&1109&1222&1220&\textcolor{blue}{48}&\textcolor<2->{red}{0s}&31'789\\%
+%
+\hline%
+\end{tabular}%
+}%
+\end{center}%
+}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Stochastic Hill Climbing Algorithm with Restarts}%
+\listing{0.85}{1.4}{language=myJava,mathescape=false}{code/HillClimberWithRestarts.java}%
+\end{frame}%
+%
+\section{Configuring the Algorithm}%
+%
+\begin{frame}%
+\frametitle{Algorithm Parameter}%
+\only<-5,7->{%
+\begin{itemize}%
+\item We now have an algorithm which, in theory, should be able to utilize some of the variance that we observe in the results of \algoStyle{hc_1swap}.%
+\item<2-> We got one problem, though \dots\uncover<3->{~{\dots}actually, it is not just one algorithm, it is an algorithm with a \alert{parameter}~$L$:~\algoStyle{hcr_L_1swap}.}%
+\item<4-> What do we do with that?%
+\item<5-> Let's take a look.%
+\item<7-> If we choose~$L$ too small, we will restart the algorithm too early\uncover<8->{, before it even arrives in a local optimum}%
+\item<9-> If we choose~$L$ too large, we will restart too late and thus waste time\uncover<10->{, that we could have used for more restarts}%
+\item<11-> $L=2^{14}=16'384$ seems to be a reasonable choice.%
+\end{itemize}%
+}%
+%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/hcr_1swap_config/hcr_1swap_med_over_l}{0.025}{0.13}%
+%
+\end{frame}%
+%
+\section{Experiment and Analysis}%
+%
+
+\begin{frame}[t]%
+\frametitle{So what do we get?}%
+%
+ \only<3->{%
+\begin{center}%
+\only<3,5,7,9>{\small{\algoStyle{hc_1swap}: median result of 3~min of hill climber}}%
+\only<4,6,8,10>{\small{\algoStyle{hcr_16384_1swap}: median result of 3~min of hill climber which restarts after $L=16'384$ search steps without improvement}}%
+\end{center}%
+}%
+%
+\only<-2>{%
+\begin{itemize}%
+\item I execute the program 101~times for each of the instances \instStyle{abz7}, \instStyle{la24}, \instStyle{swv15}, and \instStyle{yn4}%
+\end{itemize}%
+\uncover<2->{%
+\begin{center}%
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{|l|l|r|r|r|r|r|r|}%
+\hline%
+&&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
+\hline%
+\hline%
+\instStyle{abz7}&\algoStyle{rs}&895&947&949&12&85s&6'512'505\\%                           
+&\algoStyle{hc_1swap}&717&800&798&28&0s&16'978\\%                       
+&\algoStyle{hcr_16384_1swap}&\textcolor{green}{\textbf{714}}&\textcolor{green}{\textbf{732}}&\textcolor{green}{\textbf{733}}&\textcolor{green}{\textbf{6}}&91s&18'423'530\\%
+\hline%    
+\instStyle{la24}&\algoStyle{rs}&1153&1206&1208&15&82s&15'902'911\\%                       
+&\algoStyle{hc_1swap}&999&1095&1086&56&0s&6'612\\%
+&\algoStyle{hcr_16384_1swap}&\textcolor{green}{\textbf{953}}&\textcolor{green}{\textbf{976}}&\textcolor{green}{\textbf{976}}&\textcolor{green}{\textbf{7}}&80s&34'437'999\\%
+\hline%    
+\instStyle{swv15}&\algoStyle{rs}&4988&5166&5172&50&87s&5'559'124\\%                       
+&\algoStyle{hc_1swap}&3837&4108&4108&137&1s&104'598\\%                  
+&\algoStyle{hcr_16384_1swap}&\textcolor{green}{\textbf{3752}}&\textcolor{green}{\textbf{3859}}&\textcolor{green}{\textbf{3861}}&\textcolor{green}{\textbf{42}}&92s&11'756'497\\%
+\hline%
+\instStyle{yn4}&\algoStyle{rs}&1460&1498&1499&15&76s&4'814'914\\%                         
+&\algoStyle{hc_1swap}&1109&1222&1220&48&0s&31'789\\%                    
+&\algoStyle{hcr_16384_1swap}&\textcolor{green}{\textbf{1081}}&\textcolor{green}{\textbf{1115}}&\textcolor{green}{\textbf{1115}}&\textcolor{green}{\textbf{11}}&91s&14'804'358\\%
+%
+\hline%
+\end{tabular}%
+}%
+\end{center}%
+}%
+}%
+%
+\locateGraphic{3}{width=0.95\paperwidth}{graphics/hc_1swap_gantt/gantt_hc_1swap_abz7_798}{0.025}{0.26}%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/hcr_1swap_gantt/gantt_hcr_16384_1swap_abz7_798}{0.025}{0.26}%
+\locateGraphic{5}{width=0.95\paperwidth}{graphics/hc_1swap_gantt/gantt_hc_1swap_la24_1086}{0.025}{0.26}%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/hcr_1swap_gantt/gantt_hcr_16384_1swap_la24_1086}{0.025}{0.26}%
+\locateGraphic{7}{width=0.95\paperwidth}{graphics/hc_1swap_gantt/gantt_hc_1swap_swv15_4108}{0.025}{0.26}%
+\locateGraphic{8}{width=0.95\paperwidth}{graphics/hcr_1swap_gantt/gantt_hcr_16384_1swap_swv15_4108}{0.025}{0.26}%
+\locateGraphic{9}{width=0.95\paperwidth}{graphics/hc_1swap_gantt/gantt_hc_1swap_yn4_1220}{0.025}{0.26}%
+\locateGraphic{10}{width=0.95\paperwidth}{graphics/hcr_1swap_gantt/gantt_hcr_16384_1swap_yn4_1220}{0.025}{0.26}%
+\end{frame}%
+%
+\begin{frame}[b]%
+\frametitle{Progress over Time}%
+\locateGraphic{2-4}{width=0.9\paperwidth}{graphics/hcr_1swap_progress/hcr_1swap_progress_abz7_log}{0.05}{0.12}%
+\locateGraphic{5}{width=0.9\paperwidth}{graphics/hcr_1swap_progress/hcr_1swap_progress_la24_log}{0.05}{0.12}%
+\locateGraphic{6}{width=0.9\paperwidth}{graphics/hcr_1swap_progress/hcr_1swap_progress_swv15_log}{0.05}{0.12}%
+\locateGraphic{7}{width=0.9\paperwidth}{graphics/hcr_1swap_progress/hcr_1swap_progress_yn4_log}{0.05}{0.12}%
+\locateGraphic{8-9}{width=0.9\paperwidth}{graphics/hcr_1swap_progress/hcr_1swap_progress_abz7}{0.05}{0.12}%
+\locateGraphic{10}{width=0.9\paperwidth}{graphics/hcr_1swap_progress/hcr_1swap_progress_la24}{0.05}{0.12}%
+\locateGraphic{11}{width=0.9\paperwidth}{graphics/hcr_1swap_progress/hcr_1swap_progress_swv15}{0.05}{0.12}%
+\locateGraphic{12}{width=0.9\paperwidth}{graphics/hcr_1swap_progress/hcr_1swap_progress_yn4}{0.05}{0.12}%
+\begin{center}%
+What progress does the algorithm make over time?
+\uncover<3->{%
+\begin{itemize}%
+\item First it behaves like the normal hill climber%
+\item<4-> But it keeps improving.%
+\item<9-> Although we still do not use the available time very well\dots%
+\end{itemize}%
+}%
 \end{center}%
 \end{frame}%
 %

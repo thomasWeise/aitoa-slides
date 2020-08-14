@@ -5,6 +5,7 @@
 %
 %
 \gdef\listingBasicStyle{\ttfamily\footnotesize}%
+\gdef\listingInlineBasicStyle{\ttfamily}%
 \gdef\listingNumberStyle{\tiny\rmfamily}%
 \gdef\listingKeywordStyleA{\color{violet}\textbf}%
 \gdef\listingKeywordStyleB{\color{teal}\textbf}%
@@ -78,17 +79,11 @@ upquote=true%
 % introduce `...` as alternative math escape
 \lst@AddToHook{SelectCharTable}{\lst@Escape{\`}{\`}{\listingCommentFormat\setbox\@tempboxa=\hbox\bgroup$}{$\egroup \lst@CalcLostSpaceAndOutput}}%
 %
-%% are we in the caption of a listingBlock environment?
-\newif\ifInListingBlockCaption%
-\InListingBlockCaptionfalse%
 %
-%
-%% Put the contents into a typical code box (no box is put if contents are in listing block caption)
+%% Put the contents into a typical code box
 %% #1 the contents
 \gdef\codeBox#1{\mbox{%
-\ifInListingBlockCaption\expandafter\@secondoftwo\else\expandafter\@firstoftwo\fi%
-{\fcolorbox{codeFrame}{codeBg}{\mbox{#1}}}%
-{#1}%
+\fcolorbox{codeFrame}{codeBg}{\mbox{#1}}%
 }}%
 %
 % print some code inline
@@ -97,9 +92,9 @@ upquote=true%
 \newcommand{\codeil}[2][]{%
 \texorpdfstring{%
 \if\relax\detokenize{#1}\relax%
-\codeBox{\lstinline[keywordstyle=\listingBasicStyle]$#2$}%
+\codeBox{\lstinline[basicstyle=\listingInlineBasicStyle,keywordstyle=\listingInlineBasicStyle]$#2$}%
 \else%
-\codeBox{\lstinline[basicstyle=\listingBasicStyle,keywordstyle={[1]\listingKeywordStyleA},keywordstyle={[2]\listingKeywordStyleB},keywordstyle={[3]\listingKeywordStyleC},keywordstyle=\listingKeywordStyleA,#1]$#2$}%
+\codeBox{\lstinline[basicstyle=\listingInlineBasicStyle,keywordstyle=\listingInlineBasicStyle,keywordstyle={[1]\listingKeywordStyleA},keywordstyle={[2]\listingKeywordStyleB},keywordstyle={[3]\listingKeywordStyleC},keywordstyle=\listingKeywordStyleA,#1]$#2$}%
 \fi%
 }{#2}%
 }%
@@ -128,3 +123,12 @@ upquote=true%
 }%
 \end{center}%
 }%
+%
+% print an algorithm name
+% #1 the name to be printed
+\protected\gdef\algoStyle#1{%
+\texorpdfstring{\lstinline[basicstyle=\listingInlineBasicStyle,keywordstyle=\listingInlineBasicStyle]$#1$}{#1}%
+}%
+\global\let\instStyle\algoStyle%
+%
+

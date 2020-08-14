@@ -5,6 +5,7 @@ files <- c("hc_1swap_abz7_0x4d76e0390b366999.txt",
            "hc_1swap_swv15_0x700a1d35338970bc.txt",
            "hc_1swap_yn4_0xe061e588cbb077ff.txt");
 makespan.rs <- c(949L, 1208L, 5172L, 1499L);
+makespan.hc <- c(798L, 1086L, 4108L, 1220L);
 
 width <- 6;
 height <- 3;
@@ -23,8 +24,15 @@ for(i in seq_along(files)) {
     aitoa.graphic(name=paste0(name, "_", makespan.rs[[i]]),
                   type=type, width=width, height=height, body={
       aitoaEvaluate::aitoa.plot.gantt(gantt,
-          center.label = paste0(components[[2L]], " / ", as.integer(data$best.f)), mar=mar,
+          center.label = paste0(components[[3L]], " / ", as.integer(data$best.f)), mar=mar,
           xlim=c(0L, makespan.rs[[i]]));
+    });
+
+    aitoa.graphic(name=paste0(name, "_", makespan.hc[[i]]),
+                  type=type, width=width, height=height, body={
+        aitoaEvaluate::aitoa.plot.gantt(gantt,
+          center.label = paste0(components[[3L]], " / ", as.integer(data$best.f)), mar=mar,
+          xlim=c(0L, makespan.hc[[i]]));
     });
   }
 }
