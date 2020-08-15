@@ -236,7 +236,7 @@ $\instance$&algo&best&mean&med&sd&\textcolor<2->{red}{med(t)}&med(FEs)\\%
 \locateGraphic{11}{width=0.75\paperwidth}{graphics/premature_convergence/premature_convergence}{0.125}{0.2}%
 \end{frame}%
 %
-\section{Improved Algorithm Concept}%
+\section{Improved Algorithm Concept 1}%
 %
 \begin{frame}[t]%
 \frametitle{Stochastic Hill Climber with Restarts}%
@@ -380,6 +380,148 @@ What progress does the algorithm make over time?
 \item First it behaves like the normal hill climber%
 \item<4-> But it keeps improving.%
 \item<9-> Although we still do not use the available time very well\dots%
+\end{itemize}%
+}%
+\end{center}%
+\end{frame}%
+%
+\section{Improved Algorithm Concept 2}%
+%
+\begin{frame}%
+\frametitle{Drawbacks of Restarts}%
+\begin{itemize}%
+\item A restarted algorithm is still the same algorithm, just restarted.%
+\item<2-> If there are many more local optima than global optima, every restart will probably end again in a local optimum.%
+\item<3-> If there are many more ``bad'' local optima than ``good'' local optima, every restart will probably end in a ``bad'' local optimum.%
+\item<4-> While restarts improve the chance to find better solutions, they cannot solve the intrinsic shortcomings of an algorithm.\medskip%
+\item<5-> Another problem is: With every restart we throw away all accumulated knowledge and information of the current run.%
+\item<6-> Restarts are therefore also wasteful.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{How else can we stop premature convergence?}%
+\begin{itemize}%
+\item Our \algoStyle{hc_1swap} hill climber will stop improving if it can no longer finder better solutions.%
+\item<2-> This happens when it reaches a local optimum.%
+\item<3-> A local optimum is a \textcolor<6>{blue}{point~$\localOptimum{\sespel}$} in~$\searchSpace$ where no \textcolor<5>{red}{\algoStyle{1swap}-move} can yield any improvement.%
+\item<4-> It does not matter which \textcolor<5>{red}{two job ids I exchange} in the current best \textcolor<6>{blue}{string~$\localOptimum{\sespel}$}, the result is not better than~\textcolor<6>{blue}{$\localOptimum{\sespel}$}.%
+\item<5-> Notice: Whether or not a point~$\sespel$ is a local optimum, is determined entirely by the \textcolor<5>{red}{unary search operator}!%
+\item<6-> If we had a different operator with a bigger neighborhood, then maybe~\textcolor{blue}{$\localOptimum{\sespel}$} would no longer be a local optimum and we could still improve the results after reaching it\dots%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Making the neighborhood bigger}%
+\begin{itemize}%
+\item Two solutions~$\sespel_1$ and~$\sespel_2$ are ``neighbors'' if I can reach~$\sespel_2$ by applying the search operator one time to~$\sespel_1$.%
+\item<2-> The search operator determines which solutions are ``neighbors''.%
+\item<3-> The neighborhood determines what a local optimum is.%
+\item<4-> Let's make it bigger.%
+\item<5-> It always helps to think about the extreme cases first.%
+\item<6-> On one hand, we already have \algoStyle{1swap}, which swaps two jobs.\uncover<7->{ This is the smallest step I can imagine.}%
+\item<8-> On the other end of the spectrum, we could simply swap all jobs in our points~$\sespel$ randomly.\uncover<9->{ Is this a good idea?\uncover<10->{Probably not: It would turn our algorithm into random sampling!}}%
+\item<11-> We should respect the causality: small changes to the solution cause small changes in the objective value -- big changes will lead to unpredictable results.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Making the neighborhood bigger}%
+\begin{itemize}%
+\item Idea: Let's most often swap 2 jobs\uncover<2->{, but sometimes 3\uncover<3->{, less often 4\uncover<4->{, from time to time 5\uncover<5->{, rarely 6\uncover<6->{, hardly ever 7\uncover<7->{, \dots}}}}}}%
+\item<8-> \algoStyle{nswap} operator idea\uncover<9->{:%
+\begin{enumerate}%
+\item flip a coin: if it is heads (\textcolor{red}{50\% probability}), we will swap \textcolor{red}{2} job ids (and stop).%
+\item<10-> otherwise (it was tail), we again flip a coin.\uncover<11->{ if it is heads (50\% probability, now \textcolor{blue}{25\%} in total), we will swap \textcolor{blue}{3} job ids (and stop).}%
+\item<12-> otherwise (it was tail), we again flip a coin.\uncover<13->{ if it is heads (50\% probability, now \textcolor{green}{12.5\%} in total), we will swap \textcolor{green}{4} job ids (and stop).}%
+\item<14-> otherwise (it was tail), we again flip a coin.\uncover<15->{ if it is heads (50\% probability, now \textcolor{orange}{6.25\%} in total), we will swap \textcolor{orange}{5} job ids (and stop).}%
+\item<16-> otherwise (it was tail), we again flip a coin.\uncover<17->{ if it is heads (50\% probability, now \textcolor{cyan}{3.125\%} in total), we will swap \textcolor{cyan}{6} job ids (and stop).}%
+\item<18-> and so on.
+\end{enumerate}%
+}%
+\item<19-> We most often make small moves, but sometimes bigger ones.%
+\item<20-> Theoretically, we could always escape from any local optimum\only<20>{.}\uncover<21->{, but the probability may sometimes be very very small.}%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Implementation of the \algoStyle{nswap} Operator}%
+\listing{0.9}{1.3}{language=myJava,mathescape=false}{code/JSSPUnaryOperatorNSwap.java}%
+\end{frame}%
+%
+\section{Experiment and Analysis}%
+%
+\begin{frame}[t]%
+\frametitle{So what do we get?}%
+%
+\only<3->{%
+\begin{center}%
+\only<3,5,7,9>{\small{\algoStyle{hc_1swap}: median result of 3~min of hill climber} using \algoStyle{1swap}}%
+\only<4,6,8,10>{\small{\algoStyle{hc_nswap}: median result of 3~min of hill climber} using \algoStyle{nswap}}%
+\end{center}%
+}%
+%
+\only<-2>{%
+\begin{itemize}%
+\item I execute the program 101~times for each of the instances \instStyle{abz7}, \instStyle{la24}, \instStyle{swv15}, and \instStyle{yn4}%
+\end{itemize}%
+\uncover<2->{%
+\begin{center}%
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{|l|l|r|r|r|r|r|r|}%
+\hline%
+&&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
+\hline%
+\hline%
+
+\instStyle{abz7}&\algoStyle{hc_1swap}&717&800&798&28&0s&16'978\\%
+&\algoStyle{hcr_16384_1swap}&\textcolor{green}{\textbf{714}}&\textcolor{green}{\textbf{732}}&\textcolor{green}{\textbf{733}}&**6&91s&18'423'530\\%
+&\algoStyle{hc_nswap}&724&758&758&17&35s&7'781'762\\%
+\hline%
+\instStyle{la24}&\algoStyle{hc_1swap}&999&1095&1086&56&0s&6'612\\%
+&\algoStyle{hcr_16384_1swap}&953&\textcolor{green}{\textbf{976}}&\textcolor{green}{\textbf{976}}&\textcolor{green}{\textbf{7}}&80s&34'437'999\\%
+&\algoStyle{hc_nswap}&\textcolor{green}{\textbf{945}}&1018&1016&29&25s&9'072'935\\%
+\hline%
+\instStyle{swv15}&\algoStyle{hc_1swap}&3837&4108&4108&137&1s&104'598\\%
+&\algoStyle{hcr_16384_1swap}&3752&\textcolor{green}{\textbf{3859}}&\textcolor{green}{\textbf{3861}}&\textcolor{green}{\textbf{42}}&92s&11'756'497\\%
+&\algoStyle{hc_nswap}&\textcolor{green}{\textbf{3602}}&3880&3872&112&70s&8'351'112\\%
+\hline%
+\instStyle{yn4}&\algoStyle{hc_1swap}&1109&1222&1220&48&0s&31'789\\%
+&\algoStyle{hcr_16384_1swap}&\textcolor{green}{\textbf{1081}}&\textcolor{green}{\textbf{1115}}&\textcolor{green}{\textbf{1115}}&\textcolor{green}{\textbf{11}}&91s&14'804'358\\%
+&\algoStyle{hc_nswap}&1095&1162&1160&34&71s&11'016'757\\%
+%
+\hline%
+\end{tabular}%
+}%
+\end{center}%
+}%
+}%
+%
+\locateGraphic{3}{width=0.95\paperwidth}{graphics/hc_1swap_gantt/gantt_hc_1swap_abz7_798}{0.025}{0.26}%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/hc_nswap_gantt/gantt_hc_nswap_abz7_798}{0.025}{0.26}%
+\locateGraphic{5}{width=0.95\paperwidth}{graphics/hc_1swap_gantt/gantt_hc_1swap_la24_1086}{0.025}{0.26}%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/hc_nswap_gantt/gantt_hc_nswap_la24_1086}{0.025}{0.26}%
+\locateGraphic{7}{width=0.95\paperwidth}{graphics/hc_1swap_gantt/gantt_hc_1swap_swv15_4108}{0.025}{0.26}%
+\locateGraphic{8}{width=0.95\paperwidth}{graphics/hc_nswap_gantt/gantt_hc_nswap_swv15_4108}{0.025}{0.26}%
+\locateGraphic{9}{width=0.95\paperwidth}{graphics/hc_1swap_gantt/gantt_hc_1swap_yn4_1220}{0.025}{0.26}%
+\locateGraphic{10}{width=0.95\paperwidth}{graphics/hc_nswap_gantt/gantt_hc_nswap_yn4_1220}{0.025}{0.26}%
+\end{frame}%
+%
+\begin{frame}[b]%
+\frametitle{Progress over Time}%
+\locateGraphic{2-5}{width=0.9\paperwidth}{graphics/hc_nswap_progress/hc_nswap_progress_abz7_log}{0.05}{0.12}%
+\locateGraphic{6}{width=0.9\paperwidth}{graphics/hc_nswap_progress/hc_nswap_progress_la24_log}{0.05}{0.12}%
+\locateGraphic{7}{width=0.9\paperwidth}{graphics/hc_nswap_progress/hc_nswap_progress_swv15_log}{0.05}{0.12}%
+\locateGraphic{8}{width=0.9\paperwidth}{graphics/hc_nswap_progress/hc_nswap_progress_yn4_log}{0.05}{0.12}%
+\begin{center}%
+What progress does the algorithm make over time?%
+\uncover<3->{%
+\begin{itemize}%
+\only<-3>{\item<-3> \algoStyle{hc_nswap} first behaves like \algoStyle{hc_1swap}, because most of the \algoStyle{nswap} moves are the same as \algoStyle{1swap} moves.}%
+\only<4->{\item<4-> The rare larger moves allow it to escape from local optima that would trap \algoStyle{hc_1swap}.}%
+\only<5->{\item<5-> The hill climber with restarts seems to improve longer.}%
 \end{itemize}%
 }%
 \end{center}%
