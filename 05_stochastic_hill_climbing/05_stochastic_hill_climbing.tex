@@ -475,7 +475,6 @@ What progress does the algorithm make over time?
 $\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
 \hline%
 \hline%
-
 \instStyle{abz7}&\algoStyle{hc_1swap}&717&800&798&28&0s&16'978\\%
 &\algoStyle{hcr_16384_1swap}&\textcolor{green}{\textbf{714}}&\textcolor{green}{\textbf{732}}&\textcolor{green}{\textbf{733}}&**6&91s&18'423'530\\%
 &\algoStyle{hc_nswap}&724&758&758&17&35s&7'781'762\\%
@@ -525,6 +524,146 @@ What progress does the algorithm make over time?%
 \end{itemize}%
 }%
 \end{center}%
+\end{frame}%
+%
+\section{Improved Algorithm Concept 3}%
+%
+\begin{frame}%
+\frametitle{Combining the Two Improvements}%
+\begin{itemize}%
+\item Now we know two ways to improve the performance of our hill climber\only<-1>{.}\uncover<2->{:%
+\begin{enumerate}
+\item we can restart it\only<3->{ and}%
+\item<3-> we can use a unary operator with larger neighborhood that still mostly makes small steps.%
+\end{enumerate}%
+}%
+\item<4-> It is only natural to try to combine these two improvements.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Configuration}%
+\only<-3,5->{%
+\uncover<2-3,5->{%
+\begin{itemize}%
+\item The \algoStyle{hc_nswap} improves longer than \algoStyle{hc_1swap}%.
+\item<3-> We can expect that the number~$L$ of unsuccessful steps before a restart should be higher now.%
+\item<5-> Let's choose $L=65'536$, i.e., \algoStyle{hcr_65536_nswap}.
+\end{itemize}%
+}%
+\begin{center}%
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{|l|l|r|r|r|r|r|r|}%
+\hline%
+&&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
+\hline%
+\hline%
+\instStyle{abz7}&\algoStyle{hc_1swap}&717&800&798&28&\textcolor{red}{0s}&\textcolor{red}{16'978}\\%
+&\algoStyle{hc_nswap}&724&758&758&17&\textcolor{red}{35s}&\textcolor{red}{7'781'762}\\%
+\hline%
+\instStyle{la24}&\algoStyle{hc_1swap}&999&1095&1086&56&\textcolor{red}{0s}&\textcolor{red}{6'612}\\%
+&\algoStyle{hc_nswap}&945&1018&1016&29&\textcolor{red}{25s}&\textcolor{red}{9'072'935}\\%
+\hline%
+\instStyle{swv15}&\algoStyle{hc_1swap}&3837&4108&4108&137&\textcolor{red}{1s}&\textcolor{red}{104'598}\\%
+&\algoStyle{hc_nswap}&3602&3880&3872&112&\textcolor{red}{70s}&\textcolor{red}{8'351'112}\\%
+\hline%
+\instStyle{yn4}&\algoStyle{hc_1swap}&1109&1222&1220&48&\textcolor{red}{0s}&\textcolor{red}{31'789}\\%
+&\algoStyle{hc_nswap}&1095&1162&1160&34&\textcolor{red}{71s}&\textcolor{red}{11'016'757}\\%
+%
+\hline%
+\end{tabular}%
+}%
+\end{center}}%
+%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/hcr_nswap_config/hcr_nswap_med_over_l}{0.025}{0.13}%
+\end{frame}%
+%
+\section{Experiment and Analysis}%
+%
+\begin{frame}[t]%
+\frametitle{So what do we get?}%
+%
+\only<3->{%
+\begin{center}%
+\only<3,5,7,9>{\small{\algoStyle{hcr_16384_1swap}: median result of 3~min of \algoStyle{hcr_16384_1swap}}}%
+\only<4,6,8,10>{\small{\algoStyle{hcr_65536_nswap}: median result of 3~min of \algoStyle{hcr_65536_nswap}}}%
+\end{center}%
+}%
+%
+\only<-2>{%
+\begin{itemize}%
+\item I execute the program 101~times for each of the instances \instStyle{abz7}, \instStyle{la24}, \instStyle{swv15}, and \instStyle{yn4}%
+\end{itemize}%
+\uncover<2->{%
+\begin{center}%
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{|l|l|r|r|r|r|r|r|}%
+\hline%
+&&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
+\hline%
+\hline%
+\instStyle{abz7}&\algoStyle{hcr_16384_1swap}&714&732&733&\textcolor{green}{\textbf{6}}&91s&18'423'530\\%
+&\algoStyle{hc_nswap}&724&758&758&17&35s&7'781'762\\%
+&\algoStyle{hcr_65536_nswap}&\textcolor{green}{\textbf{712}}&\textcolor{green}{\textbf{731}}&\textcolor{green}{\textbf{732}}&6&96s&21'189'358\\%
+\hline%
+\instStyle{la24}&\algoStyle{hcr_16384_1swap}&953&976&976&\textcolor{green}{\textbf{7}}&80s&34'437'999\\%
+&\algoStyle{hc_nswap}&945&1018&1016&29&25s&9'072'935\\%
+&\algoStyle{hcr_65536_nswap}&\textcolor{green}{\textbf{942}}&\textcolor{green}{\textbf{973}}&\textcolor{green}{\textbf{974}}&8&71s&31'466'420\\%
+\hline%
+\instStyle{swv15}&\algoStyle{hcr_16384_1swap}&3752&3859&3861&42&92s&11'756'497\\%
+&\algoStyle{hc_nswap}&\textcolor{green}{\textbf{3602}}&3880&3872&112&70s&8'351'112\\%
+&\algoStyle{hcr_65536_nswap}&3740&\textcolor{green}{\textbf{3818}}&\textcolor{green}{\textbf{3826}}&\textcolor{green}{\textbf{35}}&89s&10'783'296\\%
+\hline%
+\instStyle{yn4}&\algoStyle{hcr_16384_1swap}&1081&1115&1115&\textcolor{green}{\textbf{11}}&91s&14'804'358\\%
+&\algoStyle{hc_nswap}&1095&1162&1160&34&71s&11'016'757\\%
+&\algoStyle{hcr_65536_nswap}&\textcolor{green}{\textbf{1068}}&\textcolor{green}{\textbf{1109}}&\textcolor{green}{\textbf{1110}}&12&78s&18'756'636\\%
+%
+\hline%
+\end{tabular}%
+}%
+\end{center}%
+}%
+}%
+%
+\locateGraphic{3}{width=0.95\paperwidth}{graphics/hcr_1swap_gantt/gantt_hcr_16384_1swap_abz7_733}{0.025}{0.23}%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/hcr_nswap_gantt/gantt_hcr_65536_nswap_abz7_733}{0.025}{0.23}%
+\locateGraphic{5}{width=0.95\paperwidth}{graphics/hcr_1swap_gantt/gantt_hcr_16384_1swap_la24_976}{0.025}{0.23}%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/hcr_nswap_gantt/gantt_hcr_65536_nswap_la24_976}{0.025}{0.23}%
+\locateGraphic{7}{width=0.95\paperwidth}{graphics/hcr_1swap_gantt/gantt_hcr_16384_1swap_swv15_3861}{0.025}{0.23}%
+\locateGraphic{8}{width=0.95\paperwidth}{graphics/hcr_nswap_gantt/gantt_hcr_65536_nswap_swv15_3861}{0.025}{0.23}%
+\locateGraphic{9}{width=0.95\paperwidth}{graphics/hcr_1swap_gantt/gantt_hcr_16384_1swap_yn4_1115}{0.025}{0.23}%
+\locateGraphic{10}{width=0.95\paperwidth}{graphics/hcr_nswap_gantt/gantt_hcr_65536_nswap_yn4_1115}{0.025}{0.23}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Progress over Time}%
+\locateGraphic{2-3}{width=0.9\paperwidth}{graphics/hcr_nswap_progress/hcr_nswap_progress_abz7_log}{0.05}{0.2}%
+\locateGraphic{4}{width=0.9\paperwidth}{graphics/hcr_nswap_progress/hcr_nswap_progress_la24_log}{0.05}{0.2}%
+\locateGraphic{5}{width=0.9\paperwidth}{graphics/hcr_nswap_progress/hcr_nswap_progress_swv15_log}{0.05}{0.2}%
+\locateGraphic{6-7}{width=0.9\paperwidth}{graphics/hcr_nswap_progress/hcr_nswap_progress_yn4_log}{0.05}{0.2}%
+\begin{center}%
+What progress does the algorithm make over time?
+\par%
+\vspace{0.65\paperheight}%
+\uncover<3->{\algoStyle{hcr_nswap} tends to be a tiny little bit better than \algoStyle{hcr_1swap} {\dots} but not much}%
+\end{center}
+\end{frame}%
+%
+\section{Summary}%
+%
+\begin{frame}%
+\frametitle{Summary}%
+\begin{itemize}%
+\item We now have learned a second, more efficient metaheuristic optimization algorithm: stochastic hill climber.%
+\item<2-> By making use of the best point in the search space we have seen so far and iteratively trying to improve it, we can dramatically improve the results compared to random sampling.%
+\item<3-> Like random sampling, we can apply it to all sorts of problems, as long as we provide the basic structural ingredients.%
+\item<4-> Hill climbing is a local search and vulnerable to get trapped in local optima.%
+\item<5-> We can try to work around that by implementing good search operators and by restarting the algorithm.%
+\end{itemize}%
 \end{frame}%
 %
 \endPresentation%
