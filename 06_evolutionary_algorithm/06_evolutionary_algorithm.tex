@@ -1,0 +1,171 @@
+\documentclass[mathserif]{beamer}%
+%
+\xdef\sharedDir{../_shared_}%
+\RequirePackage{\sharedDir/styles/slides}%
+%
+\subtitle{6. Evolutionary Algorithms}%
+%
+\begin{document}%
+\startPresentation%
+%
+\section{Introduction}%
+%
+\begin{frame}%
+\frametitle{Introduction}%
+\begin{itemize}%
+\item Hill Climbers are local search.%
+\item<2-> They begin at some point~$\sespel$ in the search space and then investigate its neighborhood~$N(\sespel)$.%
+\item<3-> The neighborhood is defined by the (unary) search operator, in our case \algoStyle{1swap} or \algoStyle{nswap}.%
+\item<4-> If they reach a local optimum~$\localOptimum{\sespel}$, they get trapped.%
+\item<5-> We then can restart them, but this means\uncover<5->{
+\begin{enumerate}%
+\item to start again back at ``zero'' and losing all accumulated information\uncover<6->{ and}%
+\item<6-> they may still land again in a local optimum.%
+\end{enumerate}%
+}%
+\item<7-> We can use unary operators which sample non-uniformly from larger neighborhoods, like \algoStyle{nswap}, but the search move needed to escape from a good but non-optimal point might be too unlikely.%
+\item<8-> Idea: We could investigate multiple points in the search space at once and use the additional information in a clever way?%
+\end{itemize}%
+\end{frame}%
+%
+%
+\begin{frame}%
+\frametitle{Population-Based Metaheuristics}%
+\begin{itemize}%
+\item Population-based metaheuristics\cite{WGOEB,H1975GA,BFM1997EA,MF2004HTSIMH,G1989GA} try to maintain a \alert{set} of points in the search space which are iteratively refined.%%
+\item<2-> This has a couple of advantages\uncover<3->{:%
+\begin{itemize}%
+\item We are less likely to get trapped in a single local optimum (because we work on multiple points).%
+\item<4-> We might more likely find a better (local) optimum.%
+\item<5-> If we have different good points from the search space in our population, we can try to use this additional information\dots%
+\end{itemize}%
+}%
+\end{itemize}%
+\end{frame}%
+%
+\section{Algorithm Concept: Population}%
+%
+\begin{frame}%
+\frametitle{$(\mu+\lambda)$~EA}%
+\begin{itemize}%
+\item Evolutionary Algorithms (EAs) are the most successful family of population-based metaheuristics.\cite{WGOEB,BFM1997EA,MF2004HTSIMH}%
+\item<2-> Here we focus on $(\mu+\lambda)$~EAs\uncover<3->{, which work as follows:%
+\begin{enumerate}%
+\item Generate a population of $\mu+\lambda$ random points in the search space (and map them to solutions and evaluate them).%
+\item<4-> From the population, select the $\mu$~best points as ``parents'' for the next ``generation'' of points, discard the remaining $\lambda$~points.%
+\item<5-> Generate $\lambda$~new ``offspring'' points by applying a unary search operator (which creates a randomly modified copy from a selected point).%
+\item<6-> Evaluate the $\lambda$~offsprings, add them to the population, and go back to step~\enumerateItem{2}.%
+\end{enumerate}%
+}%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Ingredient: Individual Record}%
+\listing{0.9}{0.9}{language=myJava,mathescape=false}{code/Individual.java}
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Evolutionary Algorithm Implementation}%
+\listing{0.9}{1.4}{language=myJava,mathescape=false}{code/EAnoCR.java}
+\end{frame}%
+%
+
+\section{Configuring the Algorithm}%
+%
+\begin{frame}%
+\frametitle{Algorithm Parameters}%
+\only<-5,7->{%
+\begin{itemize}%
+\item Our EA has two parameters, $\mu$ and $\lambda$.%
+\item<2-> Actually, it has three parameters\only<-2>{.}\uncover<3->{: We can choose \algoStyle{1swap} or \algoStyle{nswap} as unary search operation.}%
+\item<4-> For now, let's set $\mu=\lambda$, meaning the number of parents equals the number of offspring in each generation.%
+\item<5-> This leaves us two parameters to investigate, so let's take a look.%
+\item<7-> Except for \instStyle{swv15}, a setting of $\mu=\lambda=16'384$ seems reasonable.%
+\item<8-> Interestingly, there are only little differences between \algoStyle{1swap} and \algoStyle{nswap}\only<-8>{.}\uncover<9->{, but we pick \algoStyle{nswap} because it tends to be the better choice more often.}%
+\item<10-> Generally, the EA seems to be quite robust and performs well for many parameter settings (except on \instStyle{swv15}).%
+\end{itemize}%
+}%
+%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/ea_nocr_config/ea_nocr_med_over_mu}{0.025}{0.13}%
+%
+\end{frame}%
+%
+\section{Experiment and Analysis}%
+%
+\begin{frame}[t]%
+\frametitle{So what do we get?}%
+%
+ \only<3->{%
+\begin{center}%
+\only<3,5,7,9>{\small{\algoStyle{hcr_65536_nswap}: median result of 3~min of the restarted hill climber \algoStyle{hcr_65536_nswap} with $L=65'536$ and \algoStyle{nswap}}}%
+\only<4,6,8,10>{\small{\algoStyle{ea_16384_nswap}: median result of 3~min of the EA with $\mu=\lambda=16'384$ with \algoStyle{nswap}}}%
+\end{center}%
+}%
+%
+\only<-2>{%
+\begin{itemize}%
+\item I execute the program 101~times for each of the instances \instStyle{abz7}, \instStyle{la24}, \instStyle{swv15}, and \instStyle{yn4}%
+\end{itemize}%
+\uncover<2->{%
+\begin{center}%
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{|l|l|r|r|r|r|r|r|}%
+\hline%
+&&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
+\hline%
+\hline%
+\instStyle{abz7}&\algoStyle{hcr_65536_nswap}&712&731&732&\textcolor{green}{\textbf{6}}&96s&21'189'358\\%
+&\algoStyle{ea_16384_nswap}&\textcolor{green}{\textbf{691}}&\textcolor{green}{\textbf{707}}&\textcolor{green}{\textbf{707}}&8&151s&25'293'859\\%
+\hline%
+\instStyle{la24}&\algoStyle{hcr_65536_nswap}&\textcolor{green}{\textbf{942}}&973&974&\textcolor{green}{\textbf{8}}&71s&31'466'420\\%
+&\algoStyle{ea_16384_nswap}&945&\textcolor{green}{\textbf{968}}&\textcolor{green}{\textbf{967}}&12&39s&10'161'119\\%
+\hline%
+\instStyle{swv15}&\algoStyle{hcr_65536_nswap}&3740&3818&3826&\textcolor{green}{\textbf{35}}&89s&10'783'296\\%
+&\algoStyle{ea_16384_nswap}&\textcolor{green}{\textbf{3577}}&\textcolor{green}{\textbf{3723}}&\textcolor{green}{\textbf{3728}}&50&178s&18'897'833\\%
+\hline%
+\instStyle{yn4}&\algoStyle{hcr_65536_nswap}&1068&1109&1110&\textcolor{green}{\textbf{12}}&78s&18'756'636\\%
+&\algoStyle{ea_16384_nswap}&\textcolor{green}{\textbf{1022}}&\textcolor{green}{\textbf{1063}}&\textcolor{green}{\textbf{1061}}&16&168s&26'699'633\\%
+%
+\hline%
+\end{tabular}%
+}%
+\end{center}%
+}%
+}%
+%
+\locateGraphic{3}{width=0.95\paperwidth}{graphics/hcr_nswap/gantt_hcr_65536_nswap_abz7_732}{0.025}{0.26}%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/ea_nocr_gantt/gantt_ea_nocr_abz7_732}{0.025}{0.26}%
+\locateGraphic{5}{width=0.95\paperwidth}{graphics/hcr_nswap/gantt_hcr_65536_nswap_la24_974}{0.025}{0.26}%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/ea_nocr_gantt/gantt_ea_nocr_la24_974}{0.025}{0.26}%
+\locateGraphic{7}{width=0.95\paperwidth}{graphics/hcr_nswap/gantt_hcr_65536_nswap_swv15_3826}{0.025}{0.26}%
+\locateGraphic{8}{width=0.95\paperwidth}{graphics/ea_nocr_gantt/gantt_ea_nocr_swv15_3826}{0.025}{0.26}%
+\locateGraphic{9}{width=0.95\paperwidth}{graphics/hcr_nswap/gantt_hcr_65536_nswap_yn4_1110}{0.025}{0.26}%
+\locateGraphic{10}{width=0.95\paperwidth}{graphics/ea_nocr_gantt/gantt_ea_nocr_yn4_1110}{0.025}{0.26}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Progress over Time}%
+\locateGraphic{2-3}{width=0.9\paperwidth}{graphics/ea_nocr_progress/ea_nocr_progress_abz7_log}{0.05}{0.2}%
+\locateGraphic{4}{width=0.9\paperwidth}{graphics/ea_nocr_progress/ea_nocr_progress_la24_log}{0.05}{0.2}%
+\locateGraphic{5}{width=0.9\paperwidth}{graphics/ea_nocr_progress/ea_nocr_progress_swv15_log}{0.05}{0.2}%
+\locateGraphic{6}{width=0.9\paperwidth}{graphics/ea_nocr_progress/ea_nocr_progress_yn4_log}{0.05}{0.2}%
+\locateGraphic{7-8}{width=0.9\paperwidth}{graphics/ea_nocr_progress/ea_nocr_progress_abz7}{0.05}{0.2}%
+\locateGraphic{9}{width=0.9\paperwidth}{graphics/ea_nocr_progress/ea_nocr_progress_la24}{0.05}{0.2}%
+\locateGraphic{10}{width=0.9\paperwidth}{graphics/ea_nocr_progress/ea_nocr_progress_swv15}{0.05}{0.2}%
+\locateGraphic{11}{width=0.9\paperwidth}{graphics/ea_nocr_progress/ea_nocr_progress_yn4}{0.05}{0.2}%
+\begin{center}%
+What progress does the algorithm make over time?
+\par%
+\vspace{0.65\paperheight}%
+\only<3-6>{On the log-scale, it seems as if the EA first is much slower and very late in the search makes much progress.}%
+\only<8->{However, on the linear time scale we can see that it keeps improving slowly but surely during all the time.}%
+\end{center}
+\end{frame}%
+%
+\endPresentation%
+\end{document}%%
+\endinput%
+%
