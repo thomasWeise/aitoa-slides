@@ -12,16 +12,16 @@ public class JSSPRepresentationMapping
     for (int nextJob : x) { // iterate over job IDs in x
       int[] jobSteps = this.instance.jobs[nextJob]; // get the operations of the job
       int   jobStep  = (jobState[nextJob]++) << 1;  // 2*(increased job step index)
-      int   machine  = jobSteps[jobStep];           // get the machine to use
+//
 
-      int   start      = Math.max(machineTime[machine], jobTime[nextJob]);
-      int   end        = start + jobSteps[jobStep + 1]; // begin + operation time
-      jobTime[nextJob] = machineTime[machine] = end;
+//
+//
+//
 
-      int[] schedule = y.schedule[machine]; // get list of tasks for machine
-      schedule[machineState[machine]++] = nextJob; // store job
-      schedule[machineState[machine]++] = start;   // store start time
-      schedule[machineState[machine]++] = end;     // store end time
+//
+//
+//
+//
     } // end iteration over job IDs
   } // end function
 } // end abridged class

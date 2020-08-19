@@ -9,12 +9,12 @@ public class JSSPNullaryOperator implements INullarySearchOperator<int[]> {
     for (int i = dest.length; (i -= this.n) > 0;) {
       System.arraycopy(dest, 0, dest, i, this.n);
     }
-// randomly shuffle the array: Fisher-Yates shuffle%\cite{FY1948STFBAAMR,K1969SA}%
-    for (int i = dest.length; i > 1;) {
-      int j    = random.nextInt(i--);
-      int t    = array[i];
-      array[i] = array[j];
-      array[j] = t;
-    } // implemented as RandomUtils.shuffle in code repo
+//
+//
+//
+//
+//
+//
+//
   }
 }

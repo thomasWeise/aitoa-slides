@@ -7,6 +7,6 @@ public class SingleRandomSample<X, Y> implements IMetaheuristic<X, Y> {
 
     process.getNullarySearchOperator().apply(x, process.getRandom()); 
 
-    process.evaluate(x); // evaluate
+//
   }
 }

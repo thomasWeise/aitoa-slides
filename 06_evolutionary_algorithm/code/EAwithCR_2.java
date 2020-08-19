@@ -7,11 +7,12 @@ public class EA<X, Y> implements IMetaheuristic<X, Y> {
     ISpace<X>                 searchSpace = process.getSearchSpace();
     INullarySearchOperator<X> nullary     = process.getNullarySearchOperator();
     IUnarySearchOperator<X>   unary       = process.getUnarySearchOperator();
+    IBinarySearchOperator<X>  binary      = process.getBinarySearchOperator();
     Individual<X>[]           P           = new Individual[this.mu + this.lambda];
 
     for (int i = P.length; (--i) >= 0;) { // first generation: fill P with random points
-      X x  = searchSpace.create();  // allocate point
-      nullary.apply(x, random);     // fill with random data
+      X x  = searchSpace.create(); // allocate point
+      nullary.apply(x, random);    // fill with random data
       P[i] = new Individual<>(x, process.evaluate(x)); // evaluate
       if (process.shouldTerminate()) return; 
     } // end of filling the first population
@@ -24,7 +25,13 @@ public class EA<X, Y> implements IMetaheuristic<X, Y> {
         Individual<X> dest = P[index];
         p1 = (p1 + 1) % this.mu; // step the parent 1 index
         Individual<X> sel  = P[p1];
-        unary.apply(sel.x, dest.x, random); // generate offspring
+//        
+//          
+//
+//
+//
+//
+               unary.apply(sel.x, dest.x, random); // generate offspring via unary op
         dest.quality = process.evaluate(dest.x); // evaluate offspring
       } // the end of the offspring generation
     } // the end of the main loop

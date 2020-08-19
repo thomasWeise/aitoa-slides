@@ -46,7 +46,7 @@
 \section{Algorithm Concept: Population}%
 %
 \begin{frame}%
-\frametitle{$(\mu+\lambda)$~EA}%
+\frametitle{\texorpdfstring{$(\mu+\lambda)$}{(mu+lambda)}~EA}%
 \begin{itemize}%
 \item Evolutionary Algorithms (EAs) are the most successful family of population-based metaheuristics.\cite{WGOEB,BFM1997EA,MF2004HTSIMH}%
 \item<2-> Here we focus on $(\mu+\lambda)$~EAs\uncover<3->{, which work as follows:%
@@ -163,6 +163,85 @@ What progress does the algorithm make over time?
 \only<3-6>{On the log-scale, it seems as if the EA first is much slower and very late in the search makes much progress.}%
 \only<8->{However, on the linear time scale we can see that it keeps improving slowly but surely during all the time.}%
 \end{center}
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Relationship EA / Hill Climber / Random Sampling}%
+\begin{itemize}%
+\item We can imagine this first version of the $(\mu+\lambda)$~EA as a generalized version of a hill climber.%
+\item<2-> Or the other way around: A hill climber is a $(1+1)$~EA%
+\uncover<3->{, i.e., an EA where we always remember the $\mu=1$ best solutions%
+\uncover<4->{ and use them as parents for $\lambda=1$ new solutions%
+\uncover<5->{, which we create using the unary modification operator as modified copy of the $\mu=1$ parent.%
+}}}%
+\item<6-> On the other hand: For the first $\mu+\lambda$ (random) solutions it generates, the EA always behaves exactly like a random sampling algorithm.%
+\only<-7>{\item<7-> If $\mu+\lambda\rightarrow+\infty$, the EA \emph{becomes} a random sampling algorithm.}%
+\item<8-> Actually, for $\mu+\lambda\geq \eta$, with an $\eta$~large enough to completely exhaust our computational budget (here: 3~min), the EA \alert{is} a random sampling algorithm.%
+\item<9-> \textbf{\alert{We can regard this basic EA as a way to choose an algorithm behavior in between random sampling and hill climbing!}}%
+\end{itemize}%
+\end{frame}%
+%
+%
+\begin{frame}[t]%
+\frametitle{Exploration versus Exploitation}%
+\begin{itemize}%
+\item \textbf{\alert{We can regard this basic EA as a way to choose an algorithm behavior in between random sampling and hill climbing!}}%
+\item<2-> The parameter~$\mu$ basically allows us to ``tune'' between these two behaviors\cite{WWCTL2016GVLSTIOPSOEAP}%
+\item<3-> If we pick it small, our algorithm becomes more ``greedy''.%
+\item<4-> It will investigate (\alert{exploit}) the neighborhood current best solutions more eagerly\only<5->{, which means that it will trace down local optima faster\only<6->{ but be trapped more easily in local optima as well}}.%
+\item<7-> The bigger~$\mu$, the more points in the search space are maintained and the more likely are we do to good ``global'' search, we do \alert{more exploration}. \uncover<8->{%
+We pay for that by a slower exploitation (investigation) of the current best solution (because we always work on all $\mu$~points, not just one).}%
+\item<9-> This is dilemma of \alert{Exploration versus Exploitation}.\cite{ES1998EA,WCT2012EOPABT,WZCN2009WIOD,WGOEB}%
+\end{itemize}%
+\end{frame}%
+%
+\section{Algorithm Concept: Binary Operator}%
+%
+\begin{frame}%
+\frametitle{Binary Search Operator}%
+\begin{itemize}%
+\item We now have more than one candidate solution in our ``population.''%
+\item<2-> But we only use one existing point from~$\searchSpace$ as ``blueprint'' when we create a new one.%
+\item<3-> Why can't we use \emph{two} instead?\uncover<4->{%
+\begin{itemize}%
+\item If two candidate solutions have been selected, they are probably good.%
+\item<5-> If two different candidate solutions are good, they may have different positive characteristics.%
+\item<6-> Let's try to create a new ``offspring'' solution which inherits characteristics from both ``parents''.%
+\item<7-> It could maybe inherit the positive traits and combine them\dots%
+\end{itemize}%
+}%
+\item<8-> This is the idea of the \alert{crossover} or \alert{recombination} operator in Evolutionary Algorithms.\cite{G1989GA,H1975GA,WGOEB}%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{\texorpdfstring{$(\mu+\lambda)$}{(mu+lambda)}~EA with Recombination}%
+\begin{itemize}%
+\item The $(\mu+\lambda)$~EAs with recombination work as follows:\uncover<2->{%
+\begin{enumerate}%
+\item Generate a population of $\mu+\lambda$~random points in the search space (and map them to solutions and evaluate them).%
+\item<3-> From the complete population, select the $\mu$~best points as ``parents'' for the next ``generation,'' discard the remaining $\lambda$~points.%
+\item<4-> Generate $\lambda$~new ``offspring'' points\uncover<5->{ by\uncover<7->{ either}%
+\begin{enumerate}%
+\item applying a binary recombination operator which combines two existing parents to one new offspring\uncover<6->{ with probability $cr$\uncover<7->{ \alert<7>{or}%
+\item<7-> applying a unary search operator which creates a randomly modified copy from a parent as offspring.%
+}}
+\end{enumerate}%
+\item<8-> Evaluate the~$\lambda$ offsprings, add them to the population, and go back to step~\enumerateItem{2}%
+}%
+\end{enumerate}%
+}%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Implementation}%
+\only<1>{\listing{0.9}{1.7}{language=myJava,mathescape=false}{code/EANoCR.java}}%
+\only<2>{\listing{0.9}{1.7}{language=myJava,mathescape=false}{code/EAWithCR_1.java}}%
+\only<3>{\listing{0.9}{1.7}{language=myJava,mathescape=false}{code/EAWithCR_2.java}}%
+\only<4>{\listing{0.9}{1.7}{language=myJava,mathescape=false}{code/EAWithCR_3.java}}%
+\only<5>{\listing{0.9}{1.7}{language=myJava,mathescape=false}{code/EAWithCR_4.java}}%
+\only<6>{\listing{0.9}{1.7}{language=myJava,mathescape=false}{code/EAWithCR.java}}%
 \end{frame}%
 %
 \endPresentation%

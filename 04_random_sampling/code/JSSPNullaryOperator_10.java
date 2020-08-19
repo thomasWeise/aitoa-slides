@@ -13,8 +13,8 @@ public class JSSPNullaryOperator implements INullarySearchOperator<int[]> {
     for (int i = dest.length; i > 1;) {
       int j    = random.nextInt(i--);
       int t    = array[i];
-      array[i] = array[j];
-      array[j] = t;
-    } // implemented as RandomUtils.shuffle in code repo
+//
+//
+    }
   }
 }

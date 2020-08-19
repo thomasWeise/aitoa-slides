@@ -19,9 +19,9 @@ public class JSSPRepresentationMapping
       jobTime[nextJob] = machineTime[machine] = end;
 
       int[] schedule = y.schedule[machine]; // get list of tasks for machine
-      schedule[machineState[machine]++] = nextJob; // store job
-      schedule[machineState[machine]++] = start;   // store start time
-      schedule[machineState[machine]++] = end;     // store end time
+//
+//
+//
     } // end iteration over job IDs
   } // end function
 } // end abridged class
