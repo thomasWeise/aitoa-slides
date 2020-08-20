@@ -19,6 +19,7 @@ public class EA<X, Y> implements IMetaheuristic<X, Y> {
 
     for (;;) { // main loop: one iteration = one generation
       Arrays.sort(P, Individual.BY_QUALITY); // sort the population: mu best at front
+      RandomUtils.shuffle(random, P, 0, this.mu); // shuffle parents for fairness
       int p1 = -1; // index to iterate over first parent
       for (int index = P.length; (--index) >= this.mu;) { // overwrite lambda worst
         if (process.shouldTerminate()) return;        
