@@ -1,7 +1,7 @@
 package aitoa.algorithms;
 
 public class HillClimberWithRestarts<X, Y> implements IMetaheuristic<X, Y> {
-//unnecessary stuff omitted here...
+// unnecessary stuff omitted here...
   public final long failsBeforeRestart;
 
   public void solve(IBlackBoxProcess<X, Y> process) {
@@ -24,9 +24,9 @@ public class HillClimberWithRestarts<X, Y> implements IMetaheuristic<X, Y> {
           process.getSearchSpace().copy(xCur, xBest); // copy
           failCounter = 0L; // reset number of unsuccessful steps
         } else { // ok, we did not find an improvement
-          if ((++failCounter) >= this.failsBeforeRestart) {
-            break; // jump back to outer loop for restart
-          } // increase fail counter
+//
+//
+//
         } // failure
       } // inner loop
     } // outer loop

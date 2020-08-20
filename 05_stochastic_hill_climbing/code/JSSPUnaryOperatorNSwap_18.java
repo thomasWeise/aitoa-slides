@@ -14,7 +14,7 @@ public class JSSPUnaryOperatorNSwap implements IUnarySearchOperator<int[]> {
         int j    = random.nextInt(dest.length);
         int jobJ = dest[j];
         if ((last != jobJ) && // don't swap job with itself
-            (hasNext || (first != jobJ))) { // also not at end
+            (           (first != jobJ))) { // also not at end
           dest[i] = jobJ; // overwrite job at index i with jobJ
           i       = j; // remember index j: we will overwrite it next
           last    = jobJ; // but not with the same value jobJ...
