@@ -92,11 +92,10 @@
 \only<23>{\listing{0.9}{1.4}{language=myJava,mathescape=false}{code/EAnoCR.java}}%
 \end{frame}%
 %
-
-\section{Configuring the Algorithm}%
+\section{Experiment and Analysis}%
 %
 \begin{frame}%
-\frametitle{Algorithm Parameters}%
+\frametitle{Configuring the Algorithm}%
 \only<-5,7->{%
 \begin{itemize}%
 \item Our EA has two parameters, $\mu$ and $\lambda$.%
@@ -113,7 +112,6 @@
 %
 \end{frame}%
 %
-\section{Experiment and Analysis}%
 %
 \begin{frame}[t]%
 \frametitle{So what do we get?}%
@@ -339,6 +337,25 @@ We pay for that by a slower exploitation (investigation) of the current best sol
 \only<22>{\listing{0.9}{1.55}{language=myJava,mathescape=false}{code/JSSPBinaryOperatorSequence_22.java}}%
 \only<23>{\listing{0.9}{1.55}{language=myJava,mathescape=false}{code/JSSPBinaryOperatorSequence_23.java}}%
 \only<24>{\listing{0.9}{1.55}{language=myJava,mathescape=false}{code/JSSPBinaryOperatorSequence.java}}%
+\end{frame}%
+%
+\section{Experiment and Analysis}%
+%
+\begin{frame}%
+\frametitle{Configuring the Algorithm}%
+\only<-9,11->{%
+\begin{itemize}%
+\item We now have everything together, the EA that can use a binary operator and a simple idea for a binary operator.%
+\item<2-> But now we have five parameters\only<2>{!}\uncover<3->{ $\mu$\only<3>{.}\uncover<4->{, $\lambda$\only<4>{.}\uncover<5->{, the unary operator\only<5>{.}\uncover<6->{, the binary operator\only<6>{.}\uncover<7->{, and the crossover rate~$cr$.}}}}}% 
+\item<8-> Let's stick with $\mu=\lambda$, \algoStyle{nswap}, and our \algoStyle{sequence} recombination operator.%
+\item<9-> This leaves us to choose the value of~$\lambda$ and~$cr$.%
+\item<11-> The improvements that the binary operator offered us in this scenario are quite small.%
+\item<12-> Nevertheless, creating 5\% of the offspring with it seems a reasonable idea at $\lambda=\mu=8192$.%
+\end{itemize}%
+}%
+%
+\locateGraphic{10}{width=0.95\paperwidth}{graphics/ea_cr_config/ea_cr_med_over_cr}{0.025}{0.13}%
+%
 \end{frame}%
 %
 \endPresentation%
