@@ -116,10 +116,10 @@
 \begin{frame}[t]%
 \frametitle{So what do we get?}%
 %
- \only<3->{%
+\only<3->{%
 \begin{center}%
 \only<3,5,7,9>{\small{\algoStyle{hcr_65536_nswap}: median result of 3~min of the restarted hill climber \algoStyle{hcr_65536_nswap} with $L=65'536$ and \algoStyle{nswap}}}%
-\only<4,6,8,10>{\small{\algoStyle{ea_16384_nswap}: median result of 3~min of the EA with $\mu=\lambda=16'384$ with \algoStyle{nswap}}}%
+\only<4,6,8,10>{\small{\algoStyle{ea_16384_nswap}: median result of 3~min of the EA with $\mu=\lambda=16'384$ with \algoStyle{nswap} unary operator}}%
 \end{center}%
 }%
 %
@@ -356,6 +356,85 @@ We pay for that by a slower exploitation (investigation) of the current best sol
 %
 \locateGraphic{10}{width=0.95\paperwidth}{graphics/ea_cr_config/ea_cr_med_over_cr}{0.025}{0.13}%
 %
+\end{frame}%
+%
+%
+\begin{frame}[t]%
+\frametitle{So what do we get?}%
+%
+\only<3->{%
+\begin{center}%
+\only<3,5,7,9>{\small{\algoStyle{ea_16384_nswap}: median result of 3~min of the EA with $\mu=\lambda=16'384$ with \algoStyle{nswap} unary operator}}%
+\only<4,6,8,10>{\small{\algoStyle{ea_8192_5\%_nswap}: median result of 3~min of the EA with $\mu=\lambda=8'192$ with \algoStyle{nswap} unary operator and 5\% \algoStyle{sequence} recombination}}%
+\end{center}%
+}%
+%
+\only<-2>{%
+\begin{itemize}%
+\item I execute the program 101~times for each of the instances \instStyle{abz7}, \instStyle{la24}, \instStyle{swv15}, and \instStyle{yn4}%
+\end{itemize}%
+\uncover<2->{%
+\begin{center}%
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{|l|l|r|r|r|r|r|r|}%
+\hline%
+&&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
+\hline%
+\hline%
+\instStyle{abz7}&\algoStyle{hcr_65536_nswap}&712&731&732&\textcolor{green}{\textbf{6}}&96s&21'189'358\\%
+&\algoStyle{ea_16384_nswap}&691&707&707&8&151s&25'293'859\\%
+&\algoStyle{ea_8192_5\%_nswap}&\textcolor{green}{\textbf{684}}&\textcolor{green}{\textbf{703}}&\textcolor{green}{\textbf{702}}&8&54s&10'688'314\\%
+\hline%
+\instStyle{la24}&\algoStyle{hcr_65536_nswap}&\textcolor{green}{\textbf{942}}&973&974&\textcolor{green}{\textbf{8}}&71s&31'466'420\\%
+&\algoStyle{ea_16384_nswap}&945&968&\textcolor{green}{\textbf{967}}&12&39s&10'161'119\\%
+&\algoStyle{ea_8192_5\%_nswap}&943&\textcolor{green}{\textbf{967}}&\textcolor{green}{\textbf{967}}&11&18s&4'990'002\\%
+\hline%
+\instStyle{swv15}&\algoStyle{hcr_65536_nswap}&3740&3818&3826&\textcolor{green}{\textbf{35}}&89s&10'783'296\\%
+&\algoStyle{ea_16384_nswap}&3577&3723&3728&50&178s&18'897'833\\%
+&\algoStyle{ea_8192_5\%_nswap}&\textcolor{green}{\textbf{3498}}&\textcolor{green}{\textbf{3631}}&\textcolor{green}{\textbf{3632}}&65&178s&17'747'983\\%
+\hline%
+\instStyle{yn4}&\algoStyle{hcr_65536_nswap}&1068&1109&1110&\textcolor{green}{\textbf{12}}&78s&18'756'636\\%
+&\algoStyle{ea_16384_nswap}&\textcolor{green}{\textbf{1022}}&1063&1061&16&168s&26'699'633\\%
+&\algoStyle{ea_8192_5\%_nswap}&1026&\textcolor{green}{\textbf{1056}}&\textcolor{green}{\textbf{1053}}&17&114s&13'206'552\\%
+\hline%
+\end{tabular}%
+}%
+\end{center}%
+}%
+}%
+%
+\locateGraphic{3}{width=0.95\paperwidth}{graphics/ea_nocr_gantt/gantt_ea_nocr_abz7_707}{0.025}{0.26}%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/ea_cr_gantt/gantt_ea_cr_abz7_707}{0.025}{0.26}%
+\locateGraphic{5}{width=0.95\paperwidth}{graphics/ea_nocr_gantt/gantt_ea_nocr_la24_967}{0.025}{0.26}%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/ea_cr_gantt/gantt_ea_cr_la24_967}{0.025}{0.26}%
+\locateGraphic{7}{width=0.95\paperwidth}{graphics/ea_nocr_gantt/gantt_ea_nocr_swv15_3728}{0.025}{0.26}%
+\locateGraphic{8}{width=0.95\paperwidth}{graphics/ea_cr_gantt/gantt_ea_cr_swv15_3728}{0.025}{0.26}%
+\locateGraphic{9}{width=0.95\paperwidth}{graphics/ea_nocr_gantt/gantt_ea_nocr_yn4_1061}{0.025}{0.26}%
+\locateGraphic{10}{width=0.95\paperwidth}{graphics/ea_cr_gantt/gantt_ea_cr_yn4_1061}{0.025}{0.26}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Progress over Time}%
+\locateGraphic{2}{width=0.9\paperwidth}{graphics/ea_cr_progress/ea_cr_progress_abz7_log}{0.05}{0.2}%
+\locateGraphic{3}{width=0.9\paperwidth}{graphics/ea_cr_progress/ea_cr_progress_la24_log}{0.05}{0.2}%
+\locateGraphic{4}{width=0.9\paperwidth}{graphics/ea_cr_progress/ea_cr_progress_swv15_log}{0.05}{0.2}%
+\locateGraphic{5-}{width=0.9\paperwidth}{graphics/ea_cr_progress/ea_cr_progress_yn4_log}{0.05}{0.2}%
+\begin{center}%
+What progress does the algorithm make over time?
+\par%
+\vspace{0.65\paperheight}%
+\only<6->{There is no big difference between the EA with and without recombination -- but the one with recombination is a little bit better.}%
+\end{center}
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Recombination}%
+\begin{itemize}%
+\item In some application areas, the binary operator can very significantly improve the result quality.%
+\item<2-> Here, our idea does not work that well, although it is a bit helpful.%
+\end{itemize}%
 \end{frame}%
 %
 \endPresentation%
