@@ -437,6 +437,175 @@ What progress does the algorithm make over time?
 \end{itemize}%
 \end{frame}%
 %
+\section{Algorithm Concept: Increased Diversity via Clearing}%
+%
+\begin{frame}%
+\frametitle{Diversity}%
+\begin{itemize}%
+\item When is the population of the EA useless?%
+\item<2-> If all the solutions in it are the same!%
+\item<3-> When is a population of the EA useful?%
+\item<4-> When the elements of it represent different good solution traits\only<4>{.}\uncover<5->{ -- when they are \alert{diverse}.}%
+\item<6-> Many methods have been devised to ensure the diversity of a population\only<6>{.}\uncover<7->{, to prevent the population from collapsing to a single point in the search space.\cite{S2012NIEA,CLM2013EAEIEAAS,ST2016DOCAPCASOMFPDIEO}}%
+\end{itemize}%
+\end{frame}%
+%
+%
+\begin{frame}%
+\frametitle{Clearing}%
+\begin{itemize}%
+\item We will here consider a very simple approach to preserve population diversity: \alert{clearing}\cite{S2012NIEA,FHN2007RAOSDM}.%
+\item<2-> Furthermore, we will apply the simplest version of this approach.%
+\item<3-> Every time, when $\mu$ out of the $\mu+\lambda$ individuals are selected, one prior step is applied\uncover<4->{: %
+we ensure that there is only one individual per objective value in the population.%
+}%
+\item<5-> We call the EA with clearing and recombination \algoStyle{eac}.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Ingredient: Clearing}%
+\only<1>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_01.java}}%
+\only<2>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_02.java}}%
+\only<3>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_03.java}}%
+\only<4>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_04.java}}%
+\only<5>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_05.java}}%
+\only<6>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_06.java}}%
+\only<7>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_07.java}}%
+\only<8>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_08.java}}%
+\only<9>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_09.java}}%
+\only<10>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_10.java}}%
+\only<11>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_11.java}}%
+\only<12>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_12.java}}%
+\only<13>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_13.java}}%
+\only<14>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_14.java}}%
+\only<15>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_15.java}}%
+\only<16>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils_16.java}}%
+\only<17>{\listing{0.9}{1.22}{language=myJava,mathescape=false}{code/Utils.java}}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Implementation: EA with Recombination and Clearing}%
+\only<1>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAwithoutClearing.java}}%
+\only<2,31>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing.java}}%
+\only<3>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_01.java}}%
+\only<4>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_02.java}}%
+\only<5>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_03.java}}%
+\only<6>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_04.java}}%
+\only<7>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_05.java}}%
+\only<8>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_06.java}}%
+\only<9>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_07.java}}%
+\only<10>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_08.java}}%
+\only<11>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_09.java}}%
+\only<12>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_10.java}}%
+\only<13>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_11.java}}%
+\only<14>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_12.java}}%
+\only<15>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_13.java}}%
+\only<16>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_14.java}}%
+\only<17>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_15.java}}%
+\only<18>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_16.java}}%
+\only<19>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_17.java}}%
+\only<20>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_18.java}}%
+\only<21>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_19.java}}%
+\only<22>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_20.java}}%
+\only<23>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_21.java}}%
+\only<24>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_22.java}}%
+\only<25>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_23.java}}%
+\only<26>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_24.java}}%
+\only<27>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_25.java}}%
+\only<28>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_26.java}}%
+\only<29>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_27.java}}%
+\only<30>{\listing{0.9}{1.76}{language=myJava,mathescape=false}{code/EAWithClearing_28.java}}%
+\end{frame}%
+%
+\section{Experiment and Analysis}%
+%
+\begin{frame}[t]%
+\frametitle{So what do we get?}%
+%
+\only<3->{%
+\begin{center}%
+\only<3,5,7,9>{\small{\algoStyle{ea_8192_5\%_nswap}: median result of 3~min of the EA with $\mu=\lambda=8'192$ with \algoStyle{nswap} unary operator and 5\% \algoStyle{sequence} recombination}}%
+\only<4,6,8,10>{\small{\algoStyle{eac_4_5\%_nswap}: median result of 3~min of the EA with clearing and $\mu=\lambda=4$ with \algoStyle{nswap} unary operator and 5\% \algoStyle{sequence} recombination}}%
+\end{center}%
+}%
+%
+\only<-2>{%
+\begin{itemize}%
+\item I execute the program 101~times for each of the instances \instStyle{abz7}, \instStyle{la24}, \instStyle{swv15}, and \instStyle{yn4}%
+\end{itemize}%
+\uncover<2->{%
+\begin{center}%
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{|l|l|r|r|r|r|r|r|}%
+\hline%
+&&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
+\hline%
+\hline%
+\instStyle{abz7}&\algoStyle{ea_8192_5\%_nswap}&684&703&702&\textcolor{green}{\textbf{8}}&54s&10'688'314\\%
+&\algoStyle{eac_4_5\%_nswap}&\textcolor{green}{\textbf{672}}&\textcolor{green}{\textbf{690}}&\textcolor{green}{\textbf{690}}&9&68s&12'474'571\\%
+\hline%
+\instStyle{la24}&\algoStyle{ea_8192_5\%_nswap}&943&967&967&\textcolor{green}{\textbf{11}}&18s&4'990'002\\%
+&\algoStyle{eac_4_5\%_nswap}&\textcolor{green}{\textbf{935}}&\textcolor{green}{\textbf{963}}&\textcolor{green}{\textbf{961}}&16&30s&9'175'579\\%
+\hline%
+\instStyle{swv15}&\algoStyle{ea_8192_5\%_nswap}&3498&3631&3632&\textcolor{green}{\textbf{65}}&178s&17'747'983\\%
+&\algoStyle{eac_4_5\%_nswap}&\textcolor{green}{\textbf{3102}}&\textcolor{green}{\textbf{3220}}&\textcolor{green}{\textbf{3224}}&65&168s&18'245'534\\%
+\hline%
+\instStyle{yn4}&\algoStyle{ea_8192_5\%_nswap}&1026&1056&1053&\textcolor{green}{\textbf{17}}&114s&13'206'552\\%
+&\algoStyle{eac_4_5\%_nswap}&\textcolor{green}{\textbf{1000}}&\textcolor{green}{\textbf{1038}}&\textcolor{green}{\textbf{1037}}&18&118s&15'382'072\\%
+\hline%
+\end{tabular}%
+}%
+\end{center}%
+}%
+}%
+%
+\locateGraphic{3}{width=0.95\paperwidth}{graphics/ea_cr_gantt/gantt_ea_cr_abz7_702}{0.025}{0.26}%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/eac_gantt/gantt_eac_abz7_702}{0.025}{0.26}%
+\locateGraphic{5}{width=0.95\paperwidth}{graphics/ea_cr_gantt/gantt_ea_cr_la24_967}{0.025}{0.26}%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/eac_gantt/gantt_eac_la24_967}{0.025}{0.26}%
+\locateGraphic{7}{width=0.95\paperwidth}{graphics/ea_cr_gantt/gantt_ea_cr_swv15_3632}{0.025}{0.26}%
+\locateGraphic{8}{width=0.95\paperwidth}{graphics/eac_gantt/gantt_eac_swv15_3632}{0.025}{0.26}%
+\locateGraphic{9}{width=0.95\paperwidth}{graphics/ea_cr_gantt/gantt_ea_cr_yn4_1053}{0.025}{0.26}%
+\locateGraphic{10}{width=0.95\paperwidth}{graphics/eac_gantt/gantt_eac_yn4_1053}{0.025}{0.26}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Progress over Time}%
+\locateGraphic{2}{width=0.9\paperwidth}{graphics/eac_progress/eac_progress_abz7_log}{0.05}{0.2}%
+\locateGraphic{3}{width=0.9\paperwidth}{graphics/eac_progress/eac_progress_la24_log}{0.05}{0.2}%
+\locateGraphic{4}{width=0.9\paperwidth}{graphics/eac_progress/eac_progress_swv15_log}{0.05}{0.2}%
+\locateGraphic{5-}{width=0.9\paperwidth}{graphics/eac_progress/eac_progress_yn4_log}{0.05}{0.2}%
+\begin{center}%
+What progress does the algorithm make over time?
+\par%
+\vspace{0.65\paperheight}%
+\only<6->{The EA with clearing performs much better than the EA without, at a much smaller population size.}%
+\end{center}
+\end{frame}%
+%
+\section{Summary}%
+%
+\begin{frame}%
+\frametitle{Summary}%
+\begin{itemize}%
+\item Population-based metaheuristics like Evolutionary Algorithms perform global search and can obtain better results than local searches like hill climbers.%
+\item<2-> But they are also considerably slower.%
+\item<3-> Sometimes, operators do not work as well as expected (e.g., the binary search operator here).%
+\item<4-> Sometimes, the reason may be that we just do not have enough time to benefit from it.%
+\item<5-> This can be different for any optimization problem.%
+\item<6-> Sometimes a different operator might work better.%
+\item<7-> This holds for \emph{all} algorithm modules.%
+\item<8-> We always need to check whether the overall algorithm performs better with or without the module.%
+\item<9-> {\dots}but even small improvements might be worthwhile.%
+\item<10-> Preserving the diversity in a population can improve the EA performance significantly.% 
+\end{itemize}%
+%
+%
+\end{frame}%
+%
 \endPresentation%
 \end{document}%%
 \endinput%

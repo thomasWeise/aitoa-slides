@@ -1,0 +1,548 @@
+# ALGORITHM_SETUP
+# base_algorithm: ea
+# algorithm: eap_4+4@0.05
+# algorithm(class): aitoa.algorithms.EAWithPruning
+# mu: 4
+# lambda: 4
+# cr: 0.05
+# cr(inhex): 0x1.999999999999ap-5
+# pruning: true
+# restarts: false
+# END_ALGORITHM_SETUP
+# BEGIN_LOG
+# fbest;consumedFEs;consumedTimeMS
+1209;1;0
+1179;5;0
+1136;12;0
+1076;15;0
+1061;32;0
+1043;44;1
+1014;53;1
+998;113;1
+994;132;1
+979;153;1
+968;154;1
+963;167;1
+945;170;1
+932;223;1
+931;251;1
+927;432;2
+925;478;2
+918;507;2
+915;511;2
+909;541;2
+890;643;3
+884;779;3
+873;834;3
+870;1113;4
+859;1121;4
+858;1439;5
+856;1692;6
+855;1802;7
+853;1825;7
+852;2377;9
+850;2660;11
+847;2668;11
+845;2696;11
+844;2851;12
+839;3253;14
+832;3489;14
+819;3849;16
+818;4231;17
+817;4445;17
+812;4682;18
+807;4816;19
+806;4899;19
+805;5145;20
+804;5390;21
+803;5707;22
+802;5885;22
+801;6300;24
+800;6841;26
+799;6998;27
+797;7085;27
+796;7634;29
+795;11438;42
+794;12589;46
+793;12740;47
+792;13057;48
+790;15545;56
+782;15607;56
+780;16432;59
+779;17143;61
+778;18464;65
+776;18678;66
+770;19091;67
+768;19512;69
+767;19522;69
+765;19617;69
+761;19829;70
+760;31314;108
+759;32125;111
+758;33584;116
+754;33728;117
+749;35622;123
+748;37714;130
+747;38205;131
+746;42163;144
+744;42178;144
+739;42864;146
+736;44684;152
+735;48755;166
+734;49114;167
+733;67543;240
+732;67961;241
+731;69400;246
+726;70384;249
+725;70943;251
+724;71982;254
+723;90020;318
+720;95877;338
+718;99382;350
+716;117547;413
+715;119251;419
+714;120385;423
+713;120591;424
+711;136322;477
+710;151704;530
+709;208100;774
+707;262351;987
+706;1286266;5014
+704;1293173;5041
+703;1294883;5048
+702;1299741;5068
+701;1326851;5174
+700;1414226;5513
+699;1416747;5523
+697;1750409;6821
+696;2548649;9973
+694;20318768;79951
+693;20329565;79991
+692;23806890;93550
+690;23849879;93719
+# END_OF_LOG
+# BEGIN_SETUP
+# SEARCH_SPACE: jssp:int[300]:abz7
+# SEARCH_SPACE(class): aitoa.examples.jssp.JSSPSearchSpace
+# NULLARY_OP: uniform
+# NULLARY_OP(class): aitoa.examples.jssp.JSSPNullaryOperator
+# UNARY_OP: nswap
+# UNARY_OP(class): aitoa.examples.jssp.JSSPUnaryOperatorNSwap
+# BINARY_OP: sequence
+# BINARY_OP(class): aitoa.examples.jssp.JSSPBinaryOperatorSequence
+# TERNARY_OP: null
+# SOLUTION_SPACE: jssp:gantt:abz7
+# SOLUTION_SPACE(class): aitoa.examples.jssp.JSSPSolutionSpace
+# REPRESENTATION_MAPPING: jssp:int[]-to-Gantt
+# REPRESENTATION_MAPPING(class): aitoa.examples.jssp.JSSPRepresentationMapping
+# OBJECTIVE_FUNCTION: abz7
+# OBJECTIVE_FUNCTION(class): aitoa.examples.jssp.JSSPMakespanObjectiveFunction
+# MAX_FES: 9223372036854775807
+# MAX_TIME: 180000
+# GOAL_F: -Infinity
+# RANDOM_SEED: 0x793f5c5a1c414096
+# END_SETUP
+# BEGIN_SYSTEM
+# COMPUTER_MANUFACTURER: Dell Inc.
+# COMPUTER_MODEL: Vostro 3480
+# CPU_FAMILY: 6
+# CPU_FREQUENCY_HZ: 1800000000
+# CPU_ID: AFC1FBFF008006EB
+# CPU_IDENTIFIER: Intel64 Family 6 Model 142 Stepping 11
+# CPU_IS_64_BIT: true
+# CPU_LOGICAL_CORES: 8
+# CPU_MODEL: 142
+# CPU_NAME: Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz
+# CPU_PHYSICAL_CORES: 4
+# CPU_PHYSICAL_SLOTS: 1
+# CPU_VENDOR: GenuineIntel
+# GPU_NAME: Advanced Micro Devices, Inc. [AMD/ATI] Jet PRO [Radeon R5 M230 / R7 M260DX / Radeon 520 Mobile]
+# GPU_PCI_DEVICE: Jet PRO [Radeon R5 M230 / R7 M260DX / Radeon 520 Mobile]
+# GPU_PCI_DEVICE_ID: 6665
+# GPU_PCI_VENDOR: Advanced Micro Devices, Inc. [AMD/ATI]
+# GPU_PCI_VENDOR_ID: 1002
+# JAVA_SPECIFICATION_NAME: Java Platform API Specification
+# JAVA_SPECIFICATION_VENDOR: Oracle Corporation
+# JAVA_SPECIFICATION_VERSION: 13
+# JAVA_VENDOR: Private Build
+# JAVA_VERSION: 13
+# JAVA_VM_NAME: OpenJDK 64-Bit Server VM
+# JAVA_VM_VENDOR: Private Build
+# JAVA_VM_VERSION: 13+33-Ubuntu-1
+# MAINBOARD_MANUFACTURER: Dell Inc.
+# MAINBOARD_MODEL: 0KTK89
+# MAINBOARD_VERSION: A00
+# MEMORY_PAGE_SIZE: 4096
+# MEMORY_TOTAL_BYTES: 16662450176
+# NET_DOMAIN_NAME: laptop
+# NET_HOST_NAME: laptop
+# OS_BITS: 64
+# OS_BUILD: 5.3.0-40-generic
+# OS_CODENAME: Eoan Ermine
+# OS_FAMILY: Ubuntu
+# OS_MANUFACTURER: GNU/Linux
+# OS_VERSION: 19.10
+# PROCESS_COMMAND_LINE: java -classpath ./binaries/aitoa-code-0.8.50-full.jar aitoa.examples.jssp.JSSPExperiment ./results 5
+# PROCESS_ID: 19438
+# SESSION_START_DATE_TIME: 2020-04-08T04:51:16.940587Z
+# version.aitoa: 0.8.50
+# version.aitoa.java.build: 13
+# version.aitoa.java.source: 1.8
+# version.aitoa.junit: 4.13
+# version.aitoa.oshi: 4.4.2
+# version.aitoa.slf4j: 1.7.30
+# END_SYSTEM
+# BEGIN_STATE
+# CONSUMED_FES: 45393863
+# LAST_IMPROVEMENT_FE: 23849879
+# CONSUMED_TIME: 180000
+# LAST_IMPROVEMENT_TIME: 93719
+# BEST_F: 690
+# END_STATE
+# BEST_X
+new int[] {16,4,12,18,8,13,17,11,1,15,2,18,7,15,7,18,1,14,0,16,0,17,13,5,6,3,9,4,14,19,2,16,15,12,8,18,6,8,17,4,7,6,0,1,11,15,2,7,15,5,10,11,2,14,12,0,17,19,12,7,16,18,19,9,1,4,2,3,0,5,13,9,12,6,4,7,11,18,10,1,4,9,5,7,15,18,16,11,11,18,6,11,4,7,18,6,8,2,12,1,10,18,11,12,6,17,16,9,1,4,5,15,0,12,13,16,7,13,2,5,1,11,12,9,19,19,6,15,8,4,2,12,10,14,16,8,12,2,18,19,17,5,10,8,9,3,6,7,12,18,14,17,4,15,10,17,10,9,11,3,17,2,8,10,14,5,14,3,19,14,13,8,16,15,9,19,12,15,4,9,11,2,14,10,15,0,15,13,16,5,14,5,0,19,0,10,17,16,1,12,11,3,3,8,13,9,19,10,16,16,7,8,15,19,4,9,17,12,7,14,11,3,18,4,2,1,15,4,9,5,17,13,14,2,11,10,19,1,10,8,0,14,13,5,1,1,17,6,3,19,0,14,18,10,9,2,3,14,1,8,18,4,6,10,9,17,13,11,6,6,13,5,17,19,0,3,13,7,0,3,2,16,5,0,8,3,0,1,3,8,13,5,7,6,7,3,19,6,13,16}
+# END_BEST_X
+# BEST_Y
+new aitoa.examples.jssp.JSSPCandidateSolution(new int[][] {
+{11,0,22,2,65,87,17,87,99,15,139,152,0,166,187,12,208,246,9,246,280,14,305,316,8,379,406,19,406,422,3,437,469,4,469,493,13,493,513,1,513,524,18,559,572,10,572,608,5,608,633,6,633,650,7,654,667,16,669,690},
+{13,28,57,4,79,107,9,107,118,1,135,159,5,159,192,18,192,204,16,209,240,19,240,254,10,254,285,17,285,303,3,303,322,12,322,358,2,358,372,14,386,420,15,420,438,0,445,475,11,475,493,7,493,529,6,595,624,8,655,687},
+{0,0,24,16,60,88,12,92,128,17,128,148,2,154,174,18,204,217,6,224,263,1,263,299,11,299,328,7,328,355,14,355,369,15,383,412,4,412,436,5,436,462,8,462,483,9,491,519,10,520,559,13,562,583,19,583,605,3,608,637},
+{16,0,25,1,30,45,0,45,57,6,59,89,14,89,119,7,122,143,12,143,171,18,171,188,8,188,215,2,215,227,4,265,289,19,292,323,9,323,347,15,347,383,10,383,410,5,410,433,17,433,464,11,493,504,3,637,650,13,650,677},
+{7,45,64,15,122,139,0,139,166,11,166,197,6,197,224,13,248,282,8,332,353,10,353,373,12,373,388,16,394,406,3,407,437,9,437,452,14,453,476,5,476,491,19,492,521,18,521,559,2,559,581,4,581,599,17,599,612,1,612,640},
+{18,0,18,7,18,45,16,45,60,12,60,92,11,92,120,9,120,159,10,159,196,4,196,214,15,214,247,17,247,259,19,259,292,8,292,332,5,332,372,14,372,386,13,386,419,2,419,435,1,435,461,3,469,490,0,490,521,6,521,557},
+{1,0,30,2,30,65,7,65,94,6,94,115,4,115,147,3,147,176,0,187,212,12,246,266,5,266,301,16,307,338,18,345,362,13,419,446,8,446,462,15,462,495,10,495,520,19,521,549,14,549,572,9,572,605,11,605,620,17,620,646},
+{18,48,86,15,86,122,2,122,154,4,154,170,16,170,209,9,209,232,5,232,266,12,266,285,10,285,310,11,328,360,3,360,374,0,419,445,19,445,456,17,464,496,1,496,511,13,513,541,14,572,599,8,599,627,7,632,654,6,654,687},
+{13,0,28,5,28,52,8,61,85,19,85,124,12,128,142,6,142,161,7,183,197,11,197,218,4,218,242,15,247,272,16,272,307,10,310,323,17,323,362,9,362,392,0,392,419,14,420,453,18,453,483,2,483,499,1,524,547,3,650,670},
+{15,0,13,14,13,34,3,34,54,19,54,85,0,85,102,7,102,122,18,155,171,11,218,238,4,242,265,6,265,278,2,290,307,8,353,379,10,410,435,12,435,467,16,478,494,17,496,516,5,516,544,9,544,570,1,570,596,13,603,636},
+{18,18,48,17,61,75,10,75,103,7,143,183,1,223,251,2,267,290,4,290,324,15,324,347,5,372,408,11,408,426,16,426,459,13,459,476,9,476,491,12,491,507,8,507,520,14,520,532,3,532,556,6,557,578,0,642,661,19,661,678},
+{4,0,23,8,32,61,11,61,86,5,86,105,1,116,135,18,135,155,12,285,297,17,303,320,14,320,336,19,336,358,16,358,394,9,394,425,15,438,451,2,451,480,10,480,494,3,494,523,0,523,541,13,541,562,6,578,595,7,595,632},
+{12,0,39,17,39,61,9,61,96,1,96,116,16,116,156,19,156,183,6,183,195,10,196,225,13,225,248,2,248,267,14,267,305,18,305,345,3,374,407,7,529,541,15,541,554,4,554,569,11,569,586,5,586,599,8,627,655,0,661,687},
+{8,0,32,6,32,59,4,59,79,2,87,110,18,110,125,11,125,160,12,171,208,1,208,223,7,236,275,15,275,299,9,347,358,19,358,394,10,435,466,14,476,516,17,516,545,5,545,583,13,583,603,0,603,642,16,642,669,3,670,688},
+{15,13,53,14,53,87,18,87,109,5,109,130,13,130,170,9,170,188,7,197,236,11,238,257,12,297,319,6,319,331,10,331,345,17,362,393,8,406,433,16,459,478,19,478,492,4,493,521,1,547,567,0,567,583,3,583,608,2,608,630}})
+
+if(!(require("aitoaEvaluate"))) {
+if(!(require("devtools"))) {
+install.packages("devtools");
+library("devtools");
+};
+devtools::install_github("thomasWeise/aitoaEvaluate");
+library("aitoaEvaluate");
+};
+aitoaEvaluate::aitoa.plot.gantt(list(
+ list( list(job=11L,start=0L,end=22L)
+,list(job=2L,start=65L,end=87L)
+,list(job=17L,start=87L,end=99L)
+,list(job=15L,start=139L,end=152L)
+,list(job=0L,start=166L,end=187L)
+,list(job=12L,start=208L,end=246L)
+,list(job=9L,start=246L,end=280L)
+,list(job=14L,start=305L,end=316L)
+,list(job=8L,start=379L,end=406L)
+,list(job=19L,start=406L,end=422L)
+,list(job=3L,start=437L,end=469L)
+,list(job=4L,start=469L,end=493L)
+,list(job=13L,start=493L,end=513L)
+,list(job=1L,start=513L,end=524L)
+,list(job=18L,start=559L,end=572L)
+,list(job=10L,start=572L,end=608L)
+,list(job=5L,start=608L,end=633L)
+,list(job=6L,start=633L,end=650L)
+,list(job=7L,start=654L,end=667L)
+,list(job=16L,start=669L,end=690L)
+)
+,list( list(job=13L,start=28L,end=57L)
+,list(job=4L,start=79L,end=107L)
+,list(job=9L,start=107L,end=118L)
+,list(job=1L,start=135L,end=159L)
+,list(job=5L,start=159L,end=192L)
+,list(job=18L,start=192L,end=204L)
+,list(job=16L,start=209L,end=240L)
+,list(job=19L,start=240L,end=254L)
+,list(job=10L,start=254L,end=285L)
+,list(job=17L,start=285L,end=303L)
+,list(job=3L,start=303L,end=322L)
+,list(job=12L,start=322L,end=358L)
+,list(job=2L,start=358L,end=372L)
+,list(job=14L,start=386L,end=420L)
+,list(job=15L,start=420L,end=438L)
+,list(job=0L,start=445L,end=475L)
+,list(job=11L,start=475L,end=493L)
+,list(job=7L,start=493L,end=529L)
+,list(job=6L,start=595L,end=624L)
+,list(job=8L,start=655L,end=687L)
+)
+,list( list(job=0L,start=0L,end=24L)
+,list(job=16L,start=60L,end=88L)
+,list(job=12L,start=92L,end=128L)
+,list(job=17L,start=128L,end=148L)
+,list(job=2L,start=154L,end=174L)
+,list(job=18L,start=204L,end=217L)
+,list(job=6L,start=224L,end=263L)
+,list(job=1L,start=263L,end=299L)
+,list(job=11L,start=299L,end=328L)
+,list(job=7L,start=328L,end=355L)
+,list(job=14L,start=355L,end=369L)
+,list(job=15L,start=383L,end=412L)
+,list(job=4L,start=412L,end=436L)
+,list(job=5L,start=436L,end=462L)
+,list(job=8L,start=462L,end=483L)
+,list(job=9L,start=491L,end=519L)
+,list(job=10L,start=520L,end=559L)
+,list(job=13L,start=562L,end=583L)
+,list(job=19L,start=583L,end=605L)
+,list(job=3L,start=608L,end=637L)
+)
+,list( list(job=16L,start=0L,end=25L)
+,list(job=1L,start=30L,end=45L)
+,list(job=0L,start=45L,end=57L)
+,list(job=6L,start=59L,end=89L)
+,list(job=14L,start=89L,end=119L)
+,list(job=7L,start=122L,end=143L)
+,list(job=12L,start=143L,end=171L)
+,list(job=18L,start=171L,end=188L)
+,list(job=8L,start=188L,end=215L)
+,list(job=2L,start=215L,end=227L)
+,list(job=4L,start=265L,end=289L)
+,list(job=19L,start=292L,end=323L)
+,list(job=9L,start=323L,end=347L)
+,list(job=15L,start=347L,end=383L)
+,list(job=10L,start=383L,end=410L)
+,list(job=5L,start=410L,end=433L)
+,list(job=17L,start=433L,end=464L)
+,list(job=11L,start=493L,end=504L)
+,list(job=3L,start=637L,end=650L)
+,list(job=13L,start=650L,end=677L)
+)
+,list( list(job=7L,start=45L,end=64L)
+,list(job=15L,start=122L,end=139L)
+,list(job=0L,start=139L,end=166L)
+,list(job=11L,start=166L,end=197L)
+,list(job=6L,start=197L,end=224L)
+,list(job=13L,start=248L,end=282L)
+,list(job=8L,start=332L,end=353L)
+,list(job=10L,start=353L,end=373L)
+,list(job=12L,start=373L,end=388L)
+,list(job=16L,start=394L,end=406L)
+,list(job=3L,start=407L,end=437L)
+,list(job=9L,start=437L,end=452L)
+,list(job=14L,start=453L,end=476L)
+,list(job=5L,start=476L,end=491L)
+,list(job=19L,start=492L,end=521L)
+,list(job=18L,start=521L,end=559L)
+,list(job=2L,start=559L,end=581L)
+,list(job=4L,start=581L,end=599L)
+,list(job=17L,start=599L,end=612L)
+,list(job=1L,start=612L,end=640L)
+)
+,list( list(job=18L,start=0L,end=18L)
+,list(job=7L,start=18L,end=45L)
+,list(job=16L,start=45L,end=60L)
+,list(job=12L,start=60L,end=92L)
+,list(job=11L,start=92L,end=120L)
+,list(job=9L,start=120L,end=159L)
+,list(job=10L,start=159L,end=196L)
+,list(job=4L,start=196L,end=214L)
+,list(job=15L,start=214L,end=247L)
+,list(job=17L,start=247L,end=259L)
+,list(job=19L,start=259L,end=292L)
+,list(job=8L,start=292L,end=332L)
+,list(job=5L,start=332L,end=372L)
+,list(job=14L,start=372L,end=386L)
+,list(job=13L,start=386L,end=419L)
+,list(job=2L,start=419L,end=435L)
+,list(job=1L,start=435L,end=461L)
+,list(job=3L,start=469L,end=490L)
+,list(job=0L,start=490L,end=521L)
+,list(job=6L,start=521L,end=557L)
+)
+,list( list(job=1L,start=0L,end=30L)
+,list(job=2L,start=30L,end=65L)
+,list(job=7L,start=65L,end=94L)
+,list(job=6L,start=94L,end=115L)
+,list(job=4L,start=115L,end=147L)
+,list(job=3L,start=147L,end=176L)
+,list(job=0L,start=187L,end=212L)
+,list(job=12L,start=246L,end=266L)
+,list(job=5L,start=266L,end=301L)
+,list(job=16L,start=307L,end=338L)
+,list(job=18L,start=345L,end=362L)
+,list(job=13L,start=419L,end=446L)
+,list(job=8L,start=446L,end=462L)
+,list(job=15L,start=462L,end=495L)
+,list(job=10L,start=495L,end=520L)
+,list(job=19L,start=521L,end=549L)
+,list(job=14L,start=549L,end=572L)
+,list(job=9L,start=572L,end=605L)
+,list(job=11L,start=605L,end=620L)
+,list(job=17L,start=620L,end=646L)
+)
+,list( list(job=18L,start=48L,end=86L)
+,list(job=15L,start=86L,end=122L)
+,list(job=2L,start=122L,end=154L)
+,list(job=4L,start=154L,end=170L)
+,list(job=16L,start=170L,end=209L)
+,list(job=9L,start=209L,end=232L)
+,list(job=5L,start=232L,end=266L)
+,list(job=12L,start=266L,end=285L)
+,list(job=10L,start=285L,end=310L)
+,list(job=11L,start=328L,end=360L)
+,list(job=3L,start=360L,end=374L)
+,list(job=0L,start=419L,end=445L)
+,list(job=19L,start=445L,end=456L)
+,list(job=17L,start=464L,end=496L)
+,list(job=1L,start=496L,end=511L)
+,list(job=13L,start=513L,end=541L)
+,list(job=14L,start=572L,end=599L)
+,list(job=8L,start=599L,end=627L)
+,list(job=7L,start=632L,end=654L)
+,list(job=6L,start=654L,end=687L)
+)
+,list( list(job=13L,start=0L,end=28L)
+,list(job=5L,start=28L,end=52L)
+,list(job=8L,start=61L,end=85L)
+,list(job=19L,start=85L,end=124L)
+,list(job=12L,start=128L,end=142L)
+,list(job=6L,start=142L,end=161L)
+,list(job=7L,start=183L,end=197L)
+,list(job=11L,start=197L,end=218L)
+,list(job=4L,start=218L,end=242L)
+,list(job=15L,start=247L,end=272L)
+,list(job=16L,start=272L,end=307L)
+,list(job=10L,start=310L,end=323L)
+,list(job=17L,start=323L,end=362L)
+,list(job=9L,start=362L,end=392L)
+,list(job=0L,start=392L,end=419L)
+,list(job=14L,start=420L,end=453L)
+,list(job=18L,start=453L,end=483L)
+,list(job=2L,start=483L,end=499L)
+,list(job=1L,start=524L,end=547L)
+,list(job=3L,start=650L,end=670L)
+)
+,list( list(job=15L,start=0L,end=13L)
+,list(job=14L,start=13L,end=34L)
+,list(job=3L,start=34L,end=54L)
+,list(job=19L,start=54L,end=85L)
+,list(job=0L,start=85L,end=102L)
+,list(job=7L,start=102L,end=122L)
+,list(job=18L,start=155L,end=171L)
+,list(job=11L,start=218L,end=238L)
+,list(job=4L,start=242L,end=265L)
+,list(job=6L,start=265L,end=278L)
+,list(job=2L,start=290L,end=307L)
+,list(job=8L,start=353L,end=379L)
+,list(job=10L,start=410L,end=435L)
+,list(job=12L,start=435L,end=467L)
+,list(job=16L,start=478L,end=494L)
+,list(job=17L,start=496L,end=516L)
+,list(job=5L,start=516L,end=544L)
+,list(job=9L,start=544L,end=570L)
+,list(job=1L,start=570L,end=596L)
+,list(job=13L,start=603L,end=636L)
+)
+,list( list(job=18L,start=18L,end=48L)
+,list(job=17L,start=61L,end=75L)
+,list(job=10L,start=75L,end=103L)
+,list(job=7L,start=143L,end=183L)
+,list(job=1L,start=223L,end=251L)
+,list(job=2L,start=267L,end=290L)
+,list(job=4L,start=290L,end=324L)
+,list(job=15L,start=324L,end=347L)
+,list(job=5L,start=372L,end=408L)
+,list(job=11L,start=408L,end=426L)
+,list(job=16L,start=426L,end=459L)
+,list(job=13L,start=459L,end=476L)
+,list(job=9L,start=476L,end=491L)
+,list(job=12L,start=491L,end=507L)
+,list(job=8L,start=507L,end=520L)
+,list(job=14L,start=520L,end=532L)
+,list(job=3L,start=532L,end=556L)
+,list(job=6L,start=557L,end=578L)
+,list(job=0L,start=642L,end=661L)
+,list(job=19L,start=661L,end=678L)
+)
+,list( list(job=4L,start=0L,end=23L)
+,list(job=8L,start=32L,end=61L)
+,list(job=11L,start=61L,end=86L)
+,list(job=5L,start=86L,end=105L)
+,list(job=1L,start=116L,end=135L)
+,list(job=18L,start=135L,end=155L)
+,list(job=12L,start=285L,end=297L)
+,list(job=17L,start=303L,end=320L)
+,list(job=14L,start=320L,end=336L)
+,list(job=19L,start=336L,end=358L)
+,list(job=16L,start=358L,end=394L)
+,list(job=9L,start=394L,end=425L)
+,list(job=15L,start=438L,end=451L)
+,list(job=2L,start=451L,end=480L)
+,list(job=10L,start=480L,end=494L)
+,list(job=3L,start=494L,end=523L)
+,list(job=0L,start=523L,end=541L)
+,list(job=13L,start=541L,end=562L)
+,list(job=6L,start=578L,end=595L)
+,list(job=7L,start=595L,end=632L)
+)
+,list( list(job=12L,start=0L,end=39L)
+,list(job=17L,start=39L,end=61L)
+,list(job=9L,start=61L,end=96L)
+,list(job=1L,start=96L,end=116L)
+,list(job=16L,start=116L,end=156L)
+,list(job=19L,start=156L,end=183L)
+,list(job=6L,start=183L,end=195L)
+,list(job=10L,start=196L,end=225L)
+,list(job=13L,start=225L,end=248L)
+,list(job=2L,start=248L,end=267L)
+,list(job=14L,start=267L,end=305L)
+,list(job=18L,start=305L,end=345L)
+,list(job=3L,start=374L,end=407L)
+,list(job=7L,start=529L,end=541L)
+,list(job=15L,start=541L,end=554L)
+,list(job=4L,start=554L,end=569L)
+,list(job=11L,start=569L,end=586L)
+,list(job=5L,start=586L,end=599L)
+,list(job=8L,start=627L,end=655L)
+,list(job=0L,start=661L,end=687L)
+)
+,list( list(job=8L,start=0L,end=32L)
+,list(job=6L,start=32L,end=59L)
+,list(job=4L,start=59L,end=79L)
+,list(job=2L,start=87L,end=110L)
+,list(job=18L,start=110L,end=125L)
+,list(job=11L,start=125L,end=160L)
+,list(job=12L,start=171L,end=208L)
+,list(job=1L,start=208L,end=223L)
+,list(job=7L,start=236L,end=275L)
+,list(job=15L,start=275L,end=299L)
+,list(job=9L,start=347L,end=358L)
+,list(job=19L,start=358L,end=394L)
+,list(job=10L,start=435L,end=466L)
+,list(job=14L,start=476L,end=516L)
+,list(job=17L,start=516L,end=545L)
+,list(job=5L,start=545L,end=583L)
+,list(job=13L,start=583L,end=603L)
+,list(job=0L,start=603L,end=642L)
+,list(job=16L,start=642L,end=669L)
+,list(job=3L,start=670L,end=688L)
+)
+,list( list(job=15L,start=13L,end=53L)
+,list(job=14L,start=53L,end=87L)
+,list(job=18L,start=87L,end=109L)
+,list(job=5L,start=109L,end=130L)
+,list(job=13L,start=130L,end=170L)
+,list(job=9L,start=170L,end=188L)
+,list(job=7L,start=197L,end=236L)
+,list(job=11L,start=238L,end=257L)
+,list(job=12L,start=297L,end=319L)
+,list(job=6L,start=319L,end=331L)
+,list(job=10L,start=331L,end=345L)
+,list(job=17L,start=362L,end=393L)
+,list(job=8L,start=406L,end=433L)
+,list(job=16L,start=459L,end=478L)
+,list(job=19L,start=478L,end=492L)
+,list(job=4L,start=493L,end=521L)
+,list(job=1L,start=547L,end=567L)
+,list(job=0L,start=567L,end=583L)
+,list(job=3L,start=583L,end=608L)
+,list(job=2L,start=608L,end=630L)
+)
+));
+# END_BEST_Y
