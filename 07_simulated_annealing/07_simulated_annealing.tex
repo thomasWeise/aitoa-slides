@@ -42,19 +42,341 @@ or the search will get very slow\uncover<12->{ %
 \end{itemize}%
 \end{frame}%
 %
+\section{Algorithm Concept: Probabilistic Acceptance of Worse Solutions}%
+%
 \begin{frame}%
 \frametitle{Simulated Annealing}%
 \begin{itemize}%
 \item Simulated Annealing (SA)\cite{KGV1983OBSA,C1985TATTTSPAESA,DPSW1982MCTICO,P1970AMCMFTASOCTOCOP} is a local search which provides another approach to escape from local optima\cite{WGOEB,S2003ITSSAO}.%
-\item<2-> Instead of restarting the algorithm when reaching a local optima, it tries to preserve the parts of the current best solution by sometimes permitting search steps towards worsening objective values.%
+\item<2-> Instead of restarting the algorithm when reaching a local optima, it tries to preserve the parts of the current solution by sometimes permitting search steps towards worsening objective values.%
 \item<3-> This algorithm therefore introduces three principles\uncover<4->{:%
 \begin{enumerate}%
 \item Worse candidate solutions are sometimes accepted, too.%
-\item<5-> The probability~$P$ of accepting them is decreases with increasing differences~$\Delta E$ of the objective values to the current best solution.%
+\item<5-> The probability~$P$ of accepting them is decreases with increasing differences~$\Delta E$ of the objective values to the current solution.%
 \item<6-> The probability also decreases with the number of performed search steps.%
 \end{enumerate}%
 }%
+\item<7-> These principles are "injected" into the basic loop of the hill climber.% 
+\item<8-> How can we implement these concepts?%
 \end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Acceptance Probability}%
+\begin{itemize}%
+\item How can we implement these concepts?%
+\item<2-> Let's assume that the ``current'' point in the search space known by our local search is~$\sespel\in\searchSpace$\only<-2>{.}\uncover<3->{ and that we have derived a new point~$\sespel'\in\searchSpace$ from it\only<-3>{.}\uncover<4->{ using the unary search operator.}}%
+\item<5-> $\Delta E$ then be the difference between the objective value of~$\sespel'$ and~$\sespel$\only<-5>{.}\uncover<6->{:}%
+\end{itemize}%
+\uncover<6->{\bigskip%
+\begin{equation}%
+\Delta E = \objf(\repMap(\sespel')) - \objf(\repMap(\sespel))%
+\end{equation}%
+\uncover<7->{%
+\begin{itemize}%
+\item $\Delta E < 0$ means that\only<-7>{?}\uncover<8->{ the new~$\sespel'$ is better than~$\sespel$ since $\objf(\repMap(\sespel')) < \objf(\repMap(\sespel))$.}%
+\item<9-> $\Delta E > 0$ means that\only<-9>{?}\uncover<10->{ the new solution is worse.}%
+\item<11-> $\Delta E = 0$ means that\only<-11>{?}\uncover<12->{ both have the same quality.}%
+\end{itemize}%
+}%
+}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Acceptance Probability}%
+\setcounter{equation}{0}%
+\begin{equation}%
+{\color<10-13>{blue}{\Delta E}} = \objf(\repMap(\sespel')) - \objf(\repMap(\sespel))%
+\end{equation}%
+\uncover<2->{%
+\begin{itemize}%
+\item The probability~$P$ to accept the new solution~$\sespel'$ (and discard the current one~$\sespel$) is\uncover<3->{:}% 
+\end{itemize}%
+\uncover<3->{\bigskip%
+\begin{equation}%
+P = \left\{\begin{array}{rl}%
+\uncover<4->{1} & \uncover<5->{\text{if~}{\color<10-13>{blue}{\Delta E}} {\color<11>{violet}{\,\leq\,}} 0}\\%
+\uncover<6->{e^{-\frac{{\color<10-13>{blue}{\Delta E}}}{\color<14>{red}{T}}}} & \uncover<7->{\text{if~}{\color<10-13>{blue}{\Delta E}} >0 \land {\color<14>{red}{T}} > 0}\\%
+\uncover<8->{0} & \uncover<9->{\text{otherwise~}({\color<10-13>{blue}{\Delta E}} > 0 \land {\color<14>{red}{T}}=0)}%
+\end{array} \right.%
+\label{equ:probability}%
+\end{equation}%
+\uncover<10->{%
+\begin{itemize}%
+\item If the new point~$\sespel'$ is better\only<11->{ {\color<11>{violet}{(or, at least, not worse)}}} than the current point~$\sespel$, i.e., ${\color<10-13>{blue}{\Delta E}} \only<-10>{<}\only<11->{{\color<11>{violet}{\,\leq\,}}}0$, then we will definitely accept it.%
+\item<12-> If the new point~$\sespel'$ is worse (${\color<10-13>{blue}{\Delta E}} > 0$), then the acceptance probability\uncover<13->{%
+\begin{enumerate}%
+\item gets smaller the larger ${\color<10-13>{blue}{\Delta E}}$ is\only<-13>{.}\uncover<14->{ and}%
+\item<14-> gets smaller the smaller the so-called ``temperature'' ${\color<14>{red}{T}}\geq 0$ is.%
+\end{enumerate}%
+}%
+\end{itemize}%
+}}}%
+\end{frame}%
+%
+\section{Ingredient: Temperature Schedule}%
+%
+\begin{frame}%
+\frametitle{Temperature Schedule}%
+\setcounter{equation}{1}%
+\begin{equation}%
+P = \left\{\begin{array}{rl}%
+1 & \text{if~}\Delta E \leq 0\\%
+e^{-\frac{\Delta E}{{\only<-8>{\color<2>{red}{T}}\only<9->{\color<9>{cyan}{T(\iteration)}}}}} & \text{if~}\Delta E >0 \land {\only<-8>{\color<2>{red}{T}}\only<9->{\color<9>{cyan}{T(\iteration)}}} > 0\\%
+0 & \text{otherwise~}(\Delta E > 0 \land {\only<-8>{\color<2>{red}{T}}\only<9->{\color<9>{cyan}{T(\iteration)}}}=0)%
+\end{array} \right.%
+\end{equation}%
+\uncover<2->{%
+\begin{itemize}%
+\item What about this temperature~${\only<-8>{\color<2>{red}{T}}\only<9->{\color<9>{cyan}{T(\iteration)}}}$?%
+\item<3-> The temperature is defined to decrease and approaches zero with a rising number~$\iteration$ of \only<-3>{algorithm iterations, i.e., the }performed objective function evaluations.
+\item<4-> The optimization process is initially ``hot'' and $\only<-8>{T}\only<9->{{\color<9>{cyan}{T(\iteration)}}}$~is high.%
+\item<5-> Then, even significantly worse solutions may be accepted.%
+\item<6-> Over time, the process ``cools'' down and $\only<-8>{T}\only<9->{{\color<9>{cyan}{T(\iteration)}}}$~decreases.%
+\item<7-> Slowly, fewer and fewer worse solutions are accepted and more likely such which are only a bit worse.%
+\item<8-> At temperature~$\only<-8>{T}\only<9->{{\color<9>{cyan}{T(\iteration)}}}=0$, the algorithm only accepts better solutions.% 
+\item<9-> \alert{$T$ is a monotonously decreasing function ${\color<9>{cyan}{T(\iteration)}}$: the ``temperature schedule.''}%
+\end{itemize}%
+}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Conditions for Temperature Schedule}%
+\setcounter{equation}{1}%
+\begin{equation}%
+P = \left\{\begin{array}{rl}%
+1 & \text{if~}\Delta E \leq 0\\%
+e^{-\frac{\Delta E}{{\color{cyan}{T(\iteration)}}}} & \text{if~}\Delta E >0 \land {\color{cyan}{T(\iteration)}} > 0\\%
+0 & \text{otherwise~}(\Delta E > 0 \land {\color{cyan}{T(\iteration)}}=0)%
+\end{array} \right.%
+\end{equation}%
+\uncover<2->{%
+\begin{itemize}%
+\item The temperature~${\color{cyan}{T(\iteration)}}$ is defined to decrease and approaches zero with a rising number~$\iteration$ of performed objective function evaluations.%
+\item<3-> It holds that $\lim_{\iteration\rightarrow\infty} {\color{cyan}{T(\iteration)}} = 0$.%
+\item<4-> It begins with an start temperature~$T_s$ at $\iteration=1$.%
+\item<5-> Apart from this, we can define~${\color{cyan}{T(\iteration)}}$ in any way we want.%
+\end{itemize}%
+}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Base Class for Implementing Temperature Schedules}%
+\listing{0.9}{0.9}{language=myJava,mathescape=true}{code/TemperatureSchedule.java}
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Exponential Temperature Schedule}%
+\begin{itemize}%
+\item In an \alert{exponential temperature schedule}, the temperature decreases exponentially with time (as the name implies).%
+\item<2-> Besides the start temperature~$T_s$, it has a parameter~$\varepsilon\in(0,1)$ which tunes the speed of the temperature decrease.%
+\uncover<3->{%
+\bigskip%
+\begin{equation}%
+T(\iteration) = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
+\end{equation}%
+}%
+\item<4-> Higher values of $\varepsilon$ lead to a faster temperature decline.
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Exponential Temperature Schedule}%
+\listing{0.9}{0.9}{language=myJava,mathescape=true}{code/TemperatureSchedule_Exponential.java}
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Logarithmic Temperature Schedule}%
+\begin{itemize}%
+\item The \alert{logarithmic temperature schedule} will prevent the temperature from becoming very small for a longer time.%
+\item<2-> Compared to the exponential schedule, it will longer retain a higher probability to accept worse solutions.%
+\item<3-> It also has the parameters~$\varepsilon\in(0,\infty)$ and~$T_s$.
+\uncover<4->{%
+\bigskip%
+\begin{equation}%
+T(\iteration) = \frac{T_s}{\ln{\left(\varepsilon(\iteration-1)+e\right)}}%
+\end{equation}%
+}%
+\item<5-> Larger values of $\varepsilon$ again lead to a faster temperature decline.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Logarithmic Temperature Schedule}%
+\listing{0.9}{0.9}{language=myJava,mathescape=true}{code/TemperatureSchedule_Logarithmic.java}
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{The Meaning of the Temperature Schedule}%
+\begin{itemize}%
+\item Why do we have such a strange thing like a temperature schedule?%
+\item<2-> Let's think back again about Evolutionary Algorithms\cite{WGOEB,H1975GA,BFM1997EA,MF2004HTSIMH,G1989GA}.%
+\item<3-> By using the population size parameters~$\mu$ and $\lambda$, we can tune the behavior of an EA between random sampling ($\mu\rightarrow\infty$ or $\lambda\rightarrow\infty$) and hill climbing ($\mu=\lambda=1$).%
+\item<4-> This allowed us to tune between exploration and exploitation, to find a ``sweet spot'' where the algorithm performs best.%
+\item<5-> The temperature schedule in SA allows us to do the same\only<-5>{.}\uncover<6->{ \alert<6>{but dynamically!}}%
+\item<7-> If $T$ is high at the beginning\only<-7>{\dots}\uncover<8->{ $\Rightarrow$ many bad solutions are accepted\only<-8>{.}\uncover<9->{ $\Rightarrow$ random sampling.}}%
+\item<10-> At the end, $T\approx 0$\only<-10>{\dots}\uncover<11->{ $\Rightarrow$ no worse solutions are accepted anymore\only<-11>{.}\uncover<12->{ $\Rightarrow$ hill climbing.}}%
+\end{itemize}%
+\end{frame}%
+%
+\section{Algorithm Implementation}%
+%
+\begin{frame}%
+\frametitle{Simulated Annealing Algorithm}%
+\begin{itemize}%
+\item Simulated Annealing = Hill Climbing + probabilistically accepting worse solutions%
+\item<2-> Simple Concept\uncover<3->{:%
+\begin{enumerate}%
+\item Start with ${\color{cyan}{\iteration}}=1$.
+\item<4-> Create random initial point~${\color{green}{\sespel}}$, which also becomes the first ``current point''~${\color{green}{\sespel}}$ and the overall best point~${\color{red}{\bestSoFar{\sespel}}}$.%
+\item<5-> Create a modified copy~${\color{blue}{\sespel'}}$ of the current point~${\color{green}{\sespel}}$.%
+\item<6-> Set ${\color{cyan}{\iteration}}={\color{cyan}{\iteration}}+1$.%
+\item<7-> If the new point~${\color{blue}{\sespel'}}$ is better than~${\color{red}{\bestSoFar{\sespel}}}$, set~${\color{red}{\bestSoFar{\sespel}}}={\color{blue}{\sespel'}}$.%
+\item<8-> If the new point~${\color{blue}{\sespel'}}$ is better than~${\color{green}{\sespel}}$, set~${\color{green}{\sespel}}={\color{blue}{\sespel'}}$.%
+\item<9-> If it is worse ($\Delta E>0$): accept it as current solution with probability~$P(\Delta E, {\color{cyan}{\iteration}})$ (which gets smaller over time and also the smaller the worse the new solution is) or otherwise reject it.%
+\item<10-> Go back to \enumerateItem{3} (until the time is up)%
+\item<11-> Return the best ever-encountered point~${\color{red}{\bestSoFar{\sespel}}}$.%
+\end{enumerate}}
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Implementing Simulated Annealing}%
+\only<1>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_01.java}}%
+\only<2>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_02.java}}%
+\only<3>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_03.java}}%
+\only<4>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_04.java}}%
+\only<5>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_05.java}}%
+\only<6>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_06.java}}%
+\only<7>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_07.java}}%
+\only<8>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_08.java}}%
+\only<9>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_09.java}}%
+\only<10>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_10.java}}%
+\only<11>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_11.java}}%
+\only<12>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_12.java}}%
+\only<13>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_13.java}}%
+\only<14>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_14.java}}%
+\only<15>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_15.java}}%
+\only<16>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_16.java}}%
+\only<17>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing_17.java}}%
+\only<18>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing.java}}%
+\end{frame}%
+%
+\section{Experiment and Analysis}%
+%
+\begin{frame}%
+\frametitle{Configuring the Algorithm}%
+\begin{itemize}%
+\item Our algorithm has four parameters\only<-1>{.}\uncover<2->{:%
+\begin{enumerate}%
+\item the start temperature~$T_s$\uncover<3->{,}%
+\item<3-> the parameter~$\varepsilon$\uncover<4->{,}%
+\item<4-> the type of temperature schedule to use (here, logarithmic or exponential)\uncover<5->{, and}%
+\item<5-> the unary search operator (in our case, we could use \algoStyle{1swap} or \algoStyle{nswap}).%
+\end{enumerate}}%
+\item<6-> We will only use \algoStyle{1swap} as choice for the unary operator and focus on the exponential temperature schedule.%
+\item<7-> This leaves $T_s$ and $\varepsilon$ to be configured.%
+\item<8-> Interestingly, we may be able to \alert{very roughly compute} some reasonable values for them!%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Simulated Annealing as Improved Hill Climber}%
+\begin{itemize}%
+\item Let us consider Simulated Annealing as an improved Hill Climber\only<-1>{.}\uncover<2->{ and look at the experimental results of this algorithm.}%
+\end{itemize}%
+\uncover<3->{%
+\bigskip%
+\begin{center}%
+\begin{tabular}{|r|r|r|}%
+\hline%
+$\instance$&\textcolor<4>{blue}{med(total FEs)}&\textcolor<5>{red}{sd}\\%
+\hline%
+\instStyle{abz7}&\textcolor<4>{blue!66!black}{35'648'639}&28\\%
+\instStyle{la24}&70'952'285&\textcolor<5>{red!66!black}{56}\\%
+\instStyle{swv15}&21'662'286&137\\%
+\instStyle{yn4}&\textcolor<4>{blue!66!black}{27'090'511}&\textcolor<5>{red!66!black}{48}\\%
+\hline%
+\textcolor<4-5>{violet}{\textbf{median}}&\textcolor<4>{blue}{\textbf{31'369'575}}&\textcolor<5>{red}{\textbf{52}}\\%
+\hline%
+\end{tabular}%
+\end{center}%
+\uncover<4->{%
+\bigskip%
+\begin{itemize}%
+\item \algoStyle{hc_1swap} performs \textcolor<4>{blue}{30 million FEs} (within the three minute budget) in \textcolor<4>{violet}{median over all instances}.%
+\item<5-> The \textcolor<5>{violet}{median} of the standard deviations of the result quality at the end of the three minutes (\textcolor<5>{violet}{over all instances}) is about \textcolor<5>{red}{50}.%
+\item<6-> What can we do with these information?% 
+\end{itemize}%
+}%
+}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{End Result Standard Deviation}%
+\only<-2,7->{%
+\begin{itemize}%
+\item The median standard deviation of the final results of \algoStyle{hc_1swap} of~50 tells us something about the local optima.%
+\item<2-> We know that \algoStyle{hc_1swap} gets stuck in local optima -- it stopped improving after just one second!%
+\item<7-> The standard measures how spread out the local optima.%
+\item<8-> It is a gives us a good impression of how different the qualities of the local optima are that we can expect to see.%
+\item<9-> Thus, accepting a solution which is worse by 50~units of makespan, i.e., with $\Delta E\approx 50$, should be possible at the beginning of the optimization process.%
+\item<10-> Let's say that the probability to accept such a solution should be 10% at the beginning of a run.%  
+\end{itemize}%
+}%
+\locateGraphic{3}{width=0.9\paperwidth}{../05_stochastic_hill_climbing/graphics/hc_1swap_progress/hc_1swap_progress_abz7_log}{0.05}{0.2}%
+\locateGraphic{4}{width=0.9\paperwidth}{../05_stochastic_hill_climbing/graphics/hc_1swap_progress/hc_1swap_progress_la24_log}{0.05}{0.2}%
+\locateGraphic{5}{width=0.9\paperwidth}{../05_stochastic_hill_climbing/graphics/hc_1swap_progress/hc_1swap_progress_swv15_log}{0.05}{0.2}%
+\locateGraphic{6}{width=0.9\paperwidth}{../05_stochastic_hill_climbing/graphics/hc_1swap_progress/hc_1swap_progress_yn4_log}{0.05}{0.2}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{From End Result Standard Deviation to Start Temperature}%
+\begin{itemize}%
+\item The median standard deviation of the end result quality of the hill climber is~50.%
+\item<2-> We want to accept a solution with $\Delta E=50$ with probability $P_{50}=0.1$ at~$\iteration=1$.%
+\item<3-> At $\iteration=1$, the temperature of any temperature schedule equals the start temperature~$T_s$.%
+\item<4-> We can solve the probability Equation~\ref{equ:probability} for $T_s$\uncover<5->{:}% 
+\end{itemize}%
+\uncover<4->{%
+\bigskip%
+\begin{equation}%
+\only<-5>{%
+P = \left\{\begin{array}{rl}%
+1 & \text{if~}\Delta E \leq 0\\%
+{\color<5>{red}{e^{-\frac{\Delta E}{T(\iteration)}}}} & {\color<5>{red}{\text{if~}\Delta E >0 \land T(\iteration) > 0}}\\%
+0 & \text{otherwise~}(\Delta E > 0 \land T(\iteration)=0)%
+\end{array} \right.%
+}%
+\only<6-7>{%
+{\color<7>{blue}{P}}= e^{-\frac{\Delta E}{T(\iteration)}}%
+}%
+\only<8>{%
+{\color<8>{blue}{P_{50}}}= e^{-\frac{\Delta E}{T(\iteration)}}%
+}%
+\only<9-11>{%
+{\color<9>{blue}{0.1}}= e^{-\frac{{\color<11>{red}{\Delta E}}}{T(\iteration)}}%
+}%
+\only<12-14>{%
+0.1 = e^{-\frac{ {\color<12>{red}{50}} }{ {\color<14>{blue}{T(\iteration)}} }%
+}%
+\only<15-17>{%
+0.1 = {\color<17>{red}{e}}^{-\frac{ 50 }{ {\color<15>{blue}{T_s}} } }}%
+}%
+\only<18-20>{%
+{\color<20>{blue}{{\color<18>{red}{\ln{0.1}}}}} = -\frac{50}{{\color<20>{blue}{T_s}}}%
+}%
+\only<21-23>{%
+{\color<21>{blue}{T_s}} = {\color<23>{red}{ -\frac{50}{{\color<21>{blue}{\ln{0.1}}}}}}%
+}%
+\only<24>{%
+T_s\approx {\color<24>{red}{21.714724095}}
+}%
+\only<25>{%
+T_s\approx 20%
+}%
+\end{equation}%
+}%
 \end{frame}%
 %
 \endPresentation%
