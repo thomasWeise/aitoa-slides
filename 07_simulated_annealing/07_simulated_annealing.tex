@@ -1,0 +1,63 @@
+\documentclass[mathserif]{beamer}%
+%
+\xdef\sharedDir{../_shared_}%
+\RequirePackage{\sharedDir/styles/slides}%
+%
+\subtitle{7. Simulated Annealing}%
+%
+\begin{document}%
+\startPresentation%
+%
+
+\section{Introduction}%
+%
+\begin{frame}%
+\frametitle{Local Search and Hill Climbing}%
+\begin{itemize}%
+\item So far, we have only discussed one variant of local search\only<-1>{.}\uncover<2->{: the stochastic hill climbing algorithm.}%
+\item<3-> A pure hill climbing algorithm is likely to get stuck at local optima, which may vary in quality.%
+\item<4-> We also found that we can utilize the variance of the result quality by restarting the optimization process when it could not improve any more.%
+\item<5-> But such a restart is costly, as it forces the local search to start completely from scratch (while we, of course, remember the best-ever solution in a variable hidden from the algorithm).%
+\item<6-> Alternatively, we also tried to use operators with larger neighborhoods\only<-6>{.}\uncover<7->{, %
+but there will either still be local optima\uncover<8->{ %
+(if the neighborhood is not large enough)\uncover<9->{ %
+or there are points where it is hard to escape from\uncover<10->{ %
+(if the neighborhood is very large but non-uniformly sampled, as our \algoStyle{nswap} operator does)\uncover<11->{ %
+or the search will get very slow\uncover<12->{ %
+(if the neighborhood is very large and uniformly sampled).%
+}}}}}}%
+\item<13-> So, for now, let's stick with the \algoStyle{1swap} operator.% 
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Idea}%
+\begin{itemize}%
+\item A schedule which is a local optimum (under \algoStyle{1swap}) probably is at least somewhat similar to what the globally optimal schedule would look like.%
+\item<2-> It must, obviously, also be somewhat different (otherwise it would be the global optimum already).%
+\item<3-> This difference is shaped such that it cannot be conquered by the \algoStyle{1swap} unary search operator that we use.%
+\item<4-> If we do a restart, we also dispose of the similarities to the global optimum that we have already discovered.%
+\item<5-> Then, we will subsequently spend time to re-discover them in the hope that this will happen in a way that allows us to eventually reach the global optimum itself (or at least a better local optimum).%
+\item<6-> Can there be a less-costly way?%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Simulated Annealing}%
+\begin{itemize}%
+\item Simulated Annealing (SA)\cite{KGV1983OBSA,C1985TATTTSPAESA,DPSW1982MCTICO,P1970AMCMFTASOCTOCOP} is a local search which provides another approach to escape from local optima\cite{WGOEB,S2003ITSSAO}.%
+\item<2-> Instead of restarting the algorithm when reaching a local optima, it tries to preserve the parts of the current best solution by sometimes permitting search steps towards worsening objective values.%
+\item<3-> This algorithm therefore introduces three principles\uncover<4->{:%
+\begin{enumerate}%
+\item Worse candidate solutions are sometimes accepted, too.%
+\item<5-> The probability~$P$ of accepting them is decreases with increasing differences~$\Delta E$ of the objective values to the current best solution.%
+\item<6-> The probability also decreases with the number of performed search steps.%
+\end{enumerate}%
+}%
+\end{itemize}%
+\end{frame}%
+%
+\endPresentation%
+\end{document}%%
+\endinput%
+%
