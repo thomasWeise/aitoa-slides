@@ -198,6 +198,7 @@ e^{-\frac{\Delta E}{{\color{cyan}{T(\iteration)}}}} & \text{if~}\Delta E >0 \lan
 \scalebox{1.3}{\ensuremath{\displaystyle{%
 T(\iteration) = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
 }}}%
+\label{equ:exponential}%
 \end{equation}%
 }%
 \item<4-> Higher values of $\varepsilon$ lead to a faster temperature decline.
@@ -510,6 +511,70 @@ T(\iteration) = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
 }%
 \end{frame}%
 %
+\setcounter{equation}{\value{eqLast}}%
+%
+\begin{frame}%
+\frametitle{Epsilon from End Temperature and Iteration}%
+\begin{itemize}%
+\item We have a start temperature~$T_s$ and an end temperature~$T_e$.%
+\item<2-> What we need it we want to solve Equation~\ref{equ:exponential} for~$\varepsilon$ is the iteration index~$\iteration$ at which~$T(\iteration)=T_e$.%
+\item<3-> Before, we said that our optimization processes run for about 30'000'000~FEs in median.%
+\item<4-> Since $T_e$~is the end temperature, the right value for~$\iteration$ is the time when we can expect the runs to end: $T_e=T(30'000'000)$ and~$\iteration=30'000'000$.%
+\end{itemize}%
+\uncover<4->{%
+\bigskip%
+\begin{equation}%
+\scalebox{1.3}{\ensuremath{\displaystyle{%
+%
+\only<-5>{%
+{\color<5>{red}{T(\iteration)}} = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
+}%
+\only<6>{%
+{\color<6>{red}{T_e}} = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
+}%
+\only<7-8>{%
+{\color<7>{red}{0.1}} = T_s * (1 - \varepsilon) ^ {{\color<8>{blue}{\iteration}} - 1}%
+}%
+\only<9-10>{%
+0.1 = T_s * (1 - \varepsilon) ^ {{\color<10>{red}{{\color<9>{blue}{30'000'000}} - 1}}}%
+}%
+\only<11-12>{%
+0.1 = {\color<12>{red}{T_s}} * (1 - \varepsilon) ^ {{\color<11>{red}{29'999'999}}}%
+}%
+\only<13-14>{%
+{\color<14>{blue}{0.1 = {\color<13>{red}{20}}}} * (1 - \varepsilon) ^ {29'999'999}%
+}%
+\only<15>{%
+{\color<15>{blue}{\frac{0.1}{20}}} = (1 - \varepsilon) ^ {29'999'999}%
+}%
+\only<16-17>{%
+{\color<16>{blue}{0.005}} = (1 - \varepsilon) ^ {{\color<17>{red}{29'999'999}}}%
+}%
+\only<18>{%
+{\color<18>{red}{0.005^{\frac{1}{29'999'999}}}} = 1 - \varepsilon%
+}%
+\only<19>{%
+{\color<19>{red}{ 0.999\,999\,823\,389  \approx}} {\color<20>{blue}{1 -}} \varepsilon%
+}%
+\only<20-21>{%
+\varepsilon\approx{\color<21>{red}{1-{\color<20>{blue}{0.999\,999\,823\,389}}}}%
+}%
+\only<22>{%
+\varepsilon\approx{\color<22>{red}{0.000\,000\,176\,610\,569}}%
+}%
+\only<23>{%
+\varepsilon\approx{\color<23>{red}{1.776 * 10^{-7}}}%
+}%%
+\only<24>{%
+\varepsilon\,{\color<24>{red}{\in \left[1 * 10^{-7}, 2*10^{-7}\right]}}%
+}%
+%
+}}}%
+\end{equation}%
+}%
+\end{frame}%
+%
+\setcounter{eqLast}{\value{equation}}%
 %
 \section{Experiment and Analysis}%
 %
