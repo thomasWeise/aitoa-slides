@@ -61,6 +61,11 @@ or the search will get very slow\uncover<12->{ %
 \end{itemize}%
 \end{frame}%
 %
+\newcounter{eqLast}%
+\setcounter{eqLast}{\value{equation}}%
+\newcounter{eqDeltaE}%
+\setcounter{eqDeltaE}{\value{equation}}%
+%
 \begin{frame}%
 \frametitle{Acceptance Probability}%
 \begin{itemize}%
@@ -84,9 +89,13 @@ or the search will get very slow\uncover<12->{ %
 }%
 \end{frame}%
 %
+\setcounter{eqLast}{\value{equation}}%
+\newcounter{eqProbability}%
+\setcounter{eqProbability}{\value{equation}}%
+%
 \begin{frame}%
 \frametitle{Acceptance Probability}%
-\setcounter{equation}{0}%
+\setcounter{equation}{\value{eqDeltaE}}%
 \begin{equation}%
 {\color<10-13>{blue}{\Delta E}} = \objf(\repMap(\sespel')) - \objf(\repMap(\sespel))%
 \end{equation}%
@@ -121,15 +130,17 @@ P = \left\{\begin{array}{rl}%
 %
 \section{Ingredient: Temperature Schedule}%
 %
+\setcounter{eqLast}{\value{equation}}%
+%
 \begin{frame}%
 \frametitle{Temperature Schedule}%
-\setcounter{equation}{1}%
+\setcounter{equation}{\value{eqProbability}}%
 \begin{equation}%
 P = \left\{\begin{array}{rl}%
 1 & \text{if~}\Delta E \leq 0\\%
 e^{-\frac{\Delta E}{{\only<-8>{\color<2>{red}{T}}\only<9->{\color<9>{cyan}{T(\iteration)}}}}} & \text{if~}\Delta E >0 \land {\only<-8>{\color<2>{red}{T}}\only<9->{\color<9>{cyan}{T(\iteration)}}} > 0\\%
 0 & \text{otherwise~}(\Delta E > 0 \land {\only<-8>{\color<2>{red}{T}}\only<9->{\color<9>{cyan}{T(\iteration)}}}=0)%
-\end{array} \right.%
+\end{array}\right.%
 \end{equation}%
 \uncover<2->{%
 \begin{itemize}%
@@ -147,20 +158,20 @@ e^{-\frac{\Delta E}{{\only<-8>{\color<2>{red}{T}}\only<9->{\color<9>{cyan}{T(\it
 %
 \begin{frame}%
 \frametitle{Conditions for Temperature Schedule}%
-\setcounter{equation}{1}%
+\setcounter{equation}{\value{eqProbability}}%
 \begin{equation}%
 \scalebox{1.3}{\ensuremath{\displaystyle{%
 P = \left\{\begin{array}{rl}%
 1 & \text{if~}\Delta E \leq 0\\%
 e^{-\frac{\Delta E}{{\color{cyan}{T(\iteration)}}}} & \text{if~}\Delta E >0 \land {\color{cyan}{T(\iteration)}} > 0\\%
 0 & \text{otherwise~}(\Delta E > 0 \land {\color{cyan}{T(\iteration)}}=0)%
-\end{array} \right.%
+\end{array}\right.%
 }}}%
 \end{equation}%
 \uncover<2->{%
 \begin{itemize}%
 \item The temperature~${\color{cyan}{T(\iteration)}}$ is defined to decrease and approaches zero with a rising number~$\iteration$ of performed objective function evaluations.%
-\item<3-> It holds that $\lim_{\iteration\rightarrow\infty} {\color{cyan}{T(\iteration)}} = 0$.%
+\item<3-> It holds that $\displaystyle{\lim_{\iteration\rightarrow+\infty} {\color{cyan}{T(\iteration)}} = 0}$.%
 \item<4-> It begins with an start temperature~$T_s$ at $\iteration=1$.%
 \item<5-> Apart from this, we can define~${\color{cyan}{T(\iteration)}}$ in any way we want.%
 \end{itemize}%
@@ -171,6 +182,10 @@ e^{-\frac{\Delta E}{{\color{cyan}{T(\iteration)}}}} & \text{if~}\Delta E >0 \lan
 \frametitle{Base Class for Implementing Temperature Schedules}%
 \listing{0.9}{0.9}{language=myJava,mathescape=true}{code/TemperatureSchedule.java}
 \end{frame}%
+%
+\newcounter{eqExponential}%
+\setcounter{eqExponential}{\value{equation}}%
+\setcounter{eqLast}{\value{equation}}%
 %
 \begin{frame}%
 \frametitle{Exponential Temperature Schedule}%
@@ -194,6 +209,10 @@ T(\iteration) = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
 \listing{0.9}{0.9}{language=myJava,mathescape=true}{code/TemperatureSchedule_Exponential.java}
 \end{frame}%
 %
+\newcounter{eqLogarithmic}%
+\setcounter{eqLogarithmic}{\value{equation}}%
+\setcounter{eqLast}{\value{equation}}%
+%
 \begin{frame}%
 \frametitle{Logarithmic Temperature Schedule}%
 \begin{itemize}%
@@ -211,6 +230,8 @@ T(\iteration) = \frac{T_s}{\ln{\left(\varepsilon(\iteration-1)+e\right)}}%
 \item<5-> Larger values of $\varepsilon$ again lead to a faster temperature decline.%
 \end{itemize}%
 \end{frame}%
+%
+\setcounter{eqLast}{\value{equation}}%
 %
 \begin{frame}%
 \frametitle{Logarithmic Temperature Schedule}%
@@ -273,7 +294,7 @@ T(\iteration) = \frac{T_s}{\ln{\left(\varepsilon(\iteration-1)+e\right)}}%
 \only<18>{\listing{0.9}{1.37}{language=myJava,mathescape=true}{code/SimulatedAnnealing.java}}%
 \end{frame}%
 %
-\section{Experiment and Analysis}%
+\section{Configuring the Algorithm}%
 %
 \begin{frame}%
 \frametitle{Configuring the Algorithm}%
@@ -366,36 +387,131 @@ P = \left\{\begin{array}{rl}%
 \only<8>{%
 {\color<8>{blue}{P_{50}}}= e^{-\frac{\Delta E}{T(\iteration)}}%
 }%
-\only<9-11>{%
-{\color<9>{blue}{0.1}}= e^{-\frac{{\color<11>{red}{\Delta E}}}{T(\iteration)}}%
+\only<9-10>{%
+{\color<9>{blue}{0.1}}= e^{-\frac{{\color<10>{red}{\Delta E}}}{T(\iteration)}}%
 }%
-\only<12-14>{%
-0.1 = e^{-\frac{ {\color<12>{red}{50}} }{ {\color<14>{blue}{T(\iteration)}} }}%
+\only<11-12>{%
+0.1 = e^{-\frac{ {\color<11>{red}{50}} }{ {\color<12>{blue}{T(\iteration)}} }}%
 }%
-\only<15-17>{%
-0.1 = {\color<17>{red}{e}}^{-\frac{ 50 }{ {\color<15>{blue}{T_s}} } }%
+\only<13-14>{%
+0.1 = {\color<14>{red}{e}}^{-\frac{ 50 }{ {\color<13>{blue}{T_s}} } }%
 }%
-\only<18-20>{%
-{\color<20>{blue}{{\color<18>{red}{\ln{0.1}}}}} = -\frac{50}{{\color<20>{blue}{T_s}}}%
+\only<15-16>{%
+{\color<16>{blue}{{\color<15>{red}{\ln{0.1}}}}} = -\frac{50}{{\color<16>{blue}{T_s}}}%
 }%
-\only<21-23>{%
-{\color<21>{blue}{T_s}} = {\color<23>{red}{ -\frac{50}{{\color<21>{blue}{\ln{0.1}}}}}}%
+\only<17-18>{%
+{\color<17>{blue}{T_s}} = {\color<18>{red}{ -\frac{50}{{\color<17>{blue}{\ln{0.1}}}}}}%
 }%
-\only<24>{%
-T_s\approx {\color<24>{red}{21.714\,724\,095}}
+\only<19>{%
+T_s\approx {\color<19>{red}{21.714\,724\,095}}
 }%
-\only<25->{%
+\only<20->{%
 T_s\approx 20%
 }%
 }}}%
 \end{equation}%
-\uncover<26->{%
+\uncover<21->{%
 \begin{itemize}%
 \item A start temperature~$T_s$ of about~20 seems to be a good choice.%
 \end{itemize}%
 }%
 }%
 \end{frame}%
+%
+\begin{frame}%
+\frametitle{End Temperature}%
+\begin{itemize}%
+\item Let us first think about the end temperature~$T_e$ that should be reached at the end of the run.%
+\item<2-> While we know that $\displaystyle{\lim_{\iteration\rightarrow+\infty} T(\iteration)=0}$, we also know that three minutes of runtime is less than $+\infty$.
+\item<3-> $T=0$ will thus not be reached within a finite number~$\iteration$ of steps and the actual end temperature~$T_e$ should probably be slightly above~0.%
+\item<4-> Let us remember back our \algoStyle{hcr_L_1swap} algorithm, i.e., the \algoStyle{1swap} hill climber restarting after $L$~unsuccessful steps.%
+\item<5-> There, we found $L=2^{14}=16'384$ to be reasonable choice.%
+\item<6-> As idea to get a reasonable~$T_e$, we could say that the end probability~$P_e$ to accept a solution which is $\Delta E=1$~makespan unit worse than the current solution should be $P_e=1/L=\tfrac{1}{16'384}$ at the end of our Simulated Annealing runs.%
+\item<7-> Then, the chance to accept a solution marginally worse than the current one would be about as large as making a complete restart in~\algoStyle{hcr_16384_1swap}.%
+\item<8-> This is a bit far fetched\only<-8>{.}\uncover<9->{, but as a rough guess it will do.}%
+\end{itemize}%
+\end{frame}%
+%
+\setcounter{eqLast}{\value{equation}}%
+%
+\begin{frame}%
+\frametitle{End Temperature}%
+\begin{itemize}%
+\item To get an {\color<8-9>{red}{end temperature~$T_e$}}, the end probability~{\color<6-7>{blue}{$P_e$}} to accept a solution which is {\color<10-11>{blue}{$\Delta E=1$}}~makespan unit worse than the current solution should be {\color<7>{blue}{$P_e=1/L=\tfrac{1}{16'384}$}} at the end of our Simulated Annealing runs.%
+\end{itemize}%
+\uncover<2->{%
+\bigskip%
+\begin{equation}%
+\scalebox{1.3}{\ensuremath{\displaystyle{%
+\only<-3>{%
+P = \left\{\begin{array}{rl}%
+1 & \text{if~}\Delta E \leq 0\\%
+{\color<3>{red}{e^{-\frac{\Delta E}{T(\iteration)}}}} & {\color<3>{red}{\text{if~}\Delta E >0 \land T(\iteration) > 0}}\\%
+0 & \text{otherwise~}(\Delta E > 0 \land T(\iteration)=0)%
+\end{array} \right.%
+}%
+\only<4-5>{%
+{\color<5>{blue}{P}} = {\color<4>{red}{e^{-\frac{\Delta E}{T(\iteration)}}}}%
+}%
+\only<6>{%
+{\color<6>{blue}{P_e}} = e^{-\frac{\Delta E}{T(\iteration)}}%
+}%
+\only<7-8>{%
+{\color<7>{blue}{\frac{1}{16'384}}} = e^{-\frac{\Delta E}{{\color<8>{red}{T(\iteration)}}}}%
+}%
+\only<9-10>{%
+\frac{1}{16'384} = e^{-\frac{{\color<10>{blue}{\Delta E}}}{{\color<9>{red}{T_e}}}}%
+}%
+\only<11-12>{%
+\frac{1}{16'384} = {\color<12>{red}{e}}^{-\frac{{\color<11>{blue}{1}}}{T_e}}%
+}%
+\only<13-14>{%
+{\color<14>{blue}{{\color<13>{red}{\ln{\frac{1}{16'384}}}}}} = -\frac{1}{{\color<14>{blue}{T_e}}}%
+}%
+\only<15-16>{%
+{\color<15>{blue}{T_e}} = {\color<16>{red}{-\frac{1}{{\color<15>{blue}{\ln{\frac{1}{16'384}}}}}}}%
+}%
+\only<17>{%
+T_e \approx {\color<17>{red}{0.103\,049\,646}}%
+}%
+\only<18->{%
+T_e \approx {\color<18>{red}{0.1}}%
+}%
+%
+}}}%
+\end{equation}%
+\uncover<19->{
+\begin{itemize}%
+\item It seems that an end temperature~$T_e\approx=0.1$ is a reasonable setting for SA using \algoStyle{1swap}.%
+\end{itemize}%
+}%
+}%
+\end{frame}%
+%
+\setcounter{eqLast}{\value{equation}}%
+%
+\begin{frame}%
+\frametitle{Epsilon from End Temperature and Iteration}%
+\begin{itemize}%
+\item We now want to find a good setting for the~$\varepsilon$ parameter.%
+\item<2-> This parameter plays a role in the exponential temperature schedule.%
+\item<4-> It relates the temperature~$T(\iteration)$ at a given iteration~$\iteration$ to the iteration index~$\iteration$.%
+\item<5-> In order to compute a rough guess for~$\varepsilon$, we thus need a value for~$\iteration$ and one for~$T(\iteration)$ first.%
+\item<6-> The start temperature~$T_s$ alone does not help us here, but we now also have an end temperature~$T_e$.%
+\end{itemize}%
+\uncover<3->{%
+\bigskip%
+\setcounter{equation}{\value{eqExponential}}%
+\begin{equation}%
+\scalebox{1.3}{\ensuremath{\displaystyle{%
+T(\iteration) = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
+}}}%
+\end{equation}%
+}%
+\end{frame}%
+%
+%
+\section{Experiment and Analysis}%
 %
 \endPresentation%
 \end{document}%%
