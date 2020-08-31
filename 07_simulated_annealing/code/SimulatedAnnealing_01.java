@@ -5,8 +5,6 @@ public class SimulatedAnnealing<X, Y> {
 //
 //
 //
-// 
-//
 //
 
 //
