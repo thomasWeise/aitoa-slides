@@ -1,11 +1,11 @@
 package aitoa.algorithms;
 
-public class SingleRandomSample<X, Y> implements IMetaheuristic<X, Y> {
-// unnecessary stuff omitted here...
+public class SingleRandomSample<X, Y> extends Metaheuristic0<X, Y> {
+// unnecessary stuff (e.g., constructor) omitted here...
   public void solve(IBlackBoxProcess<X, Y> process) {
     X x = process.getSearchSpace().create(); // allocate
 
-    process.getNullarySearchOperator().apply(x, process.getRandom()); 
+    this.nullary.apply(x, process.getRandom()); 
 
     process.evaluate(x); // evaluate
   }

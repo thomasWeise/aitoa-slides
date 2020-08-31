@@ -6,8 +6,6 @@ public class HillClimber<X, Y> {
 //
 //
 //
-//
-//
      
 //
 //

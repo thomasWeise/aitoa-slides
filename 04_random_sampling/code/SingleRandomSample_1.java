@@ -2,11 +2,10 @@ package aitoa.algorithms;
 
 public class SingleRandomSample<X, Y> {
 //
-// unnecessary stuff omitted here...
+// unnecessary stuff (e.g., constructor) omitted here...
 //
 //
 
-//
 //
 
 //

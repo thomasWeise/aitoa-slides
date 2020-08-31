@@ -10,7 +10,7 @@ public class JSSPUnaryOperator1Swap implements IUnarySearchOperator<int[]> {
     int i    = random.nextInt(dest.length);
     int jobI = dest[i]; // remember job id
 
-//
+// choose index of second operation to swap
     int j = random.nextInt(dest.length);
     int jobJ = dest[j];
     if (jobI != jobJ) { // we found two locations with two
