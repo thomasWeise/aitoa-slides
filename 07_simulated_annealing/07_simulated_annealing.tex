@@ -380,6 +380,7 @@ P = \left\{\begin{array}{rl}%
 0 & \text{otherwise~}(\Delta E > 0 \land T(\iteration)=0)%
 \end{array} \right.%
 }%
+}}}\scalebox{1.6}{\ensuremath{\displaystyle{%%
 \only<6-7>{%
 {\color<7>{blue}{P}}= e^{-\frac{\Delta E}{T(\iteration)}}%
 }%
@@ -449,6 +450,7 @@ P = \left\{\begin{array}{rl}%
 0 & \text{otherwise~}(\Delta E > 0 \land T(\iteration)=0)%
 \end{array} \right.%
 }%
+}}}\scalebox{1.6}{\ensuremath{\displaystyle{%%
 \only<4-5>{%
 {\color<5>{blue}{P}} = {\color<4>{red}{e^{-\frac{\Delta E}{T(\iteration)}}}}%
 }%
@@ -502,7 +504,7 @@ T_e \approx {\color<18>{red}{0.1}}%
 \bigskip%
 \setcounter{equation}{\value{eqExponential}}%
 \begin{equation}%
-\scalebox{1.3}{\ensuremath{\displaystyle{%
+\scalebox{1.6}{\ensuremath{\displaystyle{%
 T(\iteration) = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
 }}}%
 \end{equation}%
@@ -522,7 +524,7 @@ T(\iteration) = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
 \uncover<4->{%
 \bigskip%
 \begin{equation}%
-\scalebox{1.3}{\ensuremath{\displaystyle{%
+\scalebox{1.6}{\ensuremath{\displaystyle{%
 %
 \only<-5>{%
 {\color<5>{red}{T(\iteration)}} = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
@@ -549,10 +551,10 @@ T(\iteration) = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
 {\color<16>{blue}{0.005}} = (1 - \varepsilon) ^ {{\color<17>{red}{29'999'999}}}%
 }%
 \only<18>{%
-{\color<18>{red}{0.005^{\frac{1}{29'999'999}}}} = 1 - \varepsilon%
+{\color<18>{red}{0.005^{1/29'999'999}}} = 1 - \varepsilon%
 }%
 \only<19>{%
-{\color<19>{red}{ 0.999\,999\,823\,389  \approx}} {\color<20>{blue}{1 -}} \varepsilon%
+{\color<19>{red}{ 0.999\,999\,823\,389  \approx}}\,{\color<20>{blue}{1 -}} \varepsilon%
 }%
 \only<20-21>{%
 \varepsilon\approx{\color<21>{red}{1-{\color<20>{blue}{0.999\,999\,823\,389}}}}%
@@ -563,16 +565,62 @@ T(\iteration) = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
 \only<23>{%
 \varepsilon\approx{\color<23>{red}{1.776 * 10^{-7}}}%
 }%%
-\only<24>{%
+\only<24->{%
 \varepsilon\,{\color<24>{red}{\in \left[1 * 10^{-7}, 2*10^{-7}\right]}}%
 }%
 %
 }}}%
 \end{equation}%
 }%
+%
+\uncover<25->{%
+\begin{itemize}%
+\item Values of~$\varepsilon$ between 1~and 2~times $10^{-7}$ seem reasonable.%
+\end{itemize}%
+}%
 \end{frame}%
 %
 \setcounter{eqLast}{\value{equation}}%
+%
+\begin{frame}%
+\frametitle{Configuration from Previous Knowledge}%
+\begin{itemize}%
+\item We now have reasonable parameter values for our Simulated Annealing algorithm with Exponential Temperature Schedule.%
+\item<2-> We have a rough impression about how far local optima under the unary operator are apart in terms of objective value (about~50).%
+\item<3-> We used this to obtain a reasonable start \mbox{temperature $T_s=20$.}%
+\item<4-> We can choose a reasonably small end temperature~$T_e$.
+\item<5-> We did this by setting $T_e=0.1$ such that we would accept a solution which is $\Delta E=1$ worse than the current solution about every $L=16'384$ steps (which was the length until the hill climber would do a restart).%
+\item<6-> Finally, by knowing that we can do about 30'000'000~FEs in total, we can set $\varepsilon\in\left[1 * 10^{-7}, 2*10^{-7}\right]$ such that $T_e$ would be reached near the end of the runs.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}[b]%
+\frametitle{Behavior of the Configurations}%
+\locateGraphic{1,6-}{width=0.98\paperwidth}{graphics/sa_temperature_schedules/sa_temperature}{0.0015}{0.14}%
+\locateGraphic{2}{width=0.98\paperwidth}{graphics/sa_temperature_schedules/sa_probability_1}{0.0015}{0.14}%
+\locateGraphic{3}{width=0.98\paperwidth}{graphics/sa_temperature_schedules/sa_probability_3}{0.0015}{0.14}%
+\locateGraphic{4}{width=0.98\paperwidth}{graphics/sa_temperature_schedules/sa_probability_10}{0.0015}{0.14}%
+\locateGraphic{5}{width=0.98\paperwidth}{graphics/sa_temperature_schedules/sa_probability_50}{0.0015}{0.14}%
+%
+\uncover<6->{%
+\begin{itemize}%
+\item Our very rough calculations gave us parameter settings for~$T_s$ and~$\varepsilon$ that produce these temperature- and probability curves.%
+\item<7-> Whether these settings are actually any good must be studied now.%
+\end{itemize}%
+}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Relation of \texorpdfstring{$\varepsilon$}{Epsilon} and Performance}%
+\locateGraphic{}{width=0.99\paperwidth}{graphics/sa_config/sa_1swap_med_over_epsilon}{0.005}{0.15}%
+\locate{2-}{%
+\parbox{0.55\paperwidth}{%
+\begin{itemize}%
+\item Indeed, values of $\varepsilon\in\left[1 * 10^{-7}, 2*10^{-7}\right]$ perform well for $T_s=20$.%
+\item<3-> Only for \instStyle{la24}, smaller~$\varepsilon$ are better\only<-3>{.}\uncover<4->{, because on \instStyle{la24}, we could do more than 70~million FEs, whereas on all other instances, we did less than 36~million.}% 
+\end{itemize}%
+}}{0.4}{0.28}%
+\end{frame}%
 %
 \section{Experiment and Analysis}%
 %
