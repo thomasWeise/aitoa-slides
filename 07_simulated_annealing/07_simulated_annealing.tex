@@ -624,6 +624,81 @@ T(\iteration) = T_s * (1 - \varepsilon) ^ {\iteration - 1}%
 %
 \section{Experiment and Analysis}%
 %
+\begin{frame}[t]%
+\frametitle{So what do we get?}%
+%
+\only<3->{%
+\begin{center}%
+\only<3,5,7,9>{\small{\algoStyle{eac_4_5\%_nswap}: median result of 3~min of the EA with clearing and $\mu=\lambda=4$ with \algoStyle{nswap} unary operator and 5\% \algoStyle{sequence} recombination}}%
+\only<4,6,8,10>{\small{\algoStyle{sa_exp_20_2_1swap}: median result of 3~min of Simulated Annealing with exponential schedule, $T_s=20$, and $\varepsilon=2\cdot10^{-7}$ and \algoStyle{1swap} unary operator}}%
+\end{center}%
+}%
+%
+\only<-2>{%
+\begin{itemize}%
+\item I execute the program 101~times for each of the instances \instStyle{abz7}, \instStyle{la24}, \instStyle{swv15}, and \instStyle{yn4}%
+\end{itemize}%
+\uncover<2->{%
+\begin{center}%
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{|l|l|r|r|r|r|r|r|}%
+\hline%
+&&\multicolumn{4}{c|}{\textbf{makespan}}&\multicolumn{2}{c|}{\textbf{last improvement}}\\%
+\hline%
+$\instance$&algo&best&mean&med&sd&med(t)&med(FEs)\\%
+\hline%
+\hline%
+\instStyle{abz7}&\algoStyle{hcr_65536_nswap}&712&731&732&6&96s&21'189'358\\%
+&\algoStyle{eac_4_5\%_nswap}&672&690&690&9&68s&12'474'571\\%
+&\algoStyle{sa_exp_20_2_1swap}&\textcolor{green}{\textbf{663}}&\textcolor{green}{\textbf{673}}&\textcolor{green}{\textbf{673}}&\textcolor{green}{\textbf{5}}&112s&21'803'600\\%
+\hline%
+\instStyle{la24}&\algoStyle{hcr_65536_nswap}&942&973&974&\textcolor{green}{\textbf{8}}&71s&31'466'420\\%
+&\algoStyle{eac_4_5\%_nswap}&\textcolor{green}{\textbf{935}}&963&961&16&30s&9'175'579\\%
+&\algoStyle{sa_exp_20_2_1swap}&938&\textcolor{green}{\textbf{949}}&\textcolor{green}{\textbf{946}}&8&33s&12'358'941\\%
+\hline%
+\instStyle{swv15}&\algoStyle{hcr_65536_nswap}&3740&3818&3826&35&89s&10'783'296\\%
+&\algoStyle{eac_4_5\%_nswap}&3102&3220&3224&65&168s&18'245'534\\%
+&\algoStyle{sa_exp_20_2_1swap}&\textcolor{green}{\textbf{2936}}&\textcolor{green}{\textbf{2994}}&\textcolor{green}{\textbf{2994}}&\textcolor{green}{\textbf{28}}&157s&20'045'507\\%
+\hline%
+\instStyle{yn4}&\algoStyle{hcr_65536_nswap}&1068&1109&1110&12&78s&18'756'636\\%
+&\algoStyle{eac_4_5\%_nswap}&1000&1038&1037&18&118s&15'382'072\\%
+&\algoStyle{sa_exp_20_2_1swap}&\textcolor{green}{\textbf{973}}&\textcolor{green}{\textbf{985}}&\textcolor{green}{\textbf{985}}&\textcolor{green}{\textbf{5}}&130s&20'407'559\\%
+\hline%
+\end{tabular}%
+}%
+\end{center}%
+}%
+}%
+%
+\locateGraphic{3}{width=0.95\paperwidth}{../06_evolutionary_algorithm/graphics/eac_gantt/gantt_eac_abz7_690}{0.025}{0.26}%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/sa_gantt/gantt_sa_20_2em7_abz7_690}{0.025}{0.26}%
+\locateGraphic{5}{width=0.95\paperwidth}{../06_evolutionary_algorithm/graphics/eac_gantt/gantt_eac_la24_961}{0.025}{0.26}%
+\locateGraphic{6}{width=0.95\paperwidth}{graphics/sa_gantt/gantt_sa_20_2em7_la24_961}{0.025}{0.26}%
+\locateGraphic{7}{width=0.95\paperwidth}{../06_evolutionary_algorithm/graphics/eac_gantt/gantt_eac_swv15_3224}{0.025}{0.26}%
+\locateGraphic{8}{width=0.95\paperwidth}{graphics/sa_gantt/gantt_sa_20_2em7_swv15_3224}{0.025}{0.26}%
+\locateGraphic{9}{width=0.95\paperwidth}{../06_evolutionary_algorithm/graphics/eac_gantt/gantt_eac_yn4_1037}{0.025}{0.26}%
+\locateGraphic{10}{width=0.95\paperwidth}{graphics/sa_gantt/gantt_sa_20_2em7_yn4_1037}{0.025}{0.26}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Progress over Time}%
+\locateGraphic{2}{width=0.9\paperwidth}{graphics/sa_progress/sa_progress_abz7_log}{0.05}{0.2}%
+\locateGraphic{3}{width=0.9\paperwidth}{graphics/sa_progress/sa_progress_abz7}{0.05}{0.2}%
+\locateGraphic{4}{width=0.9\paperwidth}{graphics/sa_progress/sa_progress_la24_log}{0.05}{0.2}%
+\locateGraphic{5}{width=0.9\paperwidth}{graphics/sa_progress/sa_progress_la24}{0.05}{0.2}%
+\locateGraphic{6}{width=0.9\paperwidth}{graphics/sa_progress/sa_progress_swv15_log}{0.05}{0.2}%
+\locateGraphic{7}{width=0.9\paperwidth}{graphics/sa_progress/sa_progress_swv15}{0.05}{0.2}%
+\locateGraphic{8}{width=0.9\paperwidth}{graphics/sa_progress/sa_progress_yn4_log}{0.05}{0.2}%
+\locateGraphic{9}{width=0.9\paperwidth}{graphics/sa_progress/sa_progress_yn4}{0.05}{0.2}%
+\begin{center}%
+What progress does the algorithm make over time?
+\par%
+\vspace{0.65\paperheight}%
+\only<9->{Simulated Annealing is better than the other algorithms and keeps improving longer.}%
+\end{center}
+\end{frame}%
+%
+%
 \endPresentation%
 \end{document}%%
 \endinput%
