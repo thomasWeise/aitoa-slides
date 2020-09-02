@@ -698,6 +698,55 @@ What progress does the algorithm make over time?
 \end{center}
 \end{frame}%
 %
+\begin{frame}[t]%
+\frametitle{Optimal Solutions for \texorpdfstring{\instStyle{la24}}{la24}}%
+\only<-2>{%
+\begin{itemize}%
+\item Interestingly, the setups with~$\varepsilon=4\cdot10^{-7}$ and~$\varepsilon=8\cdot10^{-7}$, which we did not choose for our summary, each found one solution for \instStyle{la24} with makespan~935.%
+\item<2-> Since we know that the lower bound for the makespan on \instStyle{la24} is also~935\cite{AC1991ACSOTJSSP,vH2015JSIAS}, we know that we found two globally optimal, best possible solutions!%
+\end{itemize}%
+}%
+\only<3->{%
+\begin{center}%
+\only<-3>{\small{\algoStyle{sa_exp_20_2_1swap}: median result of 3~min of Simulated Annealing with exponential schedule, $T_s=20$, and $\varepsilon=2\cdot10^{-7}$ and \algoStyle{1swap} unary operator}}%
+\only<4>{\small{\algoStyle{sa_exp_20_4_1swap}: \alert{best} result of 3~min of Simulated Annealing with exponential schedule, $T_s=20$, and $\varepsilon=4\cdot10^{-7}$ and \algoStyle{1swap} unary operator}}%
+\only<5>{\small{\algoStyle{sa_exp_20_8_1swap}: \alert{best} result of 3~min of Simulated Annealing with exponential schedule, $T_s=20$, and $\varepsilon=8\cdot10^{-7}$ and \algoStyle{1swap} unary operator}}%
+\end{center}%
+}%
+%
+\locateGraphic{3}{width=0.95\paperwidth}{graphics/sa_gantt/gantt_sa_20_2em7_la24_946}{0.025}{0.26}%
+\locateGraphic{4}{width=0.95\paperwidth}{graphics/sa_gantt_optimal/gantt_sa_20_4em7_la24_opt_946}{0.025}{0.26}%
+\locateGraphic{5}{width=0.95\paperwidth}{graphics/sa_gantt_optimal/gantt_sa_20_8em7_la24_opt_946}{0.025}{0.26}%
+\end{frame}%
+%
+%
+\begin{frame}%
+\frametitle{Summary}%
+\begin{itemize}%
+%
+\item Simulated Annealing outperformed all algorithms that we have tested before.%
+%
+\item<2-> We can also use knowledge to configure the algorithm more quickly.\uncover<3->{ For this, we need to know approximately:%
+\begin{itemize}%
+%
+\item approximately how many algorithm steps we can do within the computational budget\only<-3>{.}\uncover<4->{ and}%
+%
+\item<4-> what ``a bit worse'' means in terms of the objective function.%
+%
+\item<5-> We then can determine a starting temperature~$T_s$ and a parameter~$\epsilon$ to tune the temperature schedule accordingly.%
+\end{itemize}}%
+%
+\item<6-> Perspective\uncover<7->{:%
+\begin{itemize}%
+\item An Evolutionary Algorithm allows us to pick a behavior in between a hill climber and a random sampling algorithm by choosing a small or large population size.%
+%
+\item<8-> The Simulated Annealing algorithm allows for a smooth transition of a random search behavior towards a hill climbing behavior over time.%
+%
+\item<9-> Compared to the hill climber with restarts, it offers a ``softer'' way to escape from local optima which sacrifices less solution information.%
+\end{itemize}%
+}%
+\end{itemize}%
+\end{frame}%
 %
 \endPresentation%
 \end{document}%%
