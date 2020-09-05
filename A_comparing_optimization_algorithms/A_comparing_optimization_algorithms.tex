@@ -1,0 +1,381 @@
+\documentclass[mathserif]{beamer}%
+%
+\xdef\sharedDir{../_shared_}%
+\RequirePackage{\sharedDir/styles/slides}%
+%
+\subtitle{A. Comparing Optimization Algorithms}%
+%
+\begin{document}%
+\startPresentation%
+%
+\section{Introduction}%
+%
+\begin{frame}%
+\frametitle{Introduction}%
+\begin{itemize}%
+\item There are many optimization algorithms%
+\item<2-> For solving an optimization problem, we want to use the algorithm most suitable for it.%
+\item<3-> \alert{What does this mean?}%
+\end{itemize}%
+\end{frame}%
+%
+\section{Performance Indicators and Time}%
+%
+\begin{frame}%
+\frametitle{Performance Indicators}%
+\begin{itemize}%
+\item \only<3->{Two k}\only<-2>{K}ey parameter\only<-2>{s}\cite{HAFR2010RPBBOB2ES,FHRA2015CDR1,WNT2010AAOAB,WWQLT2018ADCOAAPIBAWATCFEDASAIF}\uncover<2->{:%
+\begin{enumerate}%
+\item Solution quality reached after a certain runtime%
+\item<3-> Runtime to reach a certain solution quality%
+\end{enumerate}%
+}%
+\item<4-> Measure data samples~$A$ containing the results from~\alert{multiple} runs and~\alert{estimate} key parameters.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Runtime)}%
+\begin{itemize}%
+\item What actually is \alert{runtime}?%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Absolute Runtime}%
+Measure the (absolute) consumed runtime of the algorithm in~ms%
+\uncover<2->{%
+\begin{itemize}%
+%
+\item \textcolor{green}{Advantages}\uncover<3->{:%
+\begin{itemize}%
+\item Results in many works reported in this format%
+\item<4-> A quantity that makes physical sense%
+\item<5-> Includes all ``hidden complexities'' of algorithm%
+\end{itemize}%
+}%
+%
+\item<6-> \textcolor{red}{Disadvantages}\uncover<7->{:%
+\begin{itemize}%
+\item Strongly machine dependent%
+\item<8-> Granularity of about 10~ms: many things seem to happen at the same time%
+\item<9-> Can be biased by ``outside effects,'' e.g., OS, scheduling, other processes, I/O, swapping, \dots%
+\item<10-> Inherently incomparable%
+\end{itemize}%
+}%
+%
+\item<11-> Hardware, software, OS, etc.\ all have nothing to do with the \alert{optimization algorithm} itself and are relevant only in a specific application\dots%
+\item<12-> {\dots}so for \alert{research} they may be less interesting, while for a \alert{specific application} they do matter.%
+\end{itemize}%
+}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Function Evaluations: FEs}%
+Measure the number of fully constructed and tested candidate solutions%
+\uncover<2->{%
+\begin{itemize}%
+\item \textcolor{green}{Advantages}\uncover<3->{:%
+\begin{itemize}%
+\item Results in many works reported in this format (or {FEs}s can be deduced)%
+\item<4-> Machine-independent measure%
+\item<5-> Cannot be influenced by ``outside effects''%
+\item<6-> In many optimization problems, computing the objective value is the most time consuming task%
+\end{itemize}%
+}%
+\item<7-> \textcolor{red}{Disadvantages}\uncover<8->{:%
+\begin{itemize}%
+\item No clear relationship to real runtime%
+\item<9-> Does not contain ``hidden complexities'' of algorithm%
+\item<10-> 1~FE: very different costs in different situations!%
+\end{itemize}%
+}%
+\item<11-> Relevant for comparing algorithms, but not so much for the practical application%
+\end{itemize}%
+}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Runtime}%
+\begin{itemize}%
+\item Rewrite the two key parameters by choosing a time measure\cite{WNT2010AAOAB,HAFR2010RPBBOB2ES}\uncover<2->{:%
+\begin{enumerate}%
+\item Solution quality reached after a certain \alert{number of FEs}%
+\item<3-> \alert{Number FEs} needed to reach a certain solution quality%
+\end{enumerate}%
+}%
+\end{itemize}%
+\end{frame}%
+%
+%
+\begin{frame}%
+\frametitle{Solution Quality}%
+\begin{itemize}%
+\item Common measure of solution quality: Objective function value of best solution discovered.%
+%
+\item<2-> Rewrite the two key parameters\cite{WNT2010AAOAB,HAFR2010RPBBOB2ES}\uncover<3->{:%
+\begin{enumerate}%
+\item \alert{Best objective function value} reached after a certain number of FEs%
+\item<4-> Number FEs needed to reach a certain \alert{objective function value}%
+\end{enumerate}%
+}%
+\end{itemize}%
+\end{frame}%
+%
+%
+\begin{frame}[t]%
+\frametitle{Key Parameters}%
+\begin{itemize}%
+\item Which one is the ``better''performance indicator?%
+\uncover<2->{%
+\begin{enumerate}%
+\item \textcolor<2>{green}{Best objective function value reached after a certain number of FEs}%
+\item<3-> \textcolor<3>{red}{Number FEs needed to reach a certain objective function value}%
+\end{enumerate}%
+}%
+\item<4-> This question actually does not really need an answer\dots%
+%
+\end{itemize}%
+%
+\locateGraphic{1}{width=0.7\paperwidth}{graphics/performance_indicators_cuts/performance_indicators_cuts_1}{0.15}{0.4}%
+\locateGraphic{2}{width=0.7\paperwidth}{graphics/performance_indicators_cuts/performance_indicators_cuts_2}{0.15}{0.4}%
+\locateGraphic{3}{width=0.7\paperwidth}{graphics/performance_indicators_cuts/performance_indicators_cuts}{0.15}{0.4}%
+%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Which Indicator is better?}%
+\begin{itemize}%
+\item \alert{Number FEs needed to reach a certain objective function value}%
+\item Preferred by, e.g., the BBOB/COCO benchmark suite\cite{HAFR2010RPBBOB2ES}\uncover<2->{:%
+\begin{itemize}%
+\item Measures a time needed to reach a target function value $\Rightarrow$ \``Algorithm~$A$ is two/ten/hundred times faster than Algorithm~$B$ in solving this problem.''%
+\item<3-> Benchmark Perspective: No interpretable meaning to the fact that Algorithm~$A$ reaches a function value that is two/ten/hundred times smaller than the one reached by Algorithm~$B$.%
+\end{itemize}%
+}%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Which Indicator is better?}%
+\begin{itemize}%
+\item \alert{Best objective function value reached after a certain number of FEs}%
+\item<2-> Preferred by many benchmark suites such as\cite{TLSYW2010BFFTC2SSACOLSGO}.%
+\item<3-> Practice Perspective: Best results achievable with given time budget wins.%
+\item<4-> This perspective maybe less suitable for benchmarking, but surely true in practice.%
+\item<5-> This is the scenario in our JSSP example, too.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Key Parameters}%
+\begin{itemize}%
+\item No official consensus on which view is ``better.''%
+\item<2-> This also strongly depends on the situation.%
+\item<3-> Best approach: Evaluate algorithm according to both methods.\cite{WCTLTCMY2014BOAAOSFFTTSP,WNT2010AAOAB,WWQLT2018ADCOAAPIBAWATCFEDASAIF}%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Determining Target Values}%
+\begin{itemize}%
+\item How to determine the right maximum FEs or target function values?%
+\uncover<2->{%
+\begin{enumerate}%
+\item From the constraints of a practical application%
+\item<3-> From studies in literature regarding similar or the same problem.%
+\item<4-> From experience.%
+\item<5-> From prior, small-scale experiments.%
+\item<6-> Based on known lower bounds%
+\end{enumerate}%
+}%%
+\end{itemize}%
+\end{frame}%
+%
+\section{Statistical Measures}%
+%
+\begin{frame}\frametitle{Randomized Algorithms}%
+%
+\begin{itemize}%
+\item Special situation: Randomized Algorithms%
+\item<2-> Performance values cannot be given absolute!%
+\item<3-> 1~run = 1~application of an optimization algorithm to a problem, runs are independent from all prior runs.%
+\item<4-> Results can be different for each run!%
+\item<5-> Executing a randomized algorithm one time does not give reliable information.%
+\item<6-> Statistical evaluation over a set of runs necessary.%
+\end{itemize}%
+\end{frame}%
+%
+%
+\begin{frame}[t]\frametitle{Important Distinction}%
+\only<-6,17->{%
+\begin{itemize}%
+\item<1-> Crucial Difference: \alert<1>{distribution} and \alert<1>{sample}%
+\item<2-> A \alert<2>{sample} is what we \emph{measure}.%
+\item<3-> A \alert<3>{distribution} is the asymptotic result of the ideal process%
+\item<4-> Statistical parameters of the distribution can be \alert<4>{estimated} from a sample%
+\item<5-> Example: Dice Throw%
+\item<6-> How likely is it to roll a 1, 2, 3, 4, 5, or~6?%
+\only<17->{%
+\item<17-> \alert{Never forget: All measured parameters are just estimates.}%
+\item<18-> The parameters of a random process cannot be measured directly, but only be approximated from multiple measures%
+}%
+\end{itemize}%
+}%
+\only<7-16>{%
+\begin{center}%
+\resizebox{0.75\paperwidth}{!}{%
+\begin{tabular}{rccccccc}
+\hline%
+\strut~~~~~~\#~throws&number&f(1)&f(2)&f(3)&f(4)&f(5)&f(6)\\%
+\hline%
+1&5&0.0000&0.0000&0.0000&0.0000&1.0000&0.0000%
+\only<8->{\\2&4&0.0000&0.0000&0.0000&0.5000&0.5000&0.0000%
+\only<9->{\\3&1&0.3333&0.0000&0.0000&0.3333&0.3333&0.0000%
+\only<10->{\\4&4&0.2500&0.0000&0.0000&0.5000&0.2500&0.0000%
+\only<11->{\\5&3&0.2000&0.0000&0.2000&0.4000&0.2000&0.0000%
+\only<12->{\\6&3&0.1667&0.0000&0.3333&0.3333&0.1667&0.0000%
+\only<13->{\\7&2&0.1429&0.1429&0.2857&0.2857&0.1429&0.0000\\%
+8&1&0.2500&0.1250&0.2500&0.2500&0.1250&0.0000\\%
+9&4&0.2222&0.1111&0.2222&0.3333&0.1111&0.0000\\%
+10&2&0.2000&0.2000&0.2000&0.3000&0.1000&0.0000%
+\only<14->{\\11&6&0.1818&0.1818&0.1818&0.2727&0.0909&0.0909\\%
+12&3&0.1667&0.1667&0.2500&0.2500&0.0833&0.0833%
+\only<15->{\\100&\dots&0.1900&0.2100&0.1500&0.1600&0.1200&0.1700\\%
+1'000&\dots&0.1700&0.1670&0.1620&0.1670&0.1570&0.1770\\%
+10'000&\dots&0.1682&0.1699&0.1680&0.1661&0.1655&0.1623\\%
+100'000&\dots&0.1671&0.1649&0.1664&0.1676&0.1668&0.1672\\%
+1'000'000&\dots&0.1673&0.1663&0.1662&0.1673&0.1666&0.1664%
+\only<16->{\\10'000'000&\dots&0.1667&0.1667&0.1666&0.1668&0.1667&0.1665\\%
+100'000'000&\dots&0.1667&0.1666&0.1666&0.1667&0.1667&0.1667\\%
+1'000'000'000&\dots&0.1667&0.1667&0.1667&0.1667&0.1667&0.1667%
+}}}}}}}}}\\%%
+\hline%
+\end{tabular}%
+}%
+\end{center}%
+}%
+%
+\locateGraphic{5-6}{width=0.3\paperwidth}{graphics/dice/dice}{0.666}{0.69}%
+\locateGraphic{7-15}{width=0.15\paperwidth}{graphics/dice/dice}{0.83}{0.83}%
+\locateGraphic{17-}{width=0.25\paperwidth}{graphics/dice/dice}{0.70}{0.73}%
+%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Measures of the Average}%
+\begin{itemize}%
+\item Assume that we have obtained a sample~$A=(\arrayIndex{a}{0}, \arrayIndex{a}{1}, \dots, \arrayIndex{a}{n-1})$ of $n$~observations from an experiment\only<-1>{.}\uncover<2->{, e.g., we have measured the quality of the best discovered solutions of 101 independent runs of an optimization algorithm.}%
+\item<3-> We usually want to reduce this set of numbers to a single value which can give us an impression of what the ``average outcome'' (or result quality is).%
+\item<4-> Two of the most common options for doing so, for estimating the ``center'' of a distribution, are to either compute the \alert{arithmetic mean} or the \alert{median}.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Arithmetic Mean}%
+%
+\begin{definition}[Arithmetic Mean]%
+The arithmetic mean $\mean(A)$ is an \alert{estimate} of the expected value of a data sample $A=(\arrayIndex{a}{0},\arrayIndex{a}{1},\dots,\arrayIndex{a}{n-1})$.%
+\uncover<2->{ It is computed as the sum of all $n$ elements $\arrayIndex{a}{i}$ in the sample data~$A$ divided by the total number~$n$ of values.%
+\uncover<3->{
+\begin{equation}%
+\mean(A) = \frac{1}{n} \sum_{i=0}^{n-1} \arrayIndex{a}{i}%
+\end{equation}%
+}}%
+\end{definition}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Median}%
+\begin{definition}[Median]%
+The median $\median(A)$ is the value separating the bigger half from the lower half of a data sample or distribution.%
+\uncover<2->{ It is the value right in the middle of a \emph{sorted} data sample $A=(\arrayIndex{a}{0},\arrayIndex{a}{1}, \dots, \arrayIndex{a}{n-1})$ where $\arrayIndex{a}{i-1}\leq \arrayIndex{a}{i} \; \forall i \in 1\dots (n-1)$.%
+\uncover<3->{%
+\begin{equation}%
+\median(A) = \left\{\begin{array}{ll}
+\arrayIndex{a}{\frac{n-1}{2}} & \text{if }n\text{ is odd}\smallskip\\%
+\frac{1}{2}\left(\mathNoTopSpacing{\arrayIndex{a}{\frac{n}{2}-1} + \arrayIndex{a}{\frac{n}{2}}}\right) & \text{otherwise}
+\end{array}\right. \quad \text{if~}\arrayIndex{a}{i-1}\leq \arrayIndex{a}{i} \; \forall i \in 1\dots (n-1)
+\end{equation}%
+}}%
+\end{definition}%
+%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Outliers}%
+\uncover<-6>{%
+\begin{itemize}%
+\item Sometimes the data contains outliers\cite{G1969PFDOOIS,M1992ITE}\only<-1>{.}\uncover<2->{, i.e., observations which are much different from the other measurements.}
+\item<3-> They may be important, real data, e.g., represent some unusual side-effect in a clinical trial of a new medicine.%
+\item<4-> They may also represent measurement errors or observations which have been been disturbed by unusual effects.%
+\item<5-> For example, maybe the operating system was updating itself during a run of one of our JSSP algorithms and, thus, took away much of the 3~minute computation budget.%
+\item<6-> We can see that such odd times are possible, as our experimental data shows that there are sometimes outliers in the time it takes to create and evaluate the first candidate solution.%
+\item<7-> This sounds as if outliers are bad\only<-7>{.}\uncover<8->{ but \alert{outliers are actually important!}}%
+\end{itemize}%
+}%
+\locateGraphic{7}{width=0.95\paperwidth}{graphics/outlier/outlier_first_fe_time}{0.025}{0.2}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Example for Data Samples w/o Outlier}%
+\begin{itemize}%
+\item Two sets of data samples $A$ and $B$ with $n_a=n_b=19$ values.%
+\end{itemize}%
+\begin{eqnarray}%
+A &=& (1, 3, 4, 4, 4, 5, 6, 6, 6, 6, 7, 7, 9, 9, 9, 10, 11, 12, 14)\nonumber\\%
+B &=& (1, 3, 4, 4, 4, 5, 6, 6, 6, 6, 7, 7, 9, 9, 9, 10, 11, 12, \textcolor{red}{10'008})\nonumber%
+\end{eqnarray}%
+%
+\uncover<2->{%
+\begin{itemize}%
+\item We find that\uncover<3->{%
+\begin{itemize}%
+\item $\mean(A)=\frac{1}{19}\sum_{i=0}^{18} \arrayIndex{a}{i} = \frac{133}{19} = 7$\uncover<4->{ and}%
+\item<4-> $\mean(B)=\frac{1}{19}\sum_{i=0}^{18} \arrayIndex{b}{i} = \frac{10'127}{19} = 553$\uncover<5->{, while}%
+\item<5-> $\median(A)=\arrayIndex{a}{9} = 6$\uncover<6->{ and}%
+\item<6-> $\median(B)=\arrayIndex{b}{9} = 6$.%
+\end{itemize}%
+}%
+\end{itemize}%
+}%
+%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Why are outliers important?}%
+\begin{itemize}%
+\item If you think about, where could outliers in \alert{our} experiments come from?%
+\uncover<2->{%
+\begin{enumerate}%
+\item The operating systems scheduling or other strange effects could mess with our timing.%
+\item<3-> This could cause worse results.%
+\item<4-> But this is already it.\uncover<5->{ There are hardly any other ``outside'' effects that could mess up our results!}%
+\item<6-> Instead, there could be: \alert{bugs in our code!}%
+\item<7-> Or: \alert{bad worst-case behaviors of our algorithm!}%
+\end{enumerate}%
+}%
+\item<8-> Thus, we often \alert{want} that outliers influence our statistics.%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Mean vs. Median}%
+\begin{itemize}%
+\item In our application scenarios, there are very few acceptable reasons for outliers.%
+\item<2-> We therefore want to know the arithmetic mean.%
+\item<3-> We also want to know the median, because it shows us what we can normally expect as results.%
+\item<4-> If the arithmetic mean and median are very different, then\uncover<5->{%
+\begin{itemize}%
+\item maybe we have a bug in our code that only sometimes has an impact\only<-5>{.}\uncover<6->{ or}%
+\item<6-> our algorithm has bad worst-case behavior (which is also good to know).%
+\end{itemize}%
+}%
+\end{itemize}%
+%
+\end{frame}%
+%
+\endPresentation%
+\end{document}%%
+\endinput%
+%

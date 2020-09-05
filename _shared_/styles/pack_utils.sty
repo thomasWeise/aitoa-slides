@@ -1,0 +1,6 @@
+%%%
+%%% Utility commands
+%%%
+% Remove top spacing of a math command
+\protected\gdef\mathNoTopSpacing#1{\raisebox{\dimexpr\arraystretch\ht\strutbox-\height\relax}{\ensuremath{\displaystyle{#1}}}}%
+%

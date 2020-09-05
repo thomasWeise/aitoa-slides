@@ -13,6 +13,7 @@ Only the first few topics from the book are covered as of now.
 5. [Stochastic Hill Climbing](https://thomasweise.github.io/aitoa-slides/05_stochastic_hill_climbing.pdf)
 6. [Evolutionary Algorithm](https://thomasweise.github.io/aitoa-slides/06_evolutionary_algorithm.pdf)
 7. [Simulated Annealing](https://thomasweise.github.io/aitoa-slides/07_simulated_annealing.pdf)
+8. [Comparing Optimization Algorithms](https://thomasweise.github.io/aitoa-slides/A_comparing_optimization_algorithms.pdf)
 
 You can also download the complete set of slides, the book itself, and all the source code as one [tar.xz archive](https://thomasweise.github.io/aitoa-slides/optimization_algorithms.tar.xz) from [here](https://thomasweise.github.io/aitoa-slides/optimization_algorithms.tar.xz).
 
