@@ -61,8 +61,8 @@
 \end{frame}%
 %
 \begin{frame}%
-\frametitle{Ingredient: Individual Record}%
-\listing{0.9}{0.9}{language=myJava}{code/Individual.java}
+\frametitle{Ingredient: Solution Record}%
+\listing{0.9}{0.9}{language=myJava}{code/Record.java}
 \end{frame}%
 %
 \begin{frame}%
@@ -453,8 +453,8 @@ What progress does the algorithm make over time?
 \begin{itemize}%
 \item We will here consider a very simple approach to preserve population diversity: \alert{clearing}\cite{S2012NIEA,FHN2007RAOSDM}.%
 \item<2-> Furthermore, we will apply the simplest version of this approach.%
-\item<3-> Every time, when $\mu$ out of the $\mu+\lambda$ individuals are selected, one prior step is applied\uncover<4->{: %
-we ensure that there is only one individual per objective value in the population.%
+\item<3-> Every time, when $\mu$ out of the $\mu+\lambda$ records are selected, one prior step is applied\uncover<4->{: %
+we ensure that there is only one record per objective value in the population.%
 }%
 \item<5-> We call the EA with clearing and recombination \algoStyle{eac}.%
 \end{itemize}%
