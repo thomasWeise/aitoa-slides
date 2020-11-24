@@ -371,8 +371,135 @@ B &=& (1, 3, 4, 4, 4, 5, 6, 6, 6, 6, 7, 7, 9, 9, 9, 10, 11, 12, \textcolor{red}{
 \item<6-> our algorithm has bad worst-case behavior (which is also good to know).%
 \end{itemize}%
 }%
+\item<7-> So we can conclude: It is best to have both the mean and median statistic of a given performance indicator.%
 \end{itemize}%
 %
+\end{frame}%
+%
+\section{Measures of Spread}%
+%
+\begin{frame}%
+\frametitle{Measures of Spread}%
+\begin{itemize}%
+\item The average gives us a good impression about the central value or location of a distribution.%
+\item<2-> It does not tell us much about the range of the data.%
+\item<3-> We do not know whether the data we have measured is very similar to the median or whether it may differ very much from the mean.%
+\item<4-> For this, we can compute a measure of dispersion, i.e., a value that tells us whether the observations are stretched and spread far or squeezed tight around the center.
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Variance}%
+\begin{definition}[Variance]%
+The variance is the expectation of the squared deviation of a random variable from its mean.%
+\uncover<2->{ The variance~$\variance(A)$ of a data sample~$A=(\arrayIndex{a}{0},\arrayIndex{a}{1}, \dots, \arrayIndex{a}{n-1})$ with $n$~observations can be estimated as:%
+\begin{equation}%
+\variance(A) = \frac{1}{n-1} \sum_{i=0}^{n-1} \left(\arrayIndex{a}{i} - \mean(A)\right)^2
+\nonumber%
+\end{equation}%
+}%
+\end{definition}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Standard Deviation}%
+\begin{definition}[Standard Deviation]%
+The statistical estimate~$\stddev(A)$ of the standard deviation of a data sample~$A=(\arrayIndex{a}{0},\arrayIndex{a}{1}, \dots, \arrayIndex{a}{n-1})$ with $n$~observations is the square root of the estimated variance~$\variance(A)$.
+\begin{equation}%
+\stddev(A) = \sqrt{\variance(A)}%
+\nonumber%
+\end{equation}%
+%
+\end{definition}%
+%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Standard Deviation}%
+\begin{itemize}%
+\item Small standard deviations indicate that the observations tend to be similar to the mean.%
+\item<2-> Large standard deviations indicate that they tend to be far from the mean.%
+\item<3-> Small standard deviations in optimization results and runtime indicate that the algorithm is reliable.%
+\item<4-> Large standard deviations indicate unreliable algorithms\uncover<5->{, but may also offer a potential that could be exploited\uncover<6->{ (see hill climber \emph{with restarts})}}%
+\end{itemize}%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Quantiles}%
+\begin{definition}[Quantile]%
+The $q$-quantiles are the cut points that divide a sorted data sample $A=(\arrayIndex{a}{0},\arrayIndex{a}{1}, \dots, \arrayIndex{a}{n-1})$ where $\arrayIndex{a}{i-1}\leq \arrayIndex{a}{i} \; \forall i \in 1\dots (n-1)$ into $q$-equally sized parts.%
+\uncover<2->{ $\quantile{k}{q}$ be the $k$\textsuperscript{th} $q$-quantile, with $k\in 1\dots (q-n)$, i.e., there are $q-1$ of the $q$-quantiles.%
+%
+\begin{equation}%
+\begin{array}{rcl}
+h&=&(n-1)\frac{k}{q}\\
+\quantile{k}{q}(A) &=& \left\{\begin{array}{ll}
+\arrayIndex{a}{h}&\text{if~}h\text{~is integer}\\
+\arrayIndex{a}{\lfloor h\rfloor}+\left(h-\lfloor h\rfloor\right)*\left(\arrayIndex{a}{\lfloor h\rfloor+1}-\arrayIndex{a}{\lfloor h\rfloor}\right)&\text{otherwise}
+\end{array}\right.\end{array}.\nonumber%
+\end{equation}%
+}%
+\end{definition}%
+%
+\uncover<3->{%
+\begin{itemize}%
+\item The $\quantile{2}{1}{A}$ is the median of $A$%
+\item<4-> 4-quantiles are called quartiles.%
+\item<5-> We sometimes write things like ``the 25\% quantile,'' meaning $\quantile{25}{100}$.%
+\end{itemize}%
+}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Standard Deviation: Example}%
+\begin{itemize}%
+\item Two data samples $A$ and $B$ with $n_a=n_b=19$ values.%
+\end{itemize}%
+\begin{eqnarray}%
+A &=& {\footnotesize{(1, 3, 4, 4, 4, 5, 6, 6, 6, 6, 7, 7, 9, 9, 9, 10, 11, 12, 14)}}\nonumber\\%
+\mean(A)&=&7\nonumber\\%
+B &=& {\footnotesize{(1, 3, 4, 4, 4, 5, 6, 6, 6, 6, 7, 7, 9, 9, 9, 10, 11, 12, \textcolor{red}{10'008})}}\nonumber\\%
+\mean(B)&=&533\nonumber%
+\pause\\%
+\variance(A) &=& \frac{1}{19-1} \sum_{i=1}^{19}\left(a_i-\mean(a)\right)^2 = \frac{198}{18}=11\nonumber\\%
+\variance(B) &=& \frac{1}{19-1} \sum_{i=1}^{19}\left(b_i-\mean(b)\right)^2 = \frac{94'763'306}{18}\approx5'264'628.1\nonumber%
+\pause\\%
+\stddev(A)&=&\sqrt{\variance{A}}=\sqrt{11}\approx{3.31662479}\nonumber\\%
+\stddev(B)&=&\sqrt{\variance{B}}=\sqrt{\frac{94'763'306}{18}}\approx{2294.477743}\nonumber%
+\end{eqnarray}%
+\end{frame}%
+%
+\begin{frame}%
+\frametitle{Quantiles: Example}%
+\begin{itemize}%
+\item Two data samples $A$ and $B$ with $n_a=n_b=19$ values.%
+\end{itemize}%
+\begin{eqnarray}%
+A &=& {\scalebox{0.8}{(1, 3, 4, 4, 4, 5, 6, 6, 6, 6, 7, 7, 9, 9, 9, 10, 11, 12, 14)}}\nonumber\\%
+B &=& {\scalebox{0.8}{(1, 3, 4, 4, 4, 5, 6, 6, 6, 6, 7, 7, 9, 9, 9, 10, 11, 12, \textcolor{red}{10'008})}}\nonumber%
+\pause\\%
+\quantile{1}{4}(A)&=&\quantile{1}{4}(B)=4.5\nonumber\\
+\quantile{3}{4}(A)&=&\quantile{3}{4}(B)=9\nonumber%
+\end{eqnarray}%
+%
+\end{frame}%
+%
+\begin{frame}[t]%
+\frametitle{Further Example}%
+\begin{itemize}%
+\item The implicit assumption that $\mean\pm\stddev$ is a meaningful range is not always true!%
+\item<4-> Such a shape is possible in optimization\only<4>{!}\uncover<5->{:%
+\begin{itemize}%
+\item The global optimum marks a lower bound for the possible objective values.%
+\item<6-> A good algorithm often returns results which are close-to-optimal.%
+\item<7-> There may be a long tail of few but significantly worse runs.
+\end{itemize}%
+}%
+\end{itemize}%
+\locateGraphic{1}{width=0.825\paperwidth}{graphics/skew/skew_1}{0.0875}{0.24}%
+\locateGraphic{2}{width=0.825\paperwidth}{graphics/skew/skew_2}{0.0875}{0.24}%
+\locateGraphic{3}{width=0.825\paperwidth}{graphics/skew/skew_3}{0.0875}{0.24}%
+\locateGraphic{4-}{width=0.55\paperwidth}{graphics/skew/skew_3}{0.225}{0.51}%
 \end{frame}%
 %
 \endPresentation%
